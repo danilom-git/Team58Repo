@@ -9,121 +9,70 @@ import java.util.Set;
 public class Doctor {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)//inkrement
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "ime")
-    private String ime;
+    @Column
+    private String name;
 
-    @Column(name = "prezime")
-    private String prezime;
+    @Column
+    private String lastName;
 
-    @Column(name = "odsustvo")
-    private boolean odsustvo;
+    @Column
+    private boolean absence;
 
     public Long getId() {
         return id;
     }
 
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Clinic clinic;
 
-    @Column(name = "godisnji")
-    private boolean godisnji;
+    @OneToMany(mappedBy = "doctor", fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+    private Set<Checkup> checkupSet = new HashSet<Checkup>();
 
-    @Column(name = "nazivklinike")
-    private String nazivKlinike;
-
-    @Column(name = "prosecnaocena")
-    private float prosecnaOcena;
-
-    @Column(name = "radnovreme")
-    private int radnoVreme;
-
-    @OneToMany(mappedBy = "doctor",fetch = FetchType.LAZY,cascade = CascadeType.ALL)
-    private Set<Checkup> zakazaniPregledi = new HashSet<Checkup>();
-
-
-    public String getIme() {
-        return ime;
-    }
-
-    public String getPrezime() {
-        return prezime;
-    }
-
-    public boolean getOdsustvo() {
-        return odsustvo;
-    }
-
-    public boolean getGodisnji() {
-        return godisnji;
-    }
-
-    public String getNazivKlinike() {
-        return nazivKlinike;
-    }
-
-    public float getProsecnaOcena() {
-        return prosecnaOcena;
-    }
-
-    public int getRadnoVreme() {
-        return radnoVreme;
-    }
-
-    public Set<Checkup> getZakazaniPregledi() {
-        return zakazaniPregledi;
-    }
 
     public void setId(Long id) {
         this.id = id;
     }
 
-    public void setIme(String ime) {
-        this.ime = ime;
+    public String getName() {
+        return name;
     }
 
-    public void setPrezime(String prezime) {
-        this.prezime = prezime;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public void setOdsustvo(boolean odsustvo) {
-        this.odsustvo = odsustvo;
+    public String getLastName() {
+        return lastName;
     }
 
-    public void setGodisnji(boolean godisnji) {
-        this.godisnji = godisnji;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
-    public void setNazivKlinike(String nazivKlinike) {
-        this.nazivKlinike = nazivKlinike;
+    public boolean isAbsence() {
+        return absence;
     }
 
-    public void setProsecnaOcena(float prosecnaOcena) {
-        this.prosecnaOcena = prosecnaOcena;
+    public void setAbsence(boolean absence) {
+        this.absence = absence;
     }
 
-    public void setRadnoVreme(int radnoVreme) {
-        this.radnoVreme = radnoVreme;
+    public Clinic getClinic() {
+        return clinic;
     }
 
-    public void setZakazaniPregledi(Set<Checkup> zakazaniPregledi) {
-        this.zakazaniPregledi = zakazaniPregledi;
+    public void setClinic(Clinic clinic) {
+        this.clinic = clinic;
     }
 
-    @Override
-    public String toString() {
-        return "Doctor{" +
-                "id=" + id +
-                ", ime='" + ime + '\'' +
-                ", prezime='" + prezime + '\'' +
-                ", odsustvo=" + odsustvo +
-                ", godisnji=" + godisnji +
-                ", nazivKlinike='" + nazivKlinike + '\'' +
-                ", prosecnaOcena=" + prosecnaOcena +
-                ", radnoVreme=" + radnoVreme +
-                ", zakazaniPregledi=" + zakazaniPregledi +
-                '}';
+    public Set<Checkup> getCheckupSet() {
+        return checkupSet;
     }
 
-
+    public void setCheckupSet(Set<Checkup> checkupSet) {
+        this.checkupSet = checkupSet;
+    }
 }
