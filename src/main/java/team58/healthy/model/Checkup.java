@@ -6,7 +6,7 @@ import javax.persistence.*;
 public class Checkup {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)//inkrement
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     //@Column(name = "patient")

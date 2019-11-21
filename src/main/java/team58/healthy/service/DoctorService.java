@@ -18,9 +18,9 @@ public class DoctorService {
         return doctorRepository.findById(id).orElseGet(null);
     }
 
-    public List<Doctor> findAllByIme(String ime)
+    public List<Doctor> findAllByIme(String name)
     {
-        return doctorRepository.findAllByIme(ime);
+        return doctorRepository.findAllByName(name);
     }
 
     public List<Doctor> findAll()

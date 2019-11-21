@@ -5,22 +5,24 @@ import team58.healthy.model.Clinic;
 public class ClinicDTO {
     private Long id;
     private String name;
+    private String country;
+    private String city;
     private String address;
-    private String prices;
 
     public ClinicDTO() {
 
     }
 
-    public ClinicDTO(Long id, String name, String address, String prices) {
+    public ClinicDTO(Long id, String name, String country, String city, String address) {
         this.id = id;
         this.name = name;
+        this.country = country;
+        this.city = city;
         this.address = address;
-        this.prices = prices;
     }
 
     public ClinicDTO(Clinic clinic) {
-        this(clinic.getId(), clinic.getName(), clinic.getAddress(), clinic.getPrices());
+        this(clinic.getId(), clinic.getName(), clinic.getCountry(), clinic.getCity(), clinic.getAddress());
     }
 
 
@@ -35,9 +37,5 @@ public class ClinicDTO {
 
     public String getAddress() {
         return address;
-    }
-
-    public String getPrices() {
-        return prices;
     }
 }
