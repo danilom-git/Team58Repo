@@ -27,4 +27,6 @@ public class DoctorService {
     {
         return doctorRepository.findAll();
     }
+
+    public Doctor save(Doctor doctor){return doctorRepository.save(doctor);}
 }
