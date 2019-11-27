@@ -14,12 +14,6 @@ public class CheckupType {
     @Column
     private String name;
 
-    @Column
-    private boolean available;
-
-//    @ManyToMany(mappedBy = "checkupTypes", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-//    private Set<Doctor> doctors = new HashSet<Doctor>();
-
     public Long getId() {
         return id;
     }
@@ -34,13 +28,5 @@ public class CheckupType {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public boolean isAvailable() {
-        return available;
-    }
-
-    public void setAvailable(boolean available) {
-        this.available = available;
     }
 }
