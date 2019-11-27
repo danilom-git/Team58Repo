@@ -9,7 +9,7 @@ public class ClinicDTO {
     private String country;
     private String city;
     private String address;
-    private String averageRating;
+    private double averageRating;
 
     public ClinicDTO() {
 
@@ -25,7 +25,7 @@ public class ClinicDTO {
         for (ClinicRating rating : clinic.getClinicRatings()) {
             sum += rating.getRating();
         }
-
+        this.averageRating = (double)sum / clinic.getClinicRatings().size();
     }
 
 
@@ -48,5 +48,9 @@ public class ClinicDTO {
 
     public String getCity() {
         return city;
+    }
+
+    public double getAverageRating() {
+        return averageRating;
     }
 }
