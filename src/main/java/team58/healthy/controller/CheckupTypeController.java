@@ -7,29 +7,31 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import team58.healthy.dto.CheckupTypeDTO;
 import team58.healthy.dto.ClinicDTO;
+import team58.healthy.model.CheckupType;
 import team58.healthy.model.Clinic;
-import team58.healthy.service.ClinicService;
+import team58.healthy.service.CheckupTypeService;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "api/clinics")
+@RequestMapping(value = "api/checkupTypes")
 @CrossOrigin(origins = "*", allowedHeaders = "*")
-public class ClinicController {
+public class CheckupTypeController {
 
     @Autowired
-    private ClinicService clinicService;
+    private CheckupTypeService checkupTypeService;
 
     @GetMapping(value = "/all")
-    public ResponseEntity<List<ClinicDTO>> getAllClinics() {
-        List<Clinic> clinics = clinicService.findAll();
-        List<ClinicDTO> clinicDTOs = new ArrayList<>();
-        for (Clinic clinic : clinics) {
-            clinicDTOs.add(new ClinicDTO(clinic));
+    public ResponseEntity<List<CheckupTypeDTO>> getAllClinics() {
+        List<CheckupType> checkupTypes = checkupTypeService.findAll();
+        List<CheckupTypeDTO> checkupTypeDTOS = new ArrayList<>();
+        for (CheckupType checkupType : checkupTypes) {
+            checkupTypeDTOS.add(new CheckupTypeDTO(checkupType));
         }
 
-        return new ResponseEntity<>(clinicDTOs, HttpStatus.OK);
+        return new ResponseEntity<>(checkupTypeDTOS, HttpStatus.OK);
     }
 }

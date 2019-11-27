@@ -1,6 +1,8 @@
 package team58.healthy.model;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 public class CheckupType {
@@ -14,6 +16,9 @@ public class CheckupType {
 
     @Column
     private boolean available;
+
+//    @ManyToMany(mappedBy = "checkupTypes", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+//    private Set<Doctor> doctors = new HashSet<Doctor>();
 
     public Long getId() {
         return id;

@@ -18,19 +18,18 @@ public class Doctor {
     @Column
     private String lastName;
 
-    @Column
-    private boolean absence;
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Clinic clinic;
+
+    @OneToMany(mappedBy = "doctor", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Set<Checkup> checkups = new HashSet<Checkup>();
+
+//    @ManyToMany(mappedBy = "doctorSet", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+//    private Set<CheckupType> checkupTypes = new HashSet<CheckupType>();
 
     public Long getId() {
         return id;
     }
-
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private Clinic clinic;
-
-    @OneToMany(mappedBy = "doctor", fetch = FetchType.LAZY,cascade = CascadeType.ALL)
-    private Set<Checkup> checkupSet = new HashSet<Checkup>();
-
 
     public void setId(Long id) {
         this.id = id;
@@ -52,14 +51,6 @@ public class Doctor {
         this.lastName = lastName;
     }
 
-    public boolean isAbsence() {
-        return absence;
-    }
-
-    public void setAbsence(boolean absence) {
-        this.absence = absence;
-    }
-
     public Clinic getClinic() {
         return clinic;
     }
@@ -68,11 +59,19 @@ public class Doctor {
         this.clinic = clinic;
     }
 
-    public Set<Checkup> getCheckupSet() {
-        return checkupSet;
+    public Set<Checkup> getCheckups() {
+        return checkups;
     }
 
-    public void setCheckupSet(Set<Checkup> checkupSet) {
-        this.checkupSet = checkupSet;
+    public void setCheckups(Set<Checkup> checkups) {
+        this.checkups = checkups;
     }
+
+//    public Set<CheckupType> getCheckupTypes() {
+//        return checkupTypes;
+//    }
+//
+//    public void setCheckupTypes(Set<CheckupType> checkupTypes) {
+//        this.checkupTypes = checkupTypes;
+//    }
 }

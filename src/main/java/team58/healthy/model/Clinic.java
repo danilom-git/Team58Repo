@@ -23,19 +23,19 @@ public class Clinic {
     private String address;
 
     @OneToMany(mappedBy = "clinic", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<Doctor> doctorList;
+    private List<Doctor> doctors;
 
     @OneToMany(mappedBy = "clinic", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<OneClick> oneClickList;
+    private List<OneClick> oneClicks;
 
     @OneToMany(mappedBy = "clinic", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<Hall> hallList;
+    private List<Hall> halls;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<ClinicAdmin> clinicAdminList;
+    private List<ClinicAdmin> clinicAdmins;
 
     @OneToMany(mappedBy = "clinic", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<ClinicRating> clinicRatingList;
+    private List<ClinicRating> clinicRatings;
 
 
     public Long getId() {
@@ -78,43 +78,43 @@ public class Clinic {
         this.address = address;
     }
 
-    public List<Doctor> getDoctorList() {
-        return doctorList;
+    public List<Doctor> getDoctors() {
+        return doctors;
     }
 
-    public void setDoctorList(List<Doctor> doctorList) {
-        this.doctorList = doctorList;
+    public void setDoctors(List<Doctor> doctors) {
+        this.doctors = doctors;
     }
 
-    public List<OneClick> getOneClickList() {
-        return oneClickList;
+    public List<OneClick> getOneClicks() {
+        return oneClicks;
     }
 
-    public void setOneClickList(List<OneClick> oneClickList) {
-        this.oneClickList = oneClickList;
+    public void setOneClicks(List<OneClick> oneClicks) {
+        this.oneClicks = oneClicks;
     }
 
-    public List<Hall> getHallList() {
-        return hallList;
+    public List<Hall> getHalls() {
+        return halls;
     }
 
-    public void setHallList(List<Hall> hallList) {
-        this.hallList = hallList;
+    public void setHalls(List<Hall> halls) {
+        this.halls = halls;
     }
 
-    public List<ClinicAdmin> getClinicAdminList() {
-        return clinicAdminList;
+    public List<ClinicAdmin> getClinicAdmins() {
+        return clinicAdmins;
     }
 
-    public void setClinicAdminList(List<ClinicAdmin> clinicAdminList) {
-        this.clinicAdminList = clinicAdminList;
+    public void setClinicAdmins(List<ClinicAdmin> clinicAdmins) {
+        this.clinicAdmins = clinicAdmins;
     }
 
-    public List<ClinicRating> getClinicRatingList() {
-        return clinicRatingList;
+    public List<ClinicRating> getClinicRatings() {
+        return clinicRatings;
     }
 
-    public void setClinicRatingList(List<ClinicRating> clinicRatingList) {
-        this.clinicRatingList = clinicRatingList;
+    public void setClinicRatings(List<ClinicRating> clinicRatings) {
+        this.clinicRatings = clinicRatings;
     }
 }

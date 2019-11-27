@@ -38,4 +38,12 @@ public class ClinicDTO {
     public String getAddress() {
         return address;
     }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public String getCity() {
+        return city;
+    }
 }

@@ -11,6 +11,7 @@ public class DoctorDTO {
     private Long id;
     private String name;
     private String lastName;
+    private Long clinicId;
     private String clinicName;
 //    private float averageRating;
 
@@ -22,6 +23,7 @@ public class DoctorDTO {
         this.id  = doctor.getId();
         this.name = doctor.getName();
         this.lastName = doctor.getLastName();
+        this.clinicId = doctor.getClinic().getId();
         this.clinicName = doctor.getClinic().getName();
     }
 
