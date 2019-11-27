@@ -23,8 +23,9 @@ public class ClinicDTO {
         this.address = clinic.getAddress();
         int sum = 0;
         for (ClinicRating rating : clinic.getClinicRatings()) {
-
+            sum += rating.getRating();
         }
+
     }
 
 
