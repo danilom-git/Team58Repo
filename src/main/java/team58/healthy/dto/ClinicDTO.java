@@ -1,6 +1,7 @@
 package team58.healthy.dto;
 
 import team58.healthy.model.Clinic;
+import team58.healthy.model.ClinicRating;
 
 public class ClinicDTO {
     private Long id;
@@ -8,21 +9,22 @@ public class ClinicDTO {
     private String country;
     private String city;
     private String address;
+    private String averageRating;
 
     public ClinicDTO() {
 
     }
 
-    public ClinicDTO(Long id, String name, String country, String city, String address) {
-        this.id = id;
-        this.name = name;
-        this.country = country;
-        this.city = city;
-        this.address = address;
-    }
-
     public ClinicDTO(Clinic clinic) {
-        this(clinic.getId(), clinic.getName(), clinic.getCountry(), clinic.getCity(), clinic.getAddress());
+        this.id = clinic.getId();
+        this.name = clinic.getName();
+        this.country = clinic.getCountry();
+        this.city = clinic.getCity();
+        this.address = clinic.getAddress();
+        int sum = 0;
+        for (ClinicRating rating : clinic.getClinicRatings()) {
+
+        }
     }
 
 
