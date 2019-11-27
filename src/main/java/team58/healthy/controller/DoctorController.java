@@ -3,10 +3,7 @@ package team58.healthy.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import team58.healthy.dto.DoctorDTO;
 import team58.healthy.model.Doctor;
 import team58.healthy.service.DoctorService;
@@ -33,5 +30,15 @@ public class DoctorController {
             doctorsDTO.add(new DoctorDTO(d));
         }
         return new ResponseEntity<>(doctorsDTO, HttpStatus.OK);
+    }
+
+    @PostMapping(consumes = "application/json")
+    public ResponseEntity<DoctorDTO> saveDoctor(@RequestBody DoctorDTO doctorDTO){
+        Doctor doctor = new Doctor();
+        doctor.setName(doctorDTO.getName());
+        doctor.setLastName(doctorDTO.getLastName());
+
+        doctor = doctorService.save(doctor);
+        return new ResponseEntity<>(new DoctorDTO(doctor),HttpStatus.CREATED);
     }
 }
