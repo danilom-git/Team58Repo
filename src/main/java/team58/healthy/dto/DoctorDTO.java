@@ -17,7 +17,6 @@ public class DoctorDTO {
     private Long clinicId;
     private String clinicName;
 //    private float averageRating;
-    private List<CheckupType> checkupTypes;
 
     public DoctorDTO() {
 
@@ -27,9 +26,8 @@ public class DoctorDTO {
         this.id  = doctor.getId();
         this.name = doctor.getName();
         this.lastName = doctor.getLastName();
-        this.clinicId = doctor.getClinic().getId();
-        this.clinicName = doctor.getClinic().getName();
-        this.checkupTypes = new ArrayList<>(doctor.getCheckupTypes());
+//        this.clinicId = doctor.getClinic().getId();
+//        this.clinicName = doctor.getClinic().getName();
     }
 
     public Long getId() {
@@ -52,7 +50,7 @@ public class DoctorDTO {
         return clinicId;
     }
 
-    public List<CheckupType> getCheckupTypes() {
-        return checkupTypes;
-    }
+//    public List<CheckupType> getCheckupTypes() {
+//        return checkupTypes;
+//    }
 }
