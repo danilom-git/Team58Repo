@@ -22,10 +22,10 @@ public class Doctor {
     private Clinic clinic;
 
     @OneToMany(mappedBy = "doctor", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private Set<Checkup> checkups = new HashSet<Checkup>();
+    private Set<Checkup> checkups = new HashSet<>();
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private Set<CheckupType> checkupTypes = new HashSet<CheckupType>();
+    private Set<CheckupType> checkupTypes = new HashSet<>();
 
     public Long getId() {
         return id;

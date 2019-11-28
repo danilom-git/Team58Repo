@@ -37,10 +37,6 @@ public class Clinic {
     @OneToMany(mappedBy = "clinic", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<ClinicRating> clinicRatings;
 
-    @OneToMany(mappedBy = "clinic", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<Checkup> checkups;
-
-
     public Long getId() {
         return id;
     }
@@ -119,13 +115,5 @@ public class Clinic {
 
     public void setClinicRatings(List<ClinicRating> clinicRatings) {
         this.clinicRatings = clinicRatings;
-    }
-
-    public List<Checkup> getCheckups() {
-        return checkups;
-    }
-
-    public void setCheckups(List<Checkup> checkups) {
-        this.checkups = checkups;
     }
 }

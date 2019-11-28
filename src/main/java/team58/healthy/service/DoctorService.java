@@ -27,4 +27,8 @@ public class DoctorService {
     {
         return doctorRepository.findAll();
     }
+
+    public List<Doctor> findAllByClinicAndCheckupType(Long clinicId, Long checkupTypeId) {
+        return doctorRepository.findAllByClinicAndCheckupType(clinicId, checkupTypeId);
+    }
 }

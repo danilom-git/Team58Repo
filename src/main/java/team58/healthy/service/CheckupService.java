@@ -17,4 +17,8 @@ public class CheckupService {
     public List<Checkup> findAll() { return checkupRepository.findAll(); }
 
     public List<Checkup> findAllOnDate(Date date) { return checkupRepository.findAllOnDate(date); }
+
+    public List<Checkup> findAllOnDateByDoctor(Date date, Long doctorId) {
+        return checkupRepository.findAllOnDateByDoctor(date, doctorId);
+    }
 }

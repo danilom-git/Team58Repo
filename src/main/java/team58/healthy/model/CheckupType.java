@@ -1,8 +1,6 @@
 package team58.healthy.model;
 
 import javax.persistence.*;
-import java.util.HashSet;
-import java.util.Set;
 
 @Entity
 public class CheckupType {
