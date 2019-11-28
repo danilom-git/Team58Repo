@@ -23,3 +23,5 @@ insert into clinic_rating (patient_id, clinic_id, rating) values (3, 1, 3);
 insert into clinic_rating (patient_id, clinic_id, rating) values (1, 2, 5);
 insert into clinic_rating (patient_id, clinic_id, rating) values (2, 2, 2);
 
+insert into hall (name , clinic_id) values ('hall1', 1);
+insert into hall ( name , clinic_id) values ('hall2', 2);
