@@ -25,7 +25,7 @@ public class CheckupTypeController {
     private CheckupTypeService checkupTypeService;
 
     @GetMapping(value = "/all")
-    public ResponseEntity<List<CheckupTypeDTO>> getAllClinics() {
+    public ResponseEntity<List<CheckupTypeDTO>> getAllCheckupTypes() {
         List<CheckupType> checkupTypes = checkupTypeService.findAll();
         List<CheckupTypeDTO> checkupTypeDTOS = new ArrayList<>();
         for (CheckupType checkupType : checkupTypes) {

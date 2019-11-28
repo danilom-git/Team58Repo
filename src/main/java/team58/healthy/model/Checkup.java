@@ -26,6 +26,9 @@ public class Checkup {
     private CheckupType checkupType;
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Clinic clinic;
+
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Hall hall;
 
 //    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
@@ -81,6 +84,14 @@ public class Checkup {
 
     public void setCheckupType(CheckupType checkupType) {
         this.checkupType = checkupType;
+    }
+
+    public Clinic getClinic() {
+        return clinic;
+    }
+
+    public void setClinic(Clinic clinic) {
+        this.clinic = clinic;
     }
 
     public Hall getHall() {

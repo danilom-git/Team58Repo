@@ -39,3 +39,7 @@ insert into doctor_checkup_types (doctor_id, checkup_types_id) values (3, 3);
 -- MM (01 - 12)
 insert into checkup (start_date, end_date, checkup_type_id, doctor_id, hall_id, patient_id) values
     (to_timestamp('2019 12 30 7:00', 'YYYY MM DD HH24 MI'), to_timestamp('2019 12 30 15:00', 'YYYY MM DD HH24 MI'), 1, 1, 1, 1);
+insert into checkup (start_date, end_date, checkup_type_id, doctor_id, hall_id, patient_id) values
+    (to_timestamp('2019 12 30 7:00', 'YYYY MM DD HH24 MI'), to_timestamp('2019 12 30 14:00', 'YYYY MM DD HH24 MI'), 2, 2, 1, 1);
+insert into checkup (start_date, end_date, checkup_type_id, doctor_id, hall_id, patient_id) values
+    (to_timestamp('2019 12 31 7:00', 'YYYY MM DD HH24 MI'), to_timestamp('2019 12 31 13:00', 'YYYY MM DD HH24 MI'), 1, 1, 1, 1);
