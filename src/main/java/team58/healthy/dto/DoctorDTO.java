@@ -1,9 +1,12 @@
 package team58.healthy.dto;
 
 import team58.healthy.model.Checkup;
+import team58.healthy.model.CheckupType;
 import team58.healthy.model.Doctor;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 public class DoctorDTO {
@@ -42,4 +45,12 @@ public class DoctorDTO {
     public String getClinicName() {
         return clinicName;
     }
+
+    public Long getClinicId() {
+        return clinicId;
+    }
+
+//    public List<CheckupType> getCheckupTypes() {
+//        return checkupTypes;
+//    }
 }
