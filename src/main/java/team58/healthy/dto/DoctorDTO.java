@@ -1,9 +1,12 @@
 package team58.healthy.dto;
 
 import team58.healthy.model.Checkup;
+import team58.healthy.model.CheckupType;
 import team58.healthy.model.Doctor;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 public class DoctorDTO {
@@ -14,6 +17,7 @@ public class DoctorDTO {
     private Long clinicId;
     private String clinicName;
 //    private float averageRating;
+    private List<CheckupType> checkupTypes;
 
     public DoctorDTO() {
 
@@ -25,6 +29,7 @@ public class DoctorDTO {
         this.lastName = doctor.getLastName();
         this.clinicId = doctor.getClinic().getId();
         this.clinicName = doctor.getClinic().getName();
+        this.checkupTypes = new ArrayList<>(doctor.getCheckupTypes());
     }
 
     public Long getId() {
@@ -41,5 +46,13 @@ public class DoctorDTO {
 
     public String getClinicName() {
         return clinicName;
+    }
+
+    public Long getClinicId() {
+        return clinicId;
+    }
+
+    public List<CheckupType> getCheckupTypes() {
+        return checkupTypes;
     }
 }

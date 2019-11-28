@@ -24,8 +24,8 @@ public class Doctor {
     @OneToMany(mappedBy = "doctor", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<Checkup> checkups = new HashSet<Checkup>();
 
-//    @ManyToMany(mappedBy = "doctorSet", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-//    private Set<CheckupType> checkupTypes = new HashSet<CheckupType>();
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Set<CheckupType> checkupTypes = new HashSet<CheckupType>();
 
     public Long getId() {
         return id;
@@ -67,11 +67,11 @@ public class Doctor {
         this.checkups = checkups;
     }
 
-//    public Set<CheckupType> getCheckupTypes() {
-//        return checkupTypes;
-//    }
-//
-//    public void setCheckupTypes(Set<CheckupType> checkupTypes) {
-//        this.checkupTypes = checkupTypes;
-//    }
+    public Set<CheckupType> getCheckupTypes() {
+        return checkupTypes;
+    }
+
+    public void setCheckupTypes(Set<CheckupType> checkupTypes) {
+        this.checkupTypes = checkupTypes;
+    }
 }
