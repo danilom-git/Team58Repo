@@ -28,5 +28,7 @@ public class DoctorService {
         return doctorRepository.findAll();
     }
 
+    public void remove(Long id){ doctorRepository.deleteById(id);}
+
     public Doctor save(Doctor doctor){return doctorRepository.save(doctor);}
 }

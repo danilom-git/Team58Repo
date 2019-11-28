@@ -43,4 +43,19 @@ public class DoctorController {
         doctor = doctorService.save(doctor);
         return new ResponseEntity<>(new DoctorDTO(doctor),HttpStatus.CREATED);
     }
+
+    @DeleteMapping(value = "/{id}")
+    public ResponseEntity<Void> deleteDoctor(@PathVariable Long id){
+            System.out.println("ID ZA BRSIANJE" + id.toString());
+            Doctor doctor = doctorService.findOne(id);
+        System.out.println(doctor.toString());
+            if(doctor != null && (doctor.getClinic() == null) && doctor.getCheckups().isEmpty())
+            {
+                doctorService.remove(id);
+                return new ResponseEntity<>(HttpStatus.OK);
+            }else
+            {
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            }
+    }
 }
