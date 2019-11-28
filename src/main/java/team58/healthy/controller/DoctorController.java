@@ -38,6 +38,8 @@ public class DoctorController {
         doctor.setName(doctorDTO.getName());
         doctor.setLastName(doctorDTO.getLastName());
 
+        System.out.println(doctor.getName()+  doctor.getLastName());
+
         doctor = doctorService.save(doctor);
         return new ResponseEntity<>(new DoctorDTO(doctor),HttpStatus.CREATED);
     }

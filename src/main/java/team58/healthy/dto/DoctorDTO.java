@@ -23,8 +23,8 @@ public class DoctorDTO {
         this.id  = doctor.getId();
         this.name = doctor.getName();
         this.lastName = doctor.getLastName();
-        this.clinicId = doctor.getClinic().getId();
-        this.clinicName = doctor.getClinic().getName();
+//        this.clinicId = doctor.getClinic().getId();
+//        this.clinicName = doctor.getClinic().getName();
     }
 
     public Long getId() {
