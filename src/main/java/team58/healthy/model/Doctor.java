@@ -24,6 +24,17 @@ public class Doctor {
     @OneToMany(mappedBy = "doctor", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<Checkup> checkups = new HashSet<>();
 
+    @Override
+    public String toString() {
+        return "Doctor{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", clinic=" + clinic +
+                ", checkups=" + checkups +
+                '}';
+    }
+
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<CheckupType> checkupTypes = new HashSet<>();
 

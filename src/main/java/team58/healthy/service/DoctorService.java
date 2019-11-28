@@ -31,4 +31,8 @@ public class DoctorService {
     public List<Doctor> findAllByClinicAndCheckupType(Long clinicId, Long checkupTypeId) {
         return doctorRepository.findAllByClinicAndCheckupType(clinicId, checkupTypeId);
     }
+
+    public void remove(Long id){ doctorRepository.deleteById(id);}
+
+    public Doctor save(Doctor doctor){return doctorRepository.save(doctor);}
 }
