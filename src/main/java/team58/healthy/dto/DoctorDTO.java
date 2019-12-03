@@ -1,10 +1,12 @@
 package team58.healthy.dto;
 
+import team58.healthy.model.Checkup;
 import team58.healthy.model.CheckupType;
 import team58.healthy.model.Doctor;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 public class DoctorDTO {
 
@@ -14,7 +16,8 @@ public class DoctorDTO {
     private Long clinicId;
     private String clinicName;
     //    private float averageRating;
-    private List<CheckupType> checkupTypes;
+    private List<Long> checkupTypeIds;
+    private List<Long> checkupIds;
 
     public DoctorDTO() {
 
@@ -26,7 +29,16 @@ public class DoctorDTO {
         this.lastName = doctor.getLastName();
         this.clinicId = doctor.getClinic().getId();
         this.clinicName = doctor.getClinic().getName();
-        this.checkupTypes = new ArrayList<>(doctor.getCheckupTypes());
+
+        Set<CheckupType> checkupTypes = doctor.getCheckupTypes();
+        this.checkupTypeIds = new ArrayList<>();
+        for (CheckupType checkupType : checkupTypes)
+            checkupTypeIds.add(checkupType.getId());
+
+        Set<Checkup> checkups = doctor.getCheckups();
+        this.checkupIds = new ArrayList<>();
+        for (Checkup checkup : checkups)
+            checkupIds.add(checkup.getId());
     }
 
     public Long getId() {
@@ -49,7 +61,11 @@ public class DoctorDTO {
         return clinicId;
     }
 
-    public List<CheckupType> getCheckupTypes() {
-        return checkupTypes;
+    public List<Long> getCheckupTypeIds() {
+        return checkupTypeIds;
+    }
+
+    public List<Long> getCheckupIds() {
+        return checkupIds;
     }
 }

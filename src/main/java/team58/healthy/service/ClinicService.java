@@ -4,35 +4,44 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import team58.healthy.model.Checkup;
 import team58.healthy.model.CheckupType;
 import team58.healthy.model.Clinic;
-import team58.healthy.model.Doctor;
-import team58.healthy.repository.CheckupRepository;
 import team58.healthy.repository.ClinicRepository;
-import team58.healthy.repository.DoctorRepository;
 
-import java.util.*;
-import java.util.concurrent.TimeUnit;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 @Service
 public class ClinicService {
 
     @Autowired
     private ClinicRepository clinicRepository;
+
     @Autowired
-    private DoctorRepository doctorRepository;
-    @Autowired
-    private CheckupRepository checkupRepository;
+    private DoctorService doctorService;
 
     public List<Clinic> findAll() { return clinicRepository.findAll(); }
 
     public Page<Clinic> findAll(Pageable pageable) { return clinicRepository.findAll(pageable); }
 
+    public Clinic findById(Long id) { return clinicRepository.findById(id).orElseGet(null); }
+
     public List<Clinic> findAllWithCheckupType(Long checkupTypeId) {
         return clinicRepository.findAllWithCheckupTypeId(checkupTypeId);
     }
 
+    public List<Clinic> findAllWithCheckupTypeOnDate(Long checkupTypeId, Date date) {
+        List<Clinic> clinics = findAll();
+        List<Clinic> availableClinics = new ArrayList<>();
+        for (Clinic clinic : clinics)
+            if (!doctorService.findAllByClinicWithCheckupTypeOnDate(clinic.getId(), checkupTypeId, date).isEmpty())
+                availableClinics.add(clinic);
+
+        return availableClinics;
+    }
+
+    /*
     public List<Clinic> findAllWithCheckupTypeOnDate(Long checkupTypeId, Date date) {
         Calendar cal = Calendar.getInstance();
         cal.clear();
@@ -113,4 +122,5 @@ public class ClinicService {
 
         return availableClinics;
     }
+    */
 }

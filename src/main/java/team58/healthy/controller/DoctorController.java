@@ -4,11 +4,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import team58.healthy.dto.ClinicDTO;
 import team58.healthy.dto.DoctorDTO;
+import team58.healthy.dto.DoctorWithAvailableTimeDTO;
 import team58.healthy.model.Doctor;
 import team58.healthy.service.DoctorService;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 @RestController
@@ -24,11 +27,9 @@ public class DoctorController {
     {
         List<Doctor> doctors = doctorService.findAll();
 
-        List<DoctorDTO> doctorsDTO = new ArrayList<DoctorDTO>();
+        List<DoctorDTO> doctorsDTO = new ArrayList<>();
         for(Doctor d : doctors)
-        {
             doctorsDTO.add(new DoctorDTO(d));
-        }
         return new ResponseEntity<>(doctorsDTO, HttpStatus.OK);
     }
 
@@ -57,5 +58,40 @@ public class DoctorController {
             {
                 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
             }
+    }
+
+    @GetMapping(value = "/clinic:{clinicId}")
+    public ResponseEntity<List<DoctorDTO>> getAllInClinicWithCheckupType(@PathVariable Long clinicId) {
+        List<Doctor> doctors = doctorService.findAllByClinic(clinicId);
+
+        List<DoctorDTO> doctorDTOS = new ArrayList<>();
+        for (Doctor doctor : doctors)
+            doctorDTOS.add(new DoctorDTO(doctor));
+        return new ResponseEntity<>(doctorDTOS, HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/clinic:{clinicId}/checkupType:{checkupTypeId}")
+    public ResponseEntity<List<DoctorDTO>> getAllInClinicWithCheckupType(
+            @PathVariable Long clinicId, @PathVariable Long checkupTypeId) {
+        List<Doctor> doctors = doctorService.findAllByClinicAndCheckupType(clinicId, checkupTypeId);
+
+        List<DoctorDTO> doctorDTOS = new ArrayList<>();
+        for (Doctor doctor : doctors)
+            doctorDTOS.add(new DoctorDTO(doctor));
+        return new ResponseEntity<>(doctorDTOS, HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/clinic:{clinicId}/checkupType:{checkupTypeId}/date:{y}-{m}-{d}")
+    public ResponseEntity<List<DoctorWithAvailableTimeDTO>> getAllInClinicWithCheckupTypeOnDate(
+            @PathVariable Long clinicId, @PathVariable Long checkupTypeId, @PathVariable int y, @PathVariable int m, @PathVariable int d) {
+        Calendar cal = Calendar.getInstance();
+        cal.clear();
+        cal.set(y, m - 1, d);
+        List<Doctor> doctors = doctorService.findAllByClinicWithCheckupTypeOnDate(clinicId, checkupTypeId, cal.getTime());
+
+        List<DoctorWithAvailableTimeDTO> doctorDTOS = new ArrayList<>();
+        for (Doctor doctor : doctors)
+            doctorDTOS.add(new DoctorWithAvailableTimeDTO(new DoctorDTO(doctor), doctorService.availableTimeOnDate(doctor, cal.getTime())));
+        return new ResponseEntity<>(doctorDTOS, HttpStatus.OK);
     }
 }

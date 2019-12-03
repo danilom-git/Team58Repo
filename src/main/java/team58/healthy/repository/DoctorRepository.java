@@ -12,7 +12,11 @@ public interface DoctorRepository extends JpaRepository<Doctor,Long> {
 
     List<Doctor> findAllByClinic(Clinic clinic);
 
+    List<Doctor> findAllByClinicId(Long clinicId);
+
     @Query (nativeQuery = true,
         value = "select * from doctor d join doctor_checkup_types dct on d.id = dct.doctor_id where d.clinic_id = ?1 and dct.checkup_types_id = ?2")
     List<Doctor> findAllByClinicAndCheckupType(Long clinicId, Long checkupTypeId);
+
+
 }

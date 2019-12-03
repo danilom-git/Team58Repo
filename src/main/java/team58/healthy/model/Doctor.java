@@ -24,6 +24,9 @@ public class Doctor {
     @OneToMany(mappedBy = "doctor", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<Checkup> checkups = new HashSet<>();
 
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Set<CheckupType> checkupTypes = new HashSet<>();
+
     @Override
     public String toString() {
         return "Doctor{" +
@@ -34,9 +37,6 @@ public class Doctor {
                 ", checkups=" + checkups +
                 '}';
     }
-
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private Set<CheckupType> checkupTypes = new HashSet<>();
 
     public Long getId() {
         return id;
