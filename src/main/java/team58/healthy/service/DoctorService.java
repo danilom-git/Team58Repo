@@ -2,7 +2,10 @@ package team58.healthy.service;
 
 import javafx.util.Pair;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import team58.healthy.dto.DoctorDTO;
 import team58.healthy.model.Checkup;
 import team58.healthy.model.Doctor;
 import team58.healthy.repository.DoctorRepository;
@@ -19,9 +22,11 @@ public class DoctorService {
     @Autowired
     private CheckupService checkupService;
 
-    public Doctor findOne(Long id)
+
+    public DoctorDTO findOne(Long id)
     {
-        return doctorRepository.findById(id).orElseGet(null);
+        Doctor doc = doctorRepository.findById(id).orElseGet(null);
+        return new DoctorDTO(doc);
     }
 
     public List<Doctor> findAllByName(String name)
@@ -38,7 +43,20 @@ public class DoctorService {
         return doctorRepository.findAllByClinicAndCheckupType(clinicId, checkupTypeId);
     }
 
-    public void remove(Long id){ doctorRepository.deleteById(id);}
+    public boolean remove(Long id){
+        Doctor doctor = doctorRepository.findById(id).orElseGet(null);
+
+        System.out.println(doctor.toString());
+        if(doctor != null && (doctor.getClinic() == null) && doctor.getCheckups().isEmpty())
+        {
+            doctorRepository.deleteById(id);
+            return true;
+        }else
+        {
+            return false;
+        }
+
+    }
 
     public Doctor save(Doctor doctor){return doctorRepository.save(doctor);}
 

@@ -20,25 +20,30 @@ public class DoctorDTO {
     private List<Long> checkupIds;
 
     public DoctorDTO() {
-
+        checkupIds = new ArrayList<Long>();
+        checkupTypeIds = new ArrayList<Long>();
     }
 
     public DoctorDTO(Doctor doctor) {
         this.id  = doctor.getId();
         this.name = doctor.getName();
         this.lastName = doctor.getLastName();
-        this.clinicId = doctor.getClinic().getId();
-        this.clinicName = doctor.getClinic().getName();
+        if(doctor.getClinic() != null) {
+            this.clinicId = doctor.getClinic().getId();
+            this.clinicName = doctor.getClinic().getName();
+        }
 
-        Set<CheckupType> checkupTypes = doctor.getCheckupTypes();
-        this.checkupTypeIds = new ArrayList<>();
-        for (CheckupType checkupType : checkupTypes)
-            checkupTypeIds.add(checkupType.getId());
+        if(doctor.getCheckupTypes() != null) {
+            Set<CheckupType> checkupTypes = doctor.getCheckupTypes();
+            this.checkupTypeIds = new ArrayList<>();
+            for (CheckupType checkupType : checkupTypes)
+                checkupTypeIds.add(checkupType.getId());
 
-        Set<Checkup> checkups = doctor.getCheckups();
-        this.checkupIds = new ArrayList<>();
-        for (Checkup checkup : checkups)
-            checkupIds.add(checkup.getId());
+            Set<Checkup> checkups = doctor.getCheckups();
+            this.checkupIds = new ArrayList<>();
+            for (Checkup checkup : checkups)
+                checkupIds.add(checkup.getId());
+        }
     }
 
     public Long getId() {

@@ -10,6 +10,7 @@ import team58.healthy.dto.DoctorWithAvailableTimeDTO;
 import team58.healthy.model.Doctor;
 import team58.healthy.service.DoctorService;
 
+import javax.websocket.server.PathParam;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -21,6 +22,12 @@ public class DoctorController {
 
     @Autowired
     private DoctorService doctorService;
+
+    @GetMapping(value = "/{id}")
+    public ResponseEntity<DoctorDTO> getDoctor(@PathVariable Long id){
+        DoctorDTO ret = doctorService.findOne(id);
+        return new ResponseEntity<>(ret,HttpStatus.OK);
+    }
 
     @GetMapping(value = "/all")
     public ResponseEntity<List<DoctorDTO>> getAllDoctors()
@@ -48,16 +55,10 @@ public class DoctorController {
     @DeleteMapping(value = "/{id}")
     public ResponseEntity<Void> deleteDoctor(@PathVariable Long id){
             System.out.println("ID ZA BRSIANJE" + id.toString());
-            Doctor doctor = doctorService.findOne(id);
-        System.out.println(doctor.toString());
-            if(doctor != null && (doctor.getClinic() == null) && doctor.getCheckups().isEmpty())
-            {
-                doctorService.remove(id);
+            if(doctorService.remove(id))
                 return new ResponseEntity<>(HttpStatus.OK);
-            }else
-            {
+            else
                 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-            }
     }
 
     @GetMapping(value = "/clinic:{clinicId}")
