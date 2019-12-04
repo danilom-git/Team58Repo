@@ -47,7 +47,7 @@ public class DoctorController {
         if(ret != null)
             return new ResponseEntity<>(ret,HttpStatus.OK);
         else
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 
     }
 

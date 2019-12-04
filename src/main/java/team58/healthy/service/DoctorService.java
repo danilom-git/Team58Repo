@@ -62,14 +62,17 @@ public class DoctorService {
     {
         if(findOne(doctorDTO.getId()) != null)
         {
-            Doctor doctor = new Doctor();
-            doctor.setId(doctorDTO.getId());
-            doctor.setWorkingTime(doctorDTO.getWorkingTime());
-            doctor.setName(doctorDTO.getName());
-            doctor.setLastName(doctorDTO.getLastName());
+            if(!doctorDTO.getName().equals("") && !doctorDTO.getLastName().equals("") && doctorDTO.getWorkingTime() != 0) {
+                Doctor doctor = new Doctor();
+                doctor.setId(doctorDTO.getId());
+                doctor.setWorkingTime(doctorDTO.getWorkingTime());
+                doctor.setName(doctorDTO.getName());
+                doctor.setLastName(doctorDTO.getLastName());
+                return new DoctorDTO( doctorRepository.save(doctor));
+            }
 
+            return null;
 
-           return new DoctorDTO( doctorRepository.save(doctor));
         }
         return null;
     }
