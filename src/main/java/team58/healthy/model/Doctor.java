@@ -18,6 +18,9 @@ public class Doctor {
     @Column
     private String lastName;
 
+    @Column
+    private String radnoVreme;
+
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Clinic clinic;
 
@@ -84,5 +87,13 @@ public class Doctor {
 
     public void setCheckupTypes(Set<CheckupType> checkupTypes) {
         this.checkupTypes = checkupTypes;
+    }
+
+    public String getRadnoVreme() {
+        return radnoVreme;
+    }
+
+    public void setRadnoVreme(String radnoVreme) {
+        this.radnoVreme = radnoVreme;
     }
 }

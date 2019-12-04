@@ -12,6 +12,9 @@ public class Hall {
     @Column
     private String name;
 
+    @Column
+    private String number;
+
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Clinic clinic;
 
@@ -37,5 +40,13 @@ public class Hall {
 
     public void setClinic(Clinic clinic) {
         this.clinic = clinic;
+    }
+
+    public String getNumber() {
+        return number;
+    }
+
+    public void setNumber(String number) {
+        this.number = number;
     }
 }

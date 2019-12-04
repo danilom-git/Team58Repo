@@ -5,6 +5,7 @@ import team58.healthy.model.Hall;
 public class HallDTO {
     private Long id;
     private String name;
+    private String number;
 
     public HallDTO()
     {
@@ -15,6 +16,7 @@ public class HallDTO {
     {
         this.id = hall.getId();
         this.name = hall.getName();
+        this.number = hall.getNumber();
     }
 
     public Long getId() {
@@ -31,5 +33,13 @@ public class HallDTO {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getNumber() {
+        return number;
+    }
+
+    public void setNumber(String number) {
+        this.number = number;
     }
 }

@@ -13,6 +13,7 @@ public class DoctorDTO {
     private Long id;
     private String name;
     private String lastName;
+    private String radnoVreme;
     private Long clinicId;
     private String clinicName;
     //    private float averageRating;
@@ -28,12 +29,13 @@ public class DoctorDTO {
         this.id  = doctor.getId();
         this.name = doctor.getName();
         this.lastName = doctor.getLastName();
+        this.radnoVreme = doctor.getRadnoVreme();
         if(doctor.getClinic() != null) {
             this.clinicId = doctor.getClinic().getId();
             this.clinicName = doctor.getClinic().getName();
         }
 
-        if(doctor.getCheckupTypes() != null) {
+        if(doctor.getCheckupTypes() != null && doctor.getCheckups() != null) {
             Set<CheckupType> checkupTypes = doctor.getCheckupTypes();
             this.checkupTypeIds = new ArrayList<>();
             for (CheckupType checkupType : checkupTypes)
@@ -72,5 +74,29 @@ public class DoctorDTO {
 
     public List<Long> getCheckupIds() {
         return checkupIds;
+    }
+
+    public String getRadnoVreme() {
+        return radnoVreme;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public void setRadnoVreme(String radnoVreme) {
+        this.radnoVreme = radnoVreme;
+    }
+
+    public void setClinicId(Long clinicId) {
+        this.clinicId = clinicId;
+    }
+
+    public void setClinicName(String clinicName) {
+        this.clinicName = clinicName;
     }
 }
