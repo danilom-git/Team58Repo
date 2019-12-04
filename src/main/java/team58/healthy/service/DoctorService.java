@@ -58,7 +58,31 @@ public class DoctorService {
 
     }
 
-    public Doctor save(Doctor doctor){return doctorRepository.save(doctor);}
+    public DoctorDTO update(DoctorDTO doctorDTO)
+    {
+        if(findOne(doctorDTO.getId()) != null)
+        {
+            Doctor doctor = new Doctor();
+            doctor.setId(doctorDTO.getId());
+            doctor.setWorkingTime(doctorDTO.getWorkingTime());
+            doctor.setName(doctorDTO.getName());
+            doctor.setLastName(doctorDTO.getLastName());
+
+
+           return new DoctorDTO( doctorRepository.save(doctor));
+        }
+        return null;
+    }
+
+    public Doctor save(DoctorDTO doctorDTO){
+        Doctor doctor = new Doctor();
+        doctor.setName(doctorDTO.getName());
+        doctor.setLastName(doctorDTO.getLastName());
+        doctor.setWorkingTime(doctorDTO.getWorkingTime());
+
+        System.out.println(doctor.getName()+  doctor.getLastName() + doctor.getWorkingTime());
+        return doctorRepository.save(doctor);//PROMENITI NA DTO
+    }
 
     public List<Doctor> findAllByClinic(Long clinicId) { return doctorRepository.findAllByClinicId(clinicId); }
 

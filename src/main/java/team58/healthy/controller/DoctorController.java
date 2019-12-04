@@ -40,15 +40,20 @@ public class DoctorController {
         return new ResponseEntity<>(doctorsDTO, HttpStatus.OK);
     }
 
+    @PutMapping(consumes = "application/json")
+    public ResponseEntity<DoctorDTO> updateDoctor(@RequestBody DoctorDTO doctorDTO)
+    {
+        DoctorDTO ret = doctorService.update(doctorDTO);
+        if(ret != null)
+            return new ResponseEntity<>(ret,HttpStatus.OK);
+        else
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+
+    }
+
     @PostMapping(consumes = "application/json")
     public ResponseEntity<DoctorDTO> saveDoctor(@RequestBody DoctorDTO doctorDTO){
-        Doctor doctor = new Doctor();
-        doctor.setName(doctorDTO.getName());
-        doctor.setLastName(doctorDTO.getLastName());
-
-        System.out.println(doctor.getName()+  doctor.getLastName());
-
-        doctor = doctorService.save(doctor);
+        Doctor doctor = doctorService.save(doctorDTO);
         return new ResponseEntity<>(new DoctorDTO(doctor),HttpStatus.CREATED);
     }
 

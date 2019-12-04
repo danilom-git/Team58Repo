@@ -13,7 +13,7 @@ public class DoctorDTO {
     private Long id;
     private String name;
     private String lastName;
-    private String workingTime;
+    private int workingTime;
     private Long clinicId;
     private String clinicName;
     //    private float averageRating;
@@ -76,7 +76,7 @@ public class DoctorDTO {
         return checkupIds;
     }
 
-    public String getWorkingTime() {
+    public int getWorkingTime() {
         return workingTime;
     }
 
@@ -88,7 +88,7 @@ public class DoctorDTO {
         this.lastName = lastName;
     }
 
-    public void setWorkingTime(String workingTime) {
+    public void setWorkingTime(int workingTime) {
         this.workingTime = workingTime;
     }
 

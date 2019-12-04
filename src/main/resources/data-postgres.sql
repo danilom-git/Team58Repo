@@ -1,16 +1,16 @@
 insert into clinic (name, country, city, address) values ('Clinic_A', 'Country_A', 'City_A', 'Street_A');
 insert into clinic (name, country, city, address) values ('Clinic_B', 'Country_A', 'City_B', 'Street_A');
 
-insert into hall (name, clinic_id) values ('Hall_A', 1);
-insert into hall (name, clinic_id) values ('Hall_B', 1);
-insert into hall (name, clinic_id) values ('Hall_C', 1);
-insert into hall (name, clinic_id) values ('Hall_A', 2);
-insert into hall (name, clinic_id) values ('Hall_B', 2);
-insert into hall (name, clinic_id) values ('Hall_C', 2);
+insert into hall (name,number , clinic_id) values ('Hall_A','101', 1);
+insert into hall (name,number , clinic_id) values ('Hall_B','102', 1);
+insert into hall (name,number , clinic_id) values ('Hall_C','103', 1);
+insert into hall (name,number , clinic_id) values ('Hall_A','201', 2);
+insert into hall (name,number , clinic_id) values ('Hall_B','202', 2);
+insert into hall (name,number , clinic_id) values ('Hall_C','203', 2);
 
-insert into doctor (name, last_name, clinic_id) values ('Name_A', 'Last_Name_A', 1);
-insert into doctor (name, last_name, clinic_id) values ('Name_B', 'Last_Name_B', 1);
-insert into doctor (name, last_name, clinic_id) values ('Name_C', 'Last_Name_B', 2);
+insert into doctor (name, last_name,working_time, clinic_id) values ('Name_A', 'Last_Name_A',5, 1);
+insert into doctor (name, last_name,working_time, clinic_id) values ('Name_B', 'Last_Name_B',6, 1);
+insert into doctor (name, last_name,working_time, clinic_id) values ('Name_C', 'Last_Name_B',7, 2);
 
 insert into checkup_type (name) values ('Checkup_Type_A');
 insert into checkup_type (name) values ('Checkup_Type_B');
