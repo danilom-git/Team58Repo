@@ -13,7 +13,7 @@ public class DoctorDTO {
     private Long id;
     private String name;
     private String lastName;
-    private String radnoVreme;
+    private String workingTime;
     private Long clinicId;
     private String clinicName;
     //    private float averageRating;
@@ -29,7 +29,7 @@ public class DoctorDTO {
         this.id  = doctor.getId();
         this.name = doctor.getName();
         this.lastName = doctor.getLastName();
-        this.radnoVreme = doctor.getRadnoVreme();
+        this.workingTime = doctor.getWorkingTime();
         if(doctor.getClinic() != null) {
             this.clinicId = doctor.getClinic().getId();
             this.clinicName = doctor.getClinic().getName();
@@ -76,8 +76,8 @@ public class DoctorDTO {
         return checkupIds;
     }
 
-    public String getRadnoVreme() {
-        return radnoVreme;
+    public String getWorkingTime() {
+        return workingTime;
     }
 
     public void setName(String name) {
@@ -88,8 +88,8 @@ public class DoctorDTO {
         this.lastName = lastName;
     }
 
-    public void setRadnoVreme(String radnoVreme) {
-        this.radnoVreme = radnoVreme;
+    public void setWorkingTime(String workingTime) {
+        this.workingTime = workingTime;
     }
 
     public void setClinicId(Long clinicId) {
