@@ -21,38 +21,35 @@ public class HallController {
     @Autowired
     private HallService hallService;
 
+    @GetMapping(value = "/{id}")
+    public ResponseEntity<HallDTO> getHall(@PathVariable Long id)
+    {
+        HallDTO hallDTO = hallService.findOne(id);
+        if(hallDTO != null)
+            return new ResponseEntity<>(hallDTO,HttpStatus.OK);
+        else
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+
+    }
+
     @GetMapping(value = "/all")
     public ResponseEntity<List<HallDTO>> getAllHalls()
     {
-        List<Hall> halls = hallService.findAll();
-
-        List<HallDTO> hallsDTO = new ArrayList<HallDTO>();
-        for(Hall h : halls)
-        {
-            hallsDTO.add(new HallDTO(h));
-        }
-        return new ResponseEntity<>(hallsDTO, HttpStatus.OK);
+        return new ResponseEntity<>(hallService.findAll(), HttpStatus.OK);
     }
 
     @PostMapping(consumes = "application/json")
     public ResponseEntity<HallDTO> saveHall(@RequestBody HallDTO hallDTO){
-        Hall hall = new Hall();
-        hall.setName(hallDTO.getName());
-
-        System.out.println(hall.getName());
-
-        hall = hallService.save(hall);
-        return new ResponseEntity<>(new HallDTO(hall),HttpStatus.CREATED);
+        hallDTO = hallService.save(hallDTO);
+        return new ResponseEntity<>(hallDTO,HttpStatus.CREATED);
     }
 
     @DeleteMapping(value = "/{id}")
     public ResponseEntity<Void> deleteHall(@PathVariable Long id){
         System.out.println("ID ZA BRSIANJE" + id.toString());
-        Hall hall = hallService.findOne(id);
-        System.out.println(hall.toString());
-        if(hall != null && (hall.getClinic() == null))
+
+        if(hallService.remove(id))
         {
-            hallService.remove(id);
             return new ResponseEntity<>(HttpStatus.OK);
         }else
         {

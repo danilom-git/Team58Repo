@@ -34,9 +34,14 @@ public class DoctorService {
         return doctorRepository.findAllByName(name);
     }
 
-    public List<Doctor> findAll()
+    public List<DoctorDTO> findAll()
     {
-        return doctorRepository.findAll();
+        List<Doctor> doctors = doctorRepository.findAll();
+
+        List<DoctorDTO> doctorsDTO = new ArrayList<>();
+        for(Doctor d : doctors)
+            doctorsDTO.add(new DoctorDTO(d));
+        return doctorsDTO;
     }
 
     public List<Doctor> findAllByClinicAndCheckupType(Long clinicId, Long checkupTypeId) {
