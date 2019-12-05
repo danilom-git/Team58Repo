@@ -32,6 +32,16 @@ public class HallController {
 
     }
 
+    @PutMapping(consumes = "application/json")
+    public ResponseEntity<HallDTO> updateHall(@RequestBody HallDTO hallDTO)
+    {
+        HallDTO ret = hallService.update(hallDTO);
+        if(ret != null)
+            return new ResponseEntity<>(ret,HttpStatus.OK);
+        else
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+    }
+
     @GetMapping(value = "/all")
     public ResponseEntity<List<HallDTO>> getAllHalls()
     {

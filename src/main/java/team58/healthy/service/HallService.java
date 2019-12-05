@@ -40,6 +40,19 @@ public class HallService {
 
     }
 
+    public HallDTO update(HallDTO hallDTO)
+    {
+        Hall hall = hallRepository.findById(hallDTO.getId()).orElseGet(null);
+        if(hall != null) {
+            if(!hallDTO.getName().equals("") && !hallDTO.getNumber().equals("")) {
+                hall.setName(hallDTO.getName());
+                hall.setNumber(hallDTO.getNumber());
+                hall.setId(hallDTO.getId());
+            }
+        }
+        return new HallDTO( hallRepository.save(hall));
+    }
+
     public HallDTO save(HallDTO hallDTO){
         Hall hall = new Hall();
         hall.setName(hallDTO.getName());
