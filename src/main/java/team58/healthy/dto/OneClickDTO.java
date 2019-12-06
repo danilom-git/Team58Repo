@@ -34,7 +34,6 @@ public class OneClickDTO {
         this.endTime = oneClick.getEndTime();
         this.duration = oneClick.getDuration();
         this.price = oneClick.getPrice();
-
         this.clinicId = oneClick.getClinic().getId();
         this.checkupTypeId = oneClick.getCheckupType().getId();
         this.hallId = oneClick.getHall().getId();

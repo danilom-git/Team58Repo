@@ -6,6 +6,9 @@ import team58.healthy.dto.OneClickDTO;
 import team58.healthy.model.OneClick;
 import team58.healthy.repository.OneClickRepository;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
 public class OneClickService {
 
@@ -23,6 +26,17 @@ public class OneClickService {
 
     @Autowired
     private ClinicService clinicService;
+
+    public List<OneClickDTO> findAll()
+    {
+        List<OneClick> oneClicks = oneClickRepository.findAll();
+        List<OneClickDTO> dtos = new ArrayList<OneClickDTO>();
+        for(OneClick o : oneClicks)
+        {
+            dtos.add(new OneClickDTO(o));
+        }
+        return dtos;
+    }
 
     public OneClickDTO save(OneClickDTO oneClickDTO){
         OneClick oc = new OneClick();
