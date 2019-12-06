@@ -18,6 +18,8 @@ public class HallService {
         return new HallDTO( hallRepository.findById(id).orElseGet(null));
     }
 
+    public Hall findOne2(Long id){return hallRepository.findById(id).orElseGet(null);}
+
     public List<HallDTO> findAll(){
         List<Hall> halls  = hallRepository.findAll();
         List<HallDTO> hallsDTO = new ArrayList<HallDTO>();

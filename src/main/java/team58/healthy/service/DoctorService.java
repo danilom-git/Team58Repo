@@ -29,6 +29,11 @@ public class DoctorService {
         return new DoctorDTO(doc);
     }
 
+    public Doctor findOne2(Long id)
+    {
+        return doctorRepository.findById(id).orElseGet(null);
+    }
+
     public List<Doctor> findAllByName(String name)
     {
         return doctorRepository.findAllByName(name);

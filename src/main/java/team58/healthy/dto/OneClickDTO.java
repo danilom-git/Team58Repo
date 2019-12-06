@@ -16,22 +16,29 @@ public class OneClickDTO {
 
     private Long id;
     private Date startTime;
-    private Duration duration;
-    private CheckupType checkupType;
-    private String hallName;
-    private String doctorFullName;
+    private Date endTime;
+    private int duration;
     private double price;
+
+    private Long clinicId;
+    private Long checkupTypeId;
+    private Long hallId;
+    private Long doctorId;
+
 
     public OneClickDTO() { }
 
     public OneClickDTO(OneClick oneClick) {
         this.id = oneClick.getId();
         this.startTime = oneClick.getStartTime();
+        this.endTime = oneClick.getEndTime();
         this.duration = oneClick.getDuration();
-        this.checkupType = oneClick.getCheckupType();
-        this.hallName = oneClick.getHall().getName();
-        this.doctorFullName = oneClick.getDoctor().getName() + " " + oneClick.getDoctor().getLastName();
         this.price = oneClick.getPrice();
+
+        this.clinicId = oneClick.getClinic().getId();
+        this.checkupTypeId = oneClick.getCheckupType().getId();
+        this.hallId = oneClick.getHall().getId();
+        this.doctorId = oneClick.getDoctor().getId();
     }
 
     public Long getId() {
@@ -42,23 +49,67 @@ public class OneClickDTO {
         return startTime;
     }
 
-    public Duration getDuration() {
+    public Date getEndTime() {
+        return endTime;
+    }
+
+    public int getDuration() {
         return duration;
-    }
-
-    public CheckupType getCheckupType() {
-        return checkupType;
-    }
-
-    public String getHallName() {
-        return hallName;
-    }
-
-    public String getDoctorFullName() {
-        return doctorFullName;
     }
 
     public double getPrice() {
         return price;
+    }
+
+    public Long getClinicId() {
+        return clinicId;
+    }
+
+    public Long getCheckupTypeId() {
+        return checkupTypeId;
+    }
+
+    public Long getHallId() {
+        return hallId;
+    }
+
+    public Long getDoctorId() {
+        return doctorId;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setStartTime(Date startTime) {
+        this.startTime = startTime;
+    }
+
+    public void setEndTime(Date endTime) {
+        this.endTime = endTime;
+    }
+
+    public void setDuration(int duration) {
+        this.duration = duration;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
+    }
+
+    public void setClinicId(Long clinicId) {
+        this.clinicId = clinicId;
+    }
+
+    public void setCheckupTypeId(Long checkupTypeId) {
+        this.checkupTypeId = checkupTypeId;
+    }
+
+    public void setHallId(Long hallId) {
+        this.hallId = hallId;
+    }
+
+    public void setDoctorId(Long doctorId) {
+        this.doctorId = doctorId;
     }
 }

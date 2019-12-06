@@ -15,7 +15,13 @@ public class OneClick {
     private Date startTime;
 
     @Column
-    private Duration duration;
+    private Date endTime;
+
+    @Column
+    private int duration;
+
+    @Column
+    private double price;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Clinic clinic;
@@ -29,8 +35,13 @@ public class OneClick {
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Doctor doctor;
 
-    @Column
-    private double price;
+    public Date getEndTime() {
+        return endTime;
+    }
+
+    public void setEndTime(Date endTime) {
+        this.endTime = endTime;
+    }
 
     public Long getId() {
         return id;
@@ -48,11 +59,11 @@ public class OneClick {
         this.startTime = startTime;
     }
 
-    public Duration getDuration() {
+    public int getDuration() {
         return duration;
     }
 
-    public void setDuration(Duration duration) {
+    public void setDuration(int duration) {
         this.duration = duration;
     }
 
