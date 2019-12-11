@@ -26,4 +26,9 @@ public class PatientService {
         return dtos;
     }
 
+    public PatientDTO getOneById(Long id)
+    {
+        return new PatientDTO(patientRepository.findById(id).orElseGet(null));
+    }
+
 }

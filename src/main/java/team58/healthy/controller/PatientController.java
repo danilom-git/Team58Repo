@@ -3,10 +3,7 @@ package team58.healthy.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import team58.healthy.dto.PatientDTO;
 import team58.healthy.service.PatientService;
 
@@ -20,6 +17,12 @@ public class PatientController {
 
     @Autowired
     private PatientService patientService;
+
+    @GetMapping(value = "/id:{id}")
+    public ResponseEntity<PatientDTO> getOne(@PathVariable Long id)
+    {
+        return new ResponseEntity<>(patientService.getOneById(id),HttpStatus.OK);
+    }
 
     @GetMapping(value = "/all")
     public ResponseEntity<List<PatientDTO>> getAll()
