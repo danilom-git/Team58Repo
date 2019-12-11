@@ -14,4 +14,6 @@ public class CheckupTypeService {
     private CheckupTypeRepository checkupTypeRepository;
 
     public List<CheckupType> findAll() { return checkupTypeRepository.findAll(); }
+
+    public CheckupType findById(Long id) { return checkupTypeRepository.findById(id).orElseGet(null); }
 }

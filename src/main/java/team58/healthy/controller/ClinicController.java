@@ -37,15 +37,17 @@ public class ClinicController {
         return new ResponseEntity<>(clinicDTOs, HttpStatus.OK);
     }
 
-    @GetMapping(value = "/checkupType:{id}")
-    public ResponseEntity<List<ClinicDTO>> getAllClinicsWithCheckupType(@PathVariable Long id) {
-        List<Clinic> clinics = clinicService.findAllWithCheckupType(id);
-        List<ClinicDTO> clinicDTOs = new ArrayList<>();
+    @GetMapping(value = "/checkupType:{checkupTypeId}")
+    public ResponseEntity<List<ClinicWithCheckupDTO>> getAllClinicsWithCheckupType(@PathVariable Long checkupTypeId) {
+        List<Clinic> clinics = clinicService.findAllWithCheckupType(checkupTypeId);
+
+        List<ClinicWithCheckupDTO> clinicWithCheckupDTOS = new ArrayList<>();
         for (Clinic clinic : clinics) {
-            clinicDTOs.add(new ClinicDTO(clinic));
+            ClinicCheckupType clinicCheckupType = clinicCheckupTypeService.findByClinicAndCheckupTypeId(clinic, checkupTypeId);
+            clinicWithCheckupDTOS.add(new ClinicWithCheckupDTO(new ClinicDTO(clinic), clinicCheckupType));
         }
 
-        return new ResponseEntity<>(clinicDTOs, HttpStatus.OK);
+        return new ResponseEntity<>(clinicWithCheckupDTOS, HttpStatus.OK);
     }
 
     @GetMapping(value = "/checkupType:{checkupTypeId}/date:{y}-{m}-{d}")
