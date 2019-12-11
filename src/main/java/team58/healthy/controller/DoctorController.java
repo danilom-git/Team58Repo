@@ -43,7 +43,6 @@ public class DoctorController {
             return new ResponseEntity<>(ret,HttpStatus.OK);
         else
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-
     }
 
     @PostMapping(consumes = "application/json")
