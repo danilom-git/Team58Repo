@@ -32,12 +32,7 @@ public class DoctorController {
     @GetMapping(value = "/all")
     public ResponseEntity<List<DoctorDTO>> getAllDoctors()
     {
-        List<Doctor> doctors = doctorService.findAll();
-
-        List<DoctorDTO> doctorsDTO = new ArrayList<>();
-        for(Doctor d : doctors)
-            doctorsDTO.add(new DoctorDTO(d));
-        return new ResponseEntity<>(doctorsDTO, HttpStatus.OK);
+        return new ResponseEntity<>(doctorService.findAll(), HttpStatus.OK);
     }
 
     @PutMapping(consumes = "application/json")

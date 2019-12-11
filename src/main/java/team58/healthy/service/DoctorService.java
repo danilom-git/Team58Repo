@@ -29,14 +29,24 @@ public class DoctorService {
         return new DoctorDTO(doc);
     }
 
+    public Doctor findOne2(Long id)
+    {
+        return doctorRepository.findById(id).orElseGet(null);
+    }
+
     public List<Doctor> findAllByName(String name)
     {
         return doctorRepository.findAllByName(name);
     }
 
-    public List<Doctor> findAll()
+    public List<DoctorDTO> findAll()
     {
-        return doctorRepository.findAll();
+        List<Doctor> doctors = doctorRepository.findAll();
+
+        List<DoctorDTO> doctorsDTO = new ArrayList<>();
+        for(Doctor d : doctors)
+            doctorsDTO.add(new DoctorDTO(d));
+        return doctorsDTO;
     }
 
     public Doctor findById(Long id) { return doctorRepository.findById(id).orElseGet(null); }

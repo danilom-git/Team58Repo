@@ -13,6 +13,8 @@ public class CheckupTypeService {
     @Autowired
     private CheckupTypeRepository checkupTypeRepository;
 
+    public CheckupType findOne(Long id){return checkupTypeRepository.findById(id).orElseGet(null);}
+
     public List<CheckupType> findAll() { return checkupTypeRepository.findAll(); }
 
     public CheckupType findById(Long id) { return checkupTypeRepository.findById(id).orElseGet(null); }
