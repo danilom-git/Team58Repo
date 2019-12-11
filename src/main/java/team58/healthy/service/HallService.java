@@ -52,7 +52,7 @@ public class HallService {
                 hall.setId(hallDTO.getId());
             }
         }
-        return new HallDTO( hallRepository.save(hall));
+        return new HallDTO(hallRepository.save(hall));
     }
 
     public HallDTO save(HallDTO hallDTO){
@@ -60,6 +60,6 @@ public class HallService {
         hall.setName(hallDTO.getName());
         hall.setNumber(hallDTO.getNumber());
 
-        return new HallDTO( hallRepository.save(hall));
+        return new HallDTO(hallRepository.save(hall));
     }
 }
