@@ -56,8 +56,6 @@ public class HallController {
 
     @DeleteMapping(value = "/{id}")
     public ResponseEntity<Void> deleteHall(@PathVariable Long id){
-        System.out.println("ID ZA BRSIANJE" + id.toString());
-
         if(hallService.remove(id))
         {
             return new ResponseEntity<>(HttpStatus.OK);

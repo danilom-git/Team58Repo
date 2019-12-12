@@ -53,7 +53,6 @@ public class DoctorController {
 
     @DeleteMapping(value = "/{id}")
     public ResponseEntity<Void> deleteDoctor(@PathVariable Long id){
-            System.out.println("ID ZA BRSIANJE" + id.toString());
             if(doctorService.remove(id))
                 return new ResponseEntity<>(HttpStatus.OK);
             else
