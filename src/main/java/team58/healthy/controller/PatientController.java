@@ -18,6 +18,12 @@ public class PatientController {
     @Autowired
     private PatientService patientService;
 
+    @GetMapping(value = "/name:{name},lastName:{lastName},healthInsuranceId:{healthInsuranceId}")
+    public ResponseEntity<List<PatientDTO>> search(@PathVariable String name,@PathVariable String lastName,@PathVariable String healthInsuranceId)
+    {
+        return new ResponseEntity<>(patientService.search(name,lastName,healthInsuranceId),HttpStatus.OK);
+    }
+
     @GetMapping(value = "/id:{id}")
     public ResponseEntity<PatientDTO> getOne(@PathVariable Long id)
     {

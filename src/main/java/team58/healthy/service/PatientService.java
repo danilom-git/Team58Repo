@@ -15,6 +15,21 @@ public class PatientService {
     @Autowired
     private PatientRepository patientRepository;
 
+    public List<PatientDTO> search(String name, String lastName, String healthInsuranceId)
+    {
+        List<PatientDTO> ret = new ArrayList<>();
+        List<Patient> patients = patientRepository.searchAll(name,lastName,healthInsuranceId);
+
+        List<PatientDTO> dtos = new ArrayList<>();
+        for(Patient p : patients)
+        {
+            ret.add(new PatientDTO(p));
+        }
+
+        return ret;
+    }
+
+
     public List<PatientDTO> getAll()
     {
         List<Patient> patients = patientRepository.findAll();
