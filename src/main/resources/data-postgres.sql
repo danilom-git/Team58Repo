@@ -51,3 +51,5 @@ insert into clinic_checkup_type (clinic_id, checkup_type_id, price) values (1, 3
 insert into clinic_checkup_type (clinic_id, checkup_type_id, price) values (2, 1, 400);
 insert into clinic_checkup_type (clinic_id, checkup_type_id, price) values (2, 2, 450);
 insert into clinic_checkup_type (clinic_id, checkup_type_id, price) values (2, 3, 550);
+
+insert into clinic_admin (name,clinic_id) values('Djoda',1);

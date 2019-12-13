@@ -22,6 +22,8 @@ public class DoctorService {
     @Autowired
     private CheckupService checkupService;
 
+    @Autowired
+    private ClinicService clinicService;
 
     public DoctorDTO findOne(Long id)
     {
@@ -57,7 +59,7 @@ public class DoctorService {
         Doctor doctor = doctorRepository.findById(id).orElseGet(null);
 
         System.out.println(doctor.toString());
-        if(doctor != null && (doctor.getClinic() == null) && doctor.getCheckups().isEmpty())
+        if(doctor != null  && doctor.getCheckups().isEmpty())
         {
             doctorRepository.deleteById(id);
             return true;
@@ -75,6 +77,7 @@ public class DoctorService {
             if(!doctorDTO.getName().equals("") && !doctorDTO.getLastName().equals("") && doctorDTO.getWorkingTime() != 0) {
                 Doctor doctor = new Doctor();
                 doctor.setId(doctorDTO.getId());
+                doctor.setClinic(clinicService.findById(doctorDTO.getClinicId()));
                 doctor.setWorkingTime(doctorDTO.getWorkingTime());
                 doctor.setName(doctorDTO.getName());
                 doctor.setLastName(doctorDTO.getLastName());
@@ -92,12 +95,23 @@ public class DoctorService {
         doctor.setName(doctorDTO.getName());
         doctor.setLastName(doctorDTO.getLastName());
         doctor.setWorkingTime(doctorDTO.getWorkingTime());
+        doctor.setClinic(clinicService.findById(doctorDTO.getClinicId()));
 
         System.out.println(doctor.getName()+  doctor.getLastName() + doctor.getWorkingTime());
         return doctorRepository.save(doctor);//PROMENITI NA DTO
     }
 
     public List<Doctor> findAllByClinic(Long clinicId) { return doctorRepository.findAllByClinicId(clinicId); }
+
+    public List<DoctorDTO> findAllByClinicDTO(Long id){
+        List<Doctor> doctors = doctorRepository.findAllByClinicId(id);
+        List<DoctorDTO> dtos = new ArrayList<>();
+        for(Doctor d : doctors)
+        {
+            dtos.add(new DoctorDTO(d));
+        }
+        return dtos;
+    }
 
     public List<Doctor> findAllByClinicWithCheckupTypeOnDate(Long clinicId, Long checkupTypeId, Date date) {
         List<Doctor> doctors = findAllByClinicAndCheckupType(clinicId, checkupTypeId);

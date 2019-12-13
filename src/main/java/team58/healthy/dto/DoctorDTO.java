@@ -26,16 +26,16 @@ public class DoctorDTO {
     }
 
     public DoctorDTO(Doctor doctor) {
-        this.id  = doctor.getId();
+        this.id = doctor.getId();
         this.name = doctor.getName();
         this.lastName = doctor.getLastName();
         this.workingTime = doctor.getWorkingTime();
-        if(doctor.getClinic() != null) {
+        if (doctor.getClinic() != null) {
             this.clinicId = doctor.getClinic().getId();
             this.clinicName = doctor.getClinic().getName();
         }
 
-        if(doctor.getCheckupTypes() != null && doctor.getCheckups() != null) {
+        if (doctor.getCheckupTypes() != null && doctor.getCheckups() != null) {
             Set<CheckupType> checkupTypes = doctor.getCheckupTypes();
             this.checkupTypeIds = new ArrayList<>();
             for (CheckupType checkupType : checkupTypes)

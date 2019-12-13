@@ -35,6 +35,12 @@ public class DoctorController {
         return new ResponseEntity<>(doctorService.findAll(), HttpStatus.OK);
     }
 
+    @GetMapping(value = "/all/clinic:{id}")
+    public ResponseEntity<List<DoctorDTO>> getAllDoctorsByClinicId(@PathVariable Long id)
+    {
+        return new ResponseEntity<>(doctorService.findAllByClinicDTO(id), HttpStatus.OK);
+    }
+
     @PutMapping(consumes = "application/json")
     public ResponseEntity<DoctorDTO> updateDoctor(@RequestBody DoctorDTO doctorDTO)
     {

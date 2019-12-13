@@ -48,6 +48,12 @@ public class HallController {
         return new ResponseEntity<>(hallService.findAll(), HttpStatus.OK);
     }
 
+    @GetMapping(value = "/all/clinic:{id}")
+    public ResponseEntity<List<HallDTO>> getAllHallsByClinicId(@PathVariable Long id)
+    {
+        return new ResponseEntity<>(hallService.findAllByClinicId(id), HttpStatus.OK);
+    }
+
     @PostMapping(consumes = "application/json")
     public ResponseEntity<HallDTO> saveHall(@RequestBody HallDTO hallDTO){
         hallDTO = hallService.save(hallDTO);
