@@ -3,6 +3,7 @@ package team58.healthy.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import team58.healthy.dto.CheckupDTO;
 import team58.healthy.model.Checkup;
@@ -15,13 +16,13 @@ import java.util.List;
 
 @RestController
 @RequestMapping(value = "api/checkups")
-@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class CheckupController {
 
     @Autowired
     private CheckupService checkupService;
 
     @GetMapping(value = "/all")
+    @PreAuthorize("hasRole('DOCTOR') or hasRole('CLINIC_ADMIN')")
     public ResponseEntity<List<CheckupDTO>> getAllCheckups() {
         List<Checkup> checkups = checkupService.findAll();
         List<CheckupDTO> checkupDTOS = new ArrayList<>();
@@ -33,6 +34,7 @@ public class CheckupController {
     }
 
     @GetMapping(value = "/allOnDate/{y}-{m}-{d}")
+    @PreAuthorize("hasRole('DOCTOR') or hasRole('CLINIC_ADMIN')")
     public ResponseEntity<List<CheckupDTO>> getAllCheckupsOnDate(@PathVariable int y, @PathVariable int m, @PathVariable int d) {
         Calendar cal = Calendar.getInstance();
         cal.clear();

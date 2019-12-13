@@ -3,6 +3,7 @@ package team58.healthy.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import team58.healthy.dto.ClinicDTO;
 import team58.healthy.dto.DoctorDTO;
@@ -17,25 +18,27 @@ import java.util.List;
 
 @RestController
 @RequestMapping(value = "api/doctors")
-@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class DoctorController {
 
     @Autowired
     private DoctorService doctorService;
 
     @GetMapping(value = "/{id}")
+    @PreAuthorize("hasRole('PATIENT') or hasRole('DOCTOR') or hasRole('CLINIC_ADMIN')")
     public ResponseEntity<DoctorDTO> getDoctor(@PathVariable Long id){
         DoctorDTO ret = doctorService.findOne(id);
         return new ResponseEntity<>(ret,HttpStatus.OK);
     }
 
     @GetMapping(value = "/all")
+    @PreAuthorize("hasRole('PATIENT') or hasRole('DOCTOR') or hasRole('CLINIC_ADMIN')")
     public ResponseEntity<List<DoctorDTO>> getAllDoctors()
     {
         return new ResponseEntity<>(doctorService.findAll(), HttpStatus.OK);
     }
 
     @PutMapping(consumes = "application/json")
+    @PreAuthorize("hasRole('DOCTOR') or hasRole('CLINIC_ADMIN')")
     public ResponseEntity<DoctorDTO> updateDoctor(@RequestBody DoctorDTO doctorDTO)
     {
         DoctorDTO ret = doctorService.update(doctorDTO);
@@ -47,12 +50,14 @@ public class DoctorController {
     }
 
     @PostMapping(consumes = "application/json")
+    @PreAuthorize("hasRole('CLINIC_ADMIN')")
     public ResponseEntity<DoctorDTO> saveDoctor(@RequestBody DoctorDTO doctorDTO){
         Doctor doctor = doctorService.save(doctorDTO);
         return new ResponseEntity<>(new DoctorDTO(doctor),HttpStatus.CREATED);
     }
 
     @DeleteMapping(value = "/{id}")
+    @PreAuthorize("hasRole('CLINIC_ADMIN')")
     public ResponseEntity<Void> deleteDoctor(@PathVariable Long id){
             System.out.println("ID ZA BRSIANJE" + id.toString());
             if(doctorService.remove(id))
@@ -62,6 +67,7 @@ public class DoctorController {
     }
 
     @GetMapping(value = "/clinic:{clinicId}")
+    @PreAuthorize("hasRole('PATIENT') or hasRole('DOCTOR') or hasRole('CLINIC_ADMIN')")
     public ResponseEntity<List<DoctorDTO>> getAllInClinicWithCheckupType(@PathVariable Long clinicId) {
         List<Doctor> doctors = doctorService.findAllByClinic(clinicId);
 
@@ -72,6 +78,7 @@ public class DoctorController {
     }
 
     @GetMapping(value = "/clinic:{clinicId}/checkupType:{checkupTypeId}")
+    @PreAuthorize("hasRole('PATIENT') or hasRole('DOCTOR') or hasRole('CLINIC_ADMIN')")
     public ResponseEntity<List<DoctorDTO>> getAllInClinicWithCheckupType(
             @PathVariable Long clinicId, @PathVariable Long checkupTypeId) {
         List<Doctor> doctors = doctorService.findAllByClinicAndCheckupType(clinicId, checkupTypeId);
@@ -83,6 +90,7 @@ public class DoctorController {
     }
 
     @GetMapping(value = "/clinic:{clinicId}/checkupType:{checkupTypeId}/date:{y}-{m}-{d}")
+    @PreAuthorize("hasRole('PATIENT') or hasRole('DOCTOR') or hasRole('CLINIC_ADMIN')")
     public ResponseEntity<List<DoctorWithAvailableTimeDTO>> getAllInClinicWithCheckupTypeOnDate(
             @PathVariable Long clinicId, @PathVariable Long checkupTypeId, @PathVariable int y, @PathVariable int m, @PathVariable int d) {
         Calendar cal = Calendar.getInstance();
