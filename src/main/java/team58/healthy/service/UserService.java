@@ -9,6 +9,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import team58.healthy.model.ClinicAdmin;
+import team58.healthy.model.Doctor;
 import team58.healthy.model.ExtendedUserDetails;
 import team58.healthy.model.Patient;
 
@@ -17,7 +19,11 @@ public class UserService implements UserDetailsService {
 
     @Autowired
     private PatientService patientService;
-    // TODO: add other required services
+    @Autowired
+    private DoctorService doctorService;
+    @Autowired
+    private ClinicAdminService clinicAdminService;
+
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -28,12 +34,19 @@ public class UserService implements UserDetailsService {
 
     @Override
     public ExtendedUserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        // TODO: add calls to other services
         Patient patient = patientService.findByEmail(email);
-        if (patient == null)
-            throw new UsernameNotFoundException(String.format("No patient with email: %s", email));
-        else
+        if (patient != null)
             return patient;
+
+        Doctor doctor = doctorService.findByEmail(email);
+        if (doctor != null)
+            return doctor;
+
+        ClinicAdmin clinicAdmin = clinicAdminService.findByEmail(email);
+        if (clinicAdmin != null)
+            return clinicAdmin;
+
+        throw new UsernameNotFoundException(String.format("No user with email: %s", email));
     }
 
     public void changePassword(String oldPassword, String newPassword) {

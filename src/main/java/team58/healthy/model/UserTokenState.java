@@ -3,6 +3,8 @@ package team58.healthy.model;
 public class UserTokenState {
     private String token;
     private Long expiresIn;
+    private String userType;
+    private String userId;
 
     public UserTokenState() {}
 

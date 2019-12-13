@@ -2,8 +2,6 @@ package team58.healthy.service;
 
 import javafx.util.Pair;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import team58.healthy.dto.DoctorDTO;
 import team58.healthy.model.Checkup;
@@ -99,6 +97,8 @@ public class DoctorService {
         return doctorRepository.save(doctor);//PROMENITI NA DTO
     }
 
+    public Doctor save(Doctor doctor) { return doctorRepository.save(doctor); }
+
     public List<Doctor> findAllByClinic(Long clinicId) { return doctorRepository.findAllByClinicId(clinicId); }
 
     public List<Doctor> findAllByClinicWithCheckupTypeOnDate(Long clinicId, Long checkupTypeId, Date date) {
@@ -171,4 +171,6 @@ public class DoctorService {
 
         return free;
     }
+
+    public Doctor findByEmail(String email) { return doctorRepository.findByEmail(email); }
 }
