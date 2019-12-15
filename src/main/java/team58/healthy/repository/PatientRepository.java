@@ -1,6 +1,7 @@
 package team58.healthy.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import team58.healthy.model.Patient;
 import org.springframework.data.jpa.repository.Query;
 import team58.healthy.dto.PatientDTO;
 import team58.healthy.model.Doctor;
@@ -8,7 +9,9 @@ import team58.healthy.model.Patient;
 
 import java.util.List;
 
-public interface PatientRepository extends JpaRepository<Patient,Long> {
+public interface PatientRepository extends JpaRepository<Patient, Long> {
+
+    Patient findByEmail(String email);
 
     List<Patient> findAllByName(String name);
     List<Patient> findAllByLastName(String lastName);

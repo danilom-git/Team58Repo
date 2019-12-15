@@ -81,6 +81,7 @@ public class DoctorService {
                 doctor.setWorkingTime(doctorDTO.getWorkingTime());
                 doctor.setName(doctorDTO.getName());
                 doctor.setLastName(doctorDTO.getLastName());
+                doctor.setEmail(doctorDTO.getEmail());
                 return new DoctorDTO( doctorRepository.save(doctor));
             }
 
@@ -96,8 +97,7 @@ public class DoctorService {
         doctor.setLastName(doctorDTO.getLastName());
         doctor.setWorkingTime(doctorDTO.getWorkingTime());
         doctor.setClinic(clinicService.findById(doctorDTO.getClinicId()));
-
-        System.out.println(doctor.getName()+  doctor.getLastName() + doctor.getWorkingTime());
+        doctor.setEmail(doctorDTO.getEmail());
         return doctorRepository.save(doctor);//PROMENITI NA DTO
     }
 

@@ -19,6 +19,9 @@ public class Doctor {
     private String lastName;
 
     @Column
+    private String email;
+
+    @Column
     private int workingTime;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
@@ -95,5 +98,13 @@ public class Doctor {
 
     public void setWorkingTime(int workingTime) {
         this.workingTime = workingTime;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }
