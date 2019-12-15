@@ -8,9 +8,9 @@ insert into hall (name,number , clinic_id) values ('Hall_A','201', 2);
 insert into hall (name,number , clinic_id) values ('Hall_B','202', 2);
 insert into hall (name,number , clinic_id) values ('Hall_C','203', 2);
 
-insert into doctor (name, last_name,working_time, clinic_id) values ('Name_A', 'Last_Name_A',5, 1);
-insert into doctor (name, last_name,working_time, clinic_id) values ('Name_B', 'Last_Name_B',6, 1);
-insert into doctor (name, last_name,working_time, clinic_id) values ('Name_C', 'Last_Name_B',7, 2);
+insert into doctor (name, last_name,email,working_time, clinic_id) values ('Name_A', 'Last_Name_A','email1@gmail.com',5, 1);
+insert into doctor (name, last_name,email,working_time, clinic_id) values ('Name_B', 'Last_Name_B','email2@gmail.com',6, 1);
+insert into doctor (name, last_name,email,working_time, clinic_id) values ('Name_C', 'Last_Name_B','email3@gmail.com',7, 2);
 
 insert into checkup_type (name) values ('Checkup_Type_A');
 insert into checkup_type (name) values ('Checkup_Type_B');
