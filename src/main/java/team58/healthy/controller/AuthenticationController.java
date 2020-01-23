@@ -11,9 +11,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import team58.healthy.model.Authority;
+import team58.healthy.dto.TokenDTO;
 import team58.healthy.model.ExtendedUserDetails;
-import team58.healthy.model.UserTokenState;
 import team58.healthy.security.TokenUtils;
 import team58.healthy.security.auth.JwtAuthenticationRequest;
 import team58.healthy.service.AuthorityService;
@@ -21,7 +20,6 @@ import team58.healthy.service.UserService;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.List;
 
 @RestController
 @RequestMapping(value = "auth")
@@ -51,8 +49,9 @@ public class AuthenticationController {
         ExtendedUserDetails extendedUserDetails = (ExtendedUserDetails)authentication.getPrincipal();
         String jwt = tokenUtils.generateToken(extendedUserDetails.getUsername());
         Long expiresIn = tokenUtils.getExpiresIn();
+        String userType = userService.findUserType(tokenUtils.getUsernameFromToken(jwt));
 
-        return ResponseEntity.ok(new UserTokenState(jwt, expiresIn));
+        return ResponseEntity.ok(new TokenDTO(jwt, expiresIn, userType));
     }
 
 }

@@ -35,18 +35,41 @@ public class UserService implements UserDetailsService {
     @Override
     public ExtendedUserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         Patient patient = patientService.findByEmail(email);
-        if (patient != null)
+        if (patient != null) {
+            System.out.println("Found patient.");
             return patient;
+        }
+
+        Doctor doctor = doctorService.findByEmail(email);
+        if (doctor != null) {
+            System.out.println("Found doctor.");
+            return doctor;
+        }
+
+        ClinicAdmin clinicAdmin = clinicAdminService.findByEmail(email);
+        if (clinicAdmin != null) {
+            System.out.println("Found clinic admin.");
+            return clinicAdmin;
+        }
+
+        System.out.println("Found no matching user.");
+        throw new UsernameNotFoundException(String.format("No user with email: %s", email));
+    }
+
+    public String findUserType(String email) {
+        Patient patient = patientService.findByEmail(email);
+        if (patient != null)
+            return "patient";
 
         Doctor doctor = doctorService.findByEmail(email);
         if (doctor != null)
-            return doctor;
+            return "doctor";
 
         ClinicAdmin clinicAdmin = clinicAdminService.findByEmail(email);
         if (clinicAdmin != null)
-            return clinicAdmin;
+            return "clinicAdmin";
 
-        throw new UsernameNotFoundException(String.format("No user with email: %s", email));
+        return "";
     }
 
     public void changePassword(String oldPassword, String newPassword) {

@@ -1,16 +1,16 @@
-package team58.healthy.model;
+package team58.healthy.dto;
 
-public class UserTokenState {
+public class TokenDTO {
     private String token;
     private Long expiresIn;
     private String userType;
-    private String userId;
 
-    public UserTokenState() {}
+    public TokenDTO() {}
 
-    public UserTokenState(String token, Long expiresIn) {
+    public TokenDTO(String token, Long expiresIn, String userType) {
         this.token = token;
         this.expiresIn = expiresIn;
+        this.userType = userType;
     }
 
     public String getToken() {
@@ -27,5 +27,13 @@ public class UserTokenState {
 
     public void setExpiresIn(Long expiresIn) {
         this.expiresIn = expiresIn;
+    }
+
+    public String getUserType() {
+        return userType;
+    }
+
+    public void setUserType(String userType) {
+        this.userType = userType;
     }
 }
