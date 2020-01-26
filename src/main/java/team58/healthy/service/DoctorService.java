@@ -61,6 +61,9 @@ public class DoctorService {
         System.out.println(doctor.toString());
         if(doctor != null  && doctor.getCheckups().isEmpty())
         {
+            doctor.setClinic(null);
+            doctor.setCheckups(null);
+            doctor.setCheckupTypes(null);
             doctorRepository.deleteById(id);
             return true;
         }else

@@ -62,7 +62,7 @@ public class DoctorController {
             if(doctorService.remove(id))
                 return new ResponseEntity<>(HttpStatus.OK);
             else
-                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+                return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
     @GetMapping(value = "/clinic:{clinicId}")

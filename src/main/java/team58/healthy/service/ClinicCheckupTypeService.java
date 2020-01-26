@@ -13,6 +13,7 @@ public class ClinicCheckupTypeService {
     @Autowired
     private ClinicCheckupTypeRepository clinicCheckupTypeRepository;
 
+
     public ClinicCheckupType findByClinicAndCheckupTypeId(Clinic clinic, Long checkupTypeId) {
         return clinicCheckupTypeRepository.findByClinicAndCheckupTypeId(clinic, checkupTypeId);
     }

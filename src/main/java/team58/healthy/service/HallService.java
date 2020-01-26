@@ -3,6 +3,7 @@ package team58.healthy.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import team58.healthy.dto.HallDTO;
+import team58.healthy.model.Checkup;
 import team58.healthy.model.Hall;
 import team58.healthy.repository.HallRepository;
 
@@ -13,6 +14,9 @@ import java.util.List;
 public class HallService {
     @Autowired
     private HallRepository hallRepository;
+
+    @Autowired
+    private CheckupService checkupService;
 
     @Autowired
     private ClinicService clinicService;
@@ -47,12 +51,17 @@ public class HallService {
         Hall hall = hallRepository.findById(id).orElseGet(null);
         if(hall != null )
         {
-           hallRepository.deleteById(id);
-           return true;
+           List<Checkup> checkupHalls = checkupService.findAllByHall(hall.getId());
+           if(checkupHalls.isEmpty()) {
+               hall.setClinic(null);
+               hallRepository.deleteById(id);
+               return true;
+           }
+            hallRepository.deleteById(id);
+
+            return false;
         }else
             return false;
-
-
     }
 
     public HallDTO update(HallDTO hallDTO)
