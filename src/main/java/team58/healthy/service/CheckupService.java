@@ -26,4 +26,10 @@ public class CheckupService {
     }
 
     public List<Checkup> findAllByHall(Long id){return checkupRepository.findAllByHall(id);}
+
+    public List<Checkup> findForOneClick (Date start,Date end,Long idd,Long idh)
+    {
+        return checkupRepository.findAllByDateAndDoctor(start,end,idd,idh);
+    }
+
 }

@@ -30,7 +30,9 @@ public class OneClickControler {
     public ResponseEntity<OneClickDTO> postOneClick(@RequestBody OneClickDTO oneClickDTO)
     {
         OneClickDTO ret = oneClickService.save(oneClickDTO);
-        return new ResponseEntity<>(ret, HttpStatus.OK);
+        if(ret != null)
+            return new ResponseEntity<>(ret, HttpStatus.OK);
+        else
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
-
 }

@@ -17,7 +17,7 @@ public class OneClickDTO {
     private Long id;
     private Date startTime;
     private Date endTime;
-    private int duration;
+    private String duration;
     private double price;
 
     private Long clinicId;
@@ -52,7 +52,7 @@ public class OneClickDTO {
         return endTime;
     }
 
-    public int getDuration() {
+    public String getDuration() {
         return duration;
     }
 
@@ -88,7 +88,7 @@ public class OneClickDTO {
         this.endTime = endTime;
     }
 
-    public void setDuration(int duration) {
+    public void setDuration(String duration) {
         this.duration = duration;
     }
 
