@@ -4,8 +4,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import team58.healthy.dto.OneClickDTO;
+import team58.healthy.dto.OneClickViewDTO;
 import team58.healthy.model.OneClick;
 import team58.healthy.service.OneClickService;
 
@@ -22,7 +24,7 @@ public class OneClickControler {
 
     @GetMapping(value = "/all")
     @PreAuthorize("hasRole('PATIENT') or hasRole('DOCTOR') or hasRole('CLINIC_ADMIN')")
-    public ResponseEntity<List<OneClickDTO>> getAll()
+    public ResponseEntity<List<OneClickViewDTO>> getAll()
     {
         return new ResponseEntity<>(oneClickService.findAll(),HttpStatus.OK);
     }
@@ -32,7 +34,9 @@ public class OneClickControler {
     public ResponseEntity<OneClickDTO> postOneClick(@RequestBody OneClickDTO oneClickDTO)
     {
         OneClickDTO ret = oneClickService.save(oneClickDTO);
-        return new ResponseEntity<>(ret, HttpStatus.OK);
+        if(ret != null)
+            return new ResponseEntity<>(ret, HttpStatus.OK);
+        else
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
-
 }

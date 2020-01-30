@@ -51,6 +51,12 @@ public class HallController {
         return new ResponseEntity<>(hallService.findAll(), HttpStatus.OK);
     }
 
+    @GetMapping(value = "/all/clinic:{id}")
+    public ResponseEntity<List<HallDTO>> getAllHallsByClinicId(@PathVariable Long id)
+    {
+        return new ResponseEntity<>(hallService.findAllByClinicId(id), HttpStatus.OK);
+    }
+
     @PostMapping(consumes = "application/json")
     @PreAuthorize("hasRole('CLINIC_ADMIN')")
     public ResponseEntity<HallDTO> saveHall(@RequestBody HallDTO hallDTO){
@@ -61,8 +67,6 @@ public class HallController {
     @DeleteMapping(value = "/{id}")
     @PreAuthorize("hasRole('CLINIC_ADMIN')")
     public ResponseEntity<Void> deleteHall(@PathVariable Long id){
-        System.out.println("ID ZA BRSIANJE" + id.toString());
-
         if(hallService.remove(id))
         {
             return new ResponseEntity<>(HttpStatus.OK);

@@ -20,6 +20,8 @@ public class DoctorService {
     @Autowired
     private CheckupService checkupService;
 
+    @Autowired
+    private ClinicService clinicService;
 
     public DoctorDTO findOne(Long id)
     {
@@ -57,8 +59,11 @@ public class DoctorService {
         Doctor doctor = doctorRepository.findById(id).orElseGet(null);
 
         System.out.println(doctor.toString());
-        if(doctor != null && (doctor.getClinic() == null) && doctor.getCheckups().isEmpty())
+        if(doctor != null  && doctor.getCheckups().isEmpty())
         {
+            doctor.setClinic(null);
+            doctor.setCheckups(null);
+            doctor.setCheckupTypes(null);
             doctorRepository.deleteById(id);
             return true;
         }else
@@ -75,9 +80,11 @@ public class DoctorService {
             if(!doctorDTO.getName().equals("") && !doctorDTO.getLastName().equals("") && doctorDTO.getWorkingTime() != 0) {
                 Doctor doctor = new Doctor();
                 doctor.setId(doctorDTO.getId());
+                doctor.setClinic(clinicService.findById(doctorDTO.getClinicId()));
                 doctor.setWorkingTime(doctorDTO.getWorkingTime());
                 doctor.setName(doctorDTO.getName());
                 doctor.setLastName(doctorDTO.getLastName());
+                doctor.setEmail(doctorDTO.getEmail());
                 return new DoctorDTO( doctorRepository.save(doctor));
             }
 
@@ -92,14 +99,24 @@ public class DoctorService {
         doctor.setName(doctorDTO.getName());
         doctor.setLastName(doctorDTO.getLastName());
         doctor.setWorkingTime(doctorDTO.getWorkingTime());
-
-        System.out.println(doctor.getName()+  doctor.getLastName() + doctor.getWorkingTime());
+        doctor.setClinic(clinicService.findById(doctorDTO.getClinicId()));
+        doctor.setEmail(doctorDTO.getEmail());
         return doctorRepository.save(doctor);//PROMENITI NA DTO
     }
 
     public Doctor save(Doctor doctor) { return doctorRepository.save(doctor); }
 
     public List<Doctor> findAllByClinic(Long clinicId) { return doctorRepository.findAllByClinicId(clinicId); }
+
+    public List<DoctorDTO> findAllByClinicDTO(Long id){
+        List<Doctor> doctors = doctorRepository.findAllByClinicId(id);
+        List<DoctorDTO> dtos = new ArrayList<>();
+        for(Doctor d : doctors)
+        {
+            dtos.add(new DoctorDTO(d));
+        }
+        return dtos;
+    }
 
     public List<Doctor> findAllByClinicWithCheckupTypeOnDate(Long clinicId, Long checkupTypeId, Date date) {
         List<Doctor> doctors = findAllByClinicAndCheckupType(clinicId, checkupTypeId);

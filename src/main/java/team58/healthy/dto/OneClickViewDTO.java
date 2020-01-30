@@ -1,43 +1,37 @@
 package team58.healthy.dto;
 
-import team58.healthy.model.CheckupType;
-import team58.healthy.model.Doctor;
-import team58.healthy.model.Hall;
 import team58.healthy.model.OneClick;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.FetchType;
-import javax.persistence.ManyToOne;
-import java.time.Duration;
 import java.util.Date;
 
-public class OneClickDTO {
+public class OneClickViewDTO {
 
     private Long id;
     private Date startTime;
     private Date endTime;
     private String duration;
     private double price;
-
     private Long clinicId;
-    private Long checkupTypeId;
-    private Long hallId;
-    private Long doctorId;
+    private String checkupType;
+    private String hallNumber;
+    private String doctorName;
+    private String doctorLastName;
 
+    public OneClickViewDTO() {
+    }
 
-    public OneClickDTO() { }
-
-    public OneClickDTO(OneClick oneClick) {
+    public OneClickViewDTO(OneClick oneClick) {
         this.id = oneClick.getId();
         this.startTime = oneClick.getStartTime();
         this.endTime = oneClick.getEndTime();
         this.duration = oneClick.getDuration();
         this.price = oneClick.getPrice();
         this.clinicId = oneClick.getClinic().getId();
-        this.checkupTypeId = oneClick.getCheckupType().getId();
-        this.hallId = oneClick.getHall().getId();
-        this.doctorId = oneClick.getDoctor().getId();
+
+        this.checkupType = oneClick.getCheckupType().getName();
+        this.hallNumber = oneClick.getHall().getNumber();
+        this.doctorName = oneClick.getDoctor().getName();
+        this.doctorLastName = oneClick.getDoctor().getLastName();
     }
 
     public Long getId() {
@@ -64,16 +58,20 @@ public class OneClickDTO {
         return clinicId;
     }
 
-    public Long getCheckupTypeId() {
-        return checkupTypeId;
+    public String getCheckupType() {
+        return checkupType;
     }
 
-    public Long getHallId() {
-        return hallId;
+    public String getHallNumber() {
+        return hallNumber;
     }
 
-    public Long getDoctorId() {
-        return doctorId;
+    public String getDoctorName() {
+        return doctorName;
+    }
+
+    public String getDoctorLastName() {
+        return doctorLastName;
     }
 
     public void setId(Long id) {
@@ -100,15 +98,19 @@ public class OneClickDTO {
         this.clinicId = clinicId;
     }
 
-    public void setCheckupTypeId(Long checkupTypeId) {
-        this.checkupTypeId = checkupTypeId;
+    public void setCheckupType(String checkupType) {
+        this.checkupType = checkupType;
     }
 
-    public void setHallId(Long hallId) {
-        this.hallId = hallId;
+    public void setHallNumber(String hallNumber) {
+        this.hallNumber = hallNumber;
     }
 
-    public void setDoctorId(Long doctorId) {
-        this.doctorId = doctorId;
+    public void setDoctorName(String doctorName) {
+        this.doctorName = doctorName;
+    }
+
+    public void setDoctorLastName(String doctorLastName) {
+        this.doctorLastName = doctorLastName;
     }
 }

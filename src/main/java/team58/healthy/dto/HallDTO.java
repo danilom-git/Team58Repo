@@ -6,6 +6,7 @@ public class HallDTO {
     private Long id;
     private String name;
     private String number;
+    private Long clinicId;
 
     public HallDTO()
     {
@@ -17,6 +18,7 @@ public class HallDTO {
         this.id = hall.getId();
         this.name = hall.getName();
         this.number = hall.getNumber();
+        this.clinicId = hall.getClinic().getId();
     }
 
     public Long getId() {
@@ -33,6 +35,14 @@ public class HallDTO {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Long getClinicId() {
+        return clinicId;
+    }
+
+    public void setClinicId(Long clinicId) {
+        this.clinicId = clinicId;
     }
 
     public String getNumber() {

@@ -25,6 +25,9 @@ insert into doctor (name, last_name, working_time, clinic_id, email, password, l
 
 insert into clinic_admin (email, password, name, last_name, authority_id, last_password_reset_date) values
     ('clinicAdmin01@somemail.com', '$2a$10$j8XGgt8oCja0ioWD/JK0C.iL22NKpW3n40THQBnjxO7E4h.qyT0Fu', 'Name_A', 'Last_Name_A', 3, to_timestamp('2019 12 10 7:00', 'YYYY MM DD HH24 MI'));
+insert into doctor (name, last_name,email,working_time, clinic_id) values ('Name_A', 'Last_Name_A','email1@gmail.com',5, 1);
+insert into doctor (name, last_name,email,working_time, clinic_id) values ('Name_B', 'Last_Name_B','email2@gmail.com',6, 1);
+insert into doctor (name, last_name,email,working_time, clinic_id) values ('Name_C', 'Last_Name_B','email3@gmail.com',7, 2);
 
 insert into checkup_type (name) values ('Checkup_Type_A');
 insert into checkup_type (name) values ('Checkup_Type_B');
@@ -56,13 +59,13 @@ insert into doctor_checkup_types (doctor_id, checkup_types_id) values (3, 3);
 
 -- MM (01 - 12)
 insert into checkup (start_date, end_date, checkup_type_id, doctor_id, hall_id, patient_id) values
-    (to_timestamp('2019 12 30 7:00', 'YYYY MM DD HH24 MI'), to_timestamp('2019 12 30 15:00', 'YYYY MM DD HH24 MI'), 1, 1, 1, 1);
+    (to_timestamp('2020 2 15 7:00', 'YYYY MM DD HH24 MI'), to_timestamp('2020 2 15 10:00', 'YYYY MM DD HH24 MI'), 1, 1, 1, 1);
 insert into checkup (start_date, end_date, checkup_type_id, doctor_id, hall_id, patient_id) values
-    (to_timestamp('2019 12 30 8:00', 'YYYY MM DD HH24 MI'), to_timestamp('2019 12 30 10:00', 'YYYY MM DD HH24 MI'), 2, 2, 1, 1);
+    (to_timestamp('2020 2 15 8:00', 'YYYY MM DD HH24 MI'), to_timestamp('2020 2 15 12:00', 'YYYY MM DD HH24 MI'), 2, 2, 2, 1);
 insert into checkup (start_date, end_date, checkup_type_id, doctor_id, hall_id, patient_id) values
-    (to_timestamp('2019 12 30 12:00', 'YYYY MM DD HH24 MI'), to_timestamp('2019 12 30 14:00', 'YYYY MM DD HH24 MI'), 2, 2, 1, 1);
+    (to_timestamp('2020 2 16 12:00', 'YYYY MM DD HH24 MI'), to_timestamp('2020 2 16 14:00', 'YYYY MM DD HH24 MI'), 2, 2, 1, 1);
 insert into checkup (start_date, end_date, checkup_type_id, doctor_id, hall_id, patient_id) values
-    (to_timestamp('2019 12 31 7:00', 'YYYY MM DD HH24 MI'), to_timestamp('2019 12 31 13:00', 'YYYY MM DD HH24 MI'), 1, 1, 1, 1);
+    (to_timestamp('2020 2 16 10:00', 'YYYY MM DD HH24 MI'), to_timestamp('2020 2 16 13:00', 'YYYY MM DD HH24 MI'), 1, 1, 2, 1);
 
 insert into clinic_checkup_type (clinic_id, checkup_type_id, price) values (1, 1, 250);
 insert into clinic_checkup_type (clinic_id, checkup_type_id, price) values (1, 2, 300);
@@ -71,6 +74,7 @@ insert into clinic_checkup_type (clinic_id, checkup_type_id, price) values (2, 1
 insert into clinic_checkup_type (clinic_id, checkup_type_id, price) values (2, 2, 450);
 insert into clinic_checkup_type (clinic_id, checkup_type_id, price) values (2, 3, 550);
 
+insert into clinic_admin (name,clinic_id) values('Djoda',1);
 
 
 

@@ -37,6 +37,12 @@ public class DoctorController {
         return new ResponseEntity<>(doctorService.findAll(), HttpStatus.OK);
     }
 
+    @GetMapping(value = "/all/clinic:{id}")
+    public ResponseEntity<List<DoctorDTO>> getAllDoctorsByClinicId(@PathVariable Long id)
+    {
+        return new ResponseEntity<>(doctorService.findAllByClinicDTO(id), HttpStatus.OK);
+    }
+
     @PutMapping(consumes = "application/json")
     @PreAuthorize("hasRole('DOCTOR') or hasRole('CLINIC_ADMIN')")
     public ResponseEntity<DoctorDTO> updateDoctor(@RequestBody DoctorDTO doctorDTO)
@@ -46,7 +52,6 @@ public class DoctorController {
             return new ResponseEntity<>(ret,HttpStatus.OK);
         else
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-
     }
 
     @PostMapping(consumes = "application/json")
@@ -59,11 +64,10 @@ public class DoctorController {
     @DeleteMapping(value = "/{id}")
     @PreAuthorize("hasRole('CLINIC_ADMIN')")
     public ResponseEntity<Void> deleteDoctor(@PathVariable Long id){
-            System.out.println("ID ZA BRSIANJE" + id.toString());
             if(doctorService.remove(id))
                 return new ResponseEntity<>(HttpStatus.OK);
             else
-                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+                return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
     @GetMapping(value = "/clinic:{clinicId}")

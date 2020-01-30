@@ -172,4 +172,5 @@ public class Doctor implements ExtendedUserDetails{
     public boolean isEnabled() {
         return true;
     }
+
 }
