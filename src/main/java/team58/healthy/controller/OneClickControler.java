@@ -5,6 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import team58.healthy.dto.OneClickDTO;
+import team58.healthy.dto.OneClickViewDTO;
 import team58.healthy.model.OneClick;
 import team58.healthy.service.OneClickService;
 
@@ -21,7 +22,7 @@ public class OneClickControler {
     private OneClickService oneClickService;
 
     @GetMapping(value = "/all")
-    public ResponseEntity<List<OneClickDTO>> getAll()
+    public ResponseEntity<List<OneClickViewDTO>> getAll()
     {
         return new ResponseEntity<>(oneClickService.findAll(),HttpStatus.OK);
     }

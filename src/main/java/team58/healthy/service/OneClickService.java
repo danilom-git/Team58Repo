@@ -3,6 +3,7 @@ package team58.healthy.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import team58.healthy.dto.OneClickDTO;
+import team58.healthy.dto.OneClickViewDTO;
 import team58.healthy.model.Checkup;
 import team58.healthy.model.OneClick;
 import team58.healthy.repository.OneClickRepository;
@@ -31,13 +32,13 @@ public class OneClickService {
     @Autowired
     private CheckupService checkupService;
 
-    public List<OneClickDTO> findAll()
+    public List<OneClickViewDTO> findAll()
     {
         List<OneClick> oneClicks = oneClickRepository.findAll();
-        List<OneClickDTO> dtos = new ArrayList<OneClickDTO>();
+        List<OneClickViewDTO> dtos = new ArrayList<OneClickViewDTO>();
         for(OneClick o : oneClicks)
         {
-            dtos.add(new OneClickDTO(o));
+            dtos.add(new OneClickViewDTO(o));
         }
         return dtos;
     }

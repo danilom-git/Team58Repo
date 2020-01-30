@@ -21,7 +21,7 @@ public class CheckupController {
     @Autowired
     private CheckupService checkupService;
 
-    @GetMapping(value = "/{y1}:{m1}:{d1}:{h1}:{s1},{y2}:{m2}:{d2}:{h2}:{s2},{id1},{id2}")
+    /*@GetMapping(value = "/{y1}:{m1}:{d1}:{h1}:{s1},{y2}:{m2}:{d2}:{h2}:{s2},{id1},{id2}")
     public ResponseEntity<List<CheckupDTO>> getShit(@PathVariable int y1, @PathVariable int m1, @PathVariable int d1,@PathVariable int h1,@PathVariable int s1,@PathVariable int y2, @PathVariable int m2, @PathVariable int d2,@PathVariable int h2,@PathVariable int s2,@PathVariable Long id1,@PathVariable Long id2){
         Calendar c = Calendar.getInstance();
         c.set(y1,m1-1,d1,h1,s1);
@@ -37,7 +37,7 @@ public class CheckupController {
         }
 
         return new ResponseEntity<>(checkupDTOS,HttpStatus.OK);
-    }
+    }*/
 
     @GetMapping(value = "/all")
     public ResponseEntity<List<CheckupDTO>> getAllCheckups() {
