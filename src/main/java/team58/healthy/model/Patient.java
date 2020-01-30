@@ -194,4 +194,20 @@ public class Patient implements ExtendedUserDetails {
                 ", lastPasswordResetDate=" + lastPasswordResetDate +
                 '}';
     }
+
+    public Patient() { }
+
+    public Patient(RegistrationRequest request, Authority authority) {
+        this.healthInsuranceId = request.getHealthInsuranceId();
+        this.email = request.getEmail();
+        this.password = request.getPassword();
+        this.name = request.getName();
+        this.lastName = request.getLastName();
+        this.address = request.getAddress();
+        this.city = request.getCity();
+        this.country = request.getCountry();
+        this.phoneNumber = request.getPhoneNumber();
+        this.authority = authority;
+        this.lastPasswordResetDate = new Date();
+    }
 }

@@ -11,6 +11,10 @@ insert into hall (name,number , clinic_id) values ('Hall_C','203', 2);
 insert into authority (name) values ('ROLE_PATIENT');
 insert into authority (name) values ('ROLE_DOCTOR');
 insert into authority (name) values ('ROLE_CLINIC_ADMIN');
+insert into authority (name) values ('ROLE_CLINIC_CENTER_ADMIN');
+
+insert into clinic_center_admin (email, last_password_reset_date, password, authority_id) values ('bigboy@somemail.com',
+    to_timestamp('2019 12 10 7:00', 'YYYY MM DD HH24 MI'), '$2a$10$j8XGgt8oCja0ioWD/JK0C.iL22NKpW3n40THQBnjxO7E4h.qyT0Fu', 4);
 
 insert into doctor (name, last_name, working_time, clinic_id, email, password, last_password_reset_date, authority_id) values ('Name_A', 'Last_Name_A', 5, 1,
     'doctor01@somemail.com', '$2a$10$j8XGgt8oCja0ioWD/JK0C.iL22NKpW3n40THQBnjxO7E4h.qyT0Fu', to_timestamp('2019 12 10 7:00', 'YYYY MM DD HH24 MI'), '2');

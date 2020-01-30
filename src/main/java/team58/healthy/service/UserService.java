@@ -9,10 +9,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import team58.healthy.model.ClinicAdmin;
-import team58.healthy.model.Doctor;
-import team58.healthy.model.ExtendedUserDetails;
-import team58.healthy.model.Patient;
+import team58.healthy.model.*;
 
 @Service
 public class UserService implements UserDetailsService {
@@ -23,6 +20,8 @@ public class UserService implements UserDetailsService {
     private DoctorService doctorService;
     @Autowired
     private ClinicAdminService clinicAdminService;
+    @Autowired
+    private ClinicCenterAdminService clinicCenterAdminService;
 
 
     @Autowired
@@ -52,6 +51,12 @@ public class UserService implements UserDetailsService {
             return clinicAdmin;
         }
 
+        ClinicCenterAdmin clinicCenterAdmin = clinicCenterAdminService.findByEmail(email);
+        if (clinicCenterAdmin != null) {
+            System.out.println("Found clinic center admin.");
+            return clinicCenterAdmin;
+        }
+
         System.out.println("Found no matching user.");
         throw new UsernameNotFoundException(String.format("No user with email: %s", email));
     }
@@ -68,6 +73,10 @@ public class UserService implements UserDetailsService {
         ClinicAdmin clinicAdmin = clinicAdminService.findByEmail(email);
         if (clinicAdmin != null)
             return "clinicAdmin";
+
+        ClinicCenterAdmin clinicCenterAdmin = clinicCenterAdminService.findByEmail(email);
+        if (clinicCenterAdmin != null)
+            return "clinicCenterAdmin";
 
         return "";
     }
