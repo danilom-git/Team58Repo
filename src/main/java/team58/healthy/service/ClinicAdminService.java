@@ -15,8 +15,6 @@ public class ClinicAdminService {
 
     public ClinicAdmin save(ClinicAdmin clinicAdmin) { return clinicAdminRepository.save(clinicAdmin); }
 
-    @Autowired
-    private ClinicAdminRepository clinicAdminRepository;
 
     public ClinicAdminDTO findOne(Long id){
         return new ClinicAdminDTO(clinicAdminRepository.findById(id).orElseGet(null));
