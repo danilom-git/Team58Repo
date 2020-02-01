@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import team58.healthy.dto.ClinicDTO;
 import team58.healthy.dto.DoctorDTO;
 import team58.healthy.dto.DoctorWithAvailableTimeDTO;
+import team58.healthy.dto.TokenDTO;
 import team58.healthy.model.Doctor;
 import team58.healthy.service.DoctorService;
 
@@ -18,6 +19,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping(value = "api/doctors")
+@CrossOrigin
 public class DoctorController {
 
     @Autowired
@@ -27,6 +29,13 @@ public class DoctorController {
     @PreAuthorize("hasRole('PATIENT') or hasRole('DOCTOR') or hasRole('CLINIC_ADMIN')")
     public ResponseEntity<DoctorDTO> getDoctor(@PathVariable Long id){
         DoctorDTO ret = doctorService.findOne(id);
+        return new ResponseEntity<>(ret,HttpStatus.OK);
+    }
+
+    @PostMapping(value = "/self")
+    @PreAuthorize("hasRole('CLINIC_ADMIN') or hasRole('DOCTOR')")
+    public ResponseEntity<DoctorDTO> getSelf(@RequestBody TokenDTO token){
+        DoctorDTO ret = doctorService.findByToken(token.getToken());
         return new ResponseEntity<>(ret,HttpStatus.OK);
     }
 

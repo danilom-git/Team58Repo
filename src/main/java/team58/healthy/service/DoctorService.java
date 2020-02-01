@@ -7,6 +7,7 @@ import team58.healthy.dto.DoctorDTO;
 import team58.healthy.model.Checkup;
 import team58.healthy.model.Doctor;
 import team58.healthy.repository.DoctorRepository;
+import team58.healthy.security.TokenUtils;
 
 import java.util.*;
 import java.util.concurrent.TimeUnit;
@@ -22,6 +23,9 @@ public class DoctorService {
 
     @Autowired
     private ClinicService clinicService;
+
+    @Autowired
+    TokenUtils tokenUtils;
 
     public DoctorDTO findOne(Long id)
     {
@@ -190,4 +194,10 @@ public class DoctorService {
     }
 
     public Doctor findByEmail(String email) { return doctorRepository.findByEmail(email); }
+
+    public DoctorDTO findByToken(String token){
+        String email = tokenUtils.getUsernameFromToken(token);
+        Doctor d  = this.findByEmail(email);
+        return new DoctorDTO( d );
+    }
 }

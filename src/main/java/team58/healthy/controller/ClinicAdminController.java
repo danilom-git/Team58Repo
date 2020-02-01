@@ -19,7 +19,7 @@ public class ClinicAdminController {
     private ClinicAdminService clinicAdminService;
 
 
-    @PostMapping(value = "/one")
+    @PostMapping(value = "/self")
     @PreAuthorize("hasRole('CLINIC_ADMIN')")
     public ResponseEntity<ClinicAdminDTO> getOne(@RequestBody TokenDTO tokenDTO){
         return new ResponseEntity<>(clinicAdminService.findOneByToken(tokenDTO.getToken()), HttpStatus.OK);
