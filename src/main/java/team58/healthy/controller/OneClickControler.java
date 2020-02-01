@@ -12,6 +12,7 @@ import team58.healthy.model.OneClick;
 import team58.healthy.service.OneClickService;
 
 import javax.validation.constraints.PastOrPresent;
+import javax.websocket.server.PathParam;
 import java.util.List;
 
 
@@ -27,6 +28,13 @@ public class OneClickControler {
     public ResponseEntity<List<OneClickViewDTO>> getAll()
     {
         return new ResponseEntity<>(oneClickService.findAll(),HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/all/clinic:{id}")
+    @PreAuthorize("hasRole('PATIENT') or hasRole('DOCTOR') or hasRole('CLINIC_ADMIN')")
+    public ResponseEntity<List<OneClickViewDTO>> getAllbyClinic(@PathVariable Long id)
+    {
+        return new ResponseEntity<>(oneClickService.findAllByClinic(id),HttpStatus.OK);
     }
 
     @PostMapping(consumes = "application/json")

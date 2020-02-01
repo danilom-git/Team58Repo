@@ -52,6 +52,7 @@ public class HallController {
     }
 
     @GetMapping(value = "/all/clinic:{id}")
+    @PreAuthorize("hasRole('DOCTOR') or hasRole('CLINIC_ADMIN')")
     public ResponseEntity<List<HallDTO>> getAllHallsByClinicId(@PathVariable Long id)
     {
         return new ResponseEntity<>(hallService.findAllByClinicId(id), HttpStatus.OK);

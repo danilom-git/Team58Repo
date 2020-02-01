@@ -43,6 +43,17 @@ public class OneClickService {
         return dtos;
     }
 
+    public List<OneClickViewDTO> findAllByClinic(Long id)
+    {
+        List<OneClick> oneClicks = oneClickRepository.findAllByClinicId(id);
+        List<OneClickViewDTO> dtos = new ArrayList<OneClickViewDTO>();
+        for(OneClick o : oneClicks)
+        {
+            dtos.add(new OneClickViewDTO(o));
+        }
+        return dtos;
+    }
+
     public OneClickDTO save(OneClickDTO oneClickDTO){
         OneClick oc = new OneClick();
 

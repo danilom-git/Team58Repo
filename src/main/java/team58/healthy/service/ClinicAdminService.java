@@ -5,11 +5,15 @@ import org.springframework.stereotype.Service;
 import team58.healthy.dto.ClinicAdminDTO;
 import team58.healthy.model.ClinicAdmin;
 import team58.healthy.repository.ClinicAdminRepository;
+import team58.healthy.security.TokenUtils;
 
 @Service
 public class ClinicAdminService {
     @Autowired
     private ClinicAdminRepository clinicAdminRepository;
+
+    @Autowired
+    TokenUtils tokenUtils;
 
     public ClinicAdmin findByEmail(String email) { return clinicAdminRepository.findByEmail(email); }
 
@@ -20,4 +24,9 @@ public class ClinicAdminService {
         return new ClinicAdminDTO(clinicAdminRepository.findById(id).orElseGet(null));
     }
 
+    public ClinicAdminDTO findOneByToken(String token){
+        String username = tokenUtils.getUsernameFromToken(token);
+        ClinicAdmin ca = this.findByEmail(username);
+        return new ClinicAdminDTO(ca);
+    }
 }
