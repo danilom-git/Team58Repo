@@ -40,5 +40,9 @@ public class PatientController {
         return new ResponseEntity<>(patientService.getAll(), HttpStatus.OK);
     }
 
-
+    @PreAuthorize("hasRole('PATIENT')")
+    @GetMapping(value = "/user")
+    public ResponseEntity<PatientDTO> getFromToken(@RequestHeader("Authorization") String token) {
+        return new ResponseEntity<>(patientService.getFromToken(token), HttpStatus.OK);
+    }
 }

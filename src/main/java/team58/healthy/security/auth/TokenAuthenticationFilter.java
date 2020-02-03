@@ -3,6 +3,7 @@ package team58.healthy.security.auth;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.filter.OncePerRequestFilter;
 import team58.healthy.model.ExtendedUserDetails;
 import team58.healthy.security.TokenUtils;
@@ -33,7 +34,13 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
             username = tokenUtils.getUsernameFromToken(token);
 
             if (username != null) {
-                ExtendedUserDetails extendedUserDetails = userService.loadUserByUsername(username);
+                ExtendedUserDetails extendedUserDetails;
+                try {
+                    extendedUserDetails = userService.loadUserByUsername(username);
+                } catch (UsernameNotFoundException e) {
+                    httpServletResponse.sendError(HttpServletResponse.SC_UNAUTHORIZED, e.getMessage());
+                    return;
+                }
 
                 if (tokenUtils.validateToken(token, extendedUserDetails)) {
                     TokenBasedAuthentication authentication = new TokenBasedAuthentication(extendedUserDetails);

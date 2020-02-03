@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import team58.healthy.dto.PatientDTO;
 import team58.healthy.model.Patient;
 import team58.healthy.repository.PatientRepository;
+import team58.healthy.security.TokenUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,6 +15,8 @@ public class PatientService {
 
     @Autowired
     private PatientRepository patientRepository;
+    @Autowired
+    private TokenUtils tokenUtils;
 
     public List<PatientDTO> search(String name, String lastName, String healthInsuranceId)
     {
@@ -49,5 +52,11 @@ public class PatientService {
     public Patient findByEmail(String email) { return patientRepository.findByEmail(email); }
 
     public Patient save(Patient patient) { return patientRepository.save(patient); }
+
+    public PatientDTO getFromToken(String token) {
+        String email = tokenUtils.getUsernameFromToken(token.substring(7));
+        Patient patient = findByEmail(email);
+        return new PatientDTO(patient);
+    }
 
 }
