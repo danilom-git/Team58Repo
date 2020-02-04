@@ -62,14 +62,20 @@ public class AbsenceRequestService {
 
     public AbsenceRequestDTO save(AbsenceRequestDTO requestDTO)
     {
-        AbsenceRequest req = new AbsenceRequest();
-        req.setClinic(clinicService.findById(requestDTO.getClinicId()));
-        req.setDoctor(doctorService.findOne2(requestDTO.getDoctorId()));
-        req.setStartDate(requestDTO.getStartDate());
-        req.setEndDate(requestDTO.getEndDate());
-        req.setAnswered(requestDTO.getAnswered());
-        req.setType(requestDTO.getType());
+        List<AbsenceRequest> reqs = absenceRequestRepository.findAllByDoctorId(requestDTO.getDoctorId());
 
-        return new AbsenceRequestDTO(absenceRequestRepository.save(req));
+        if(reqs.isEmpty()) {
+            AbsenceRequest req = new AbsenceRequest();
+            req.setClinic(clinicService.findById(requestDTO.getClinicId()));
+            req.setDoctor(doctorService.findOne2(requestDTO.getDoctorId()));
+            req.setStartDate(requestDTO.getStartDate());
+            req.setEndDate(requestDTO.getEndDate());
+            req.setAnswered(requestDTO.getAnswered());
+            req.setType(requestDTO.getType());
+
+            return new AbsenceRequestDTO(absenceRequestRepository.save(req));
+        }else
+            return new AbsenceRequestDTO(new AbsenceRequest());
+
     }
 }

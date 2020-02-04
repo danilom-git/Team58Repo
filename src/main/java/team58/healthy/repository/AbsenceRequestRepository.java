@@ -7,4 +7,6 @@ import java.util.List;
 
 public interface AbsenceRequestRepository extends JpaRepository<AbsenceRequest, Long> {
     List<AbsenceRequest> findAllByClinicIdAndAnswered(Long id,Boolean answered);
+
+    List<AbsenceRequest> findAllByDoctorId(Long id);
 }
