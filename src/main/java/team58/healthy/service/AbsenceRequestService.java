@@ -6,6 +6,9 @@ import team58.healthy.dto.AbsenceRequestDTO;
 import team58.healthy.model.AbsenceRequest;
 import team58.healthy.repository.AbsenceRequestRepository;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
 public class AbsenceRequestService {
 
@@ -17,6 +20,16 @@ public class AbsenceRequestService {
 
     @Autowired
     private DoctorService doctorService;
+
+    public List<AbsenceRequestDTO> getAllByClinic(Long id){
+        List<AbsenceRequest> requests = absenceRequestRepository.findAllByClinicId(id);
+        List<AbsenceRequestDTO> dtos = new ArrayList<AbsenceRequestDTO>();
+        for(AbsenceRequest r : requests)
+        {
+            dtos.add(new AbsenceRequestDTO(r));
+        }
+        return dtos;
+    }
 
     public AbsenceRequestDTO save(AbsenceRequestDTO requestDTO)
     {
