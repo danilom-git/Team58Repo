@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import team58.healthy.dto.AbsenceRequestDTO;
 import team58.healthy.dto.AbsenceRequestViewDTO;
 import team58.healthy.model.AbsenceRequest;
+import team58.healthy.model.Doctor;
 import team58.healthy.repository.AbsenceRequestRepository;
 
 import java.util.ArrayList;
@@ -22,6 +23,9 @@ public class AbsenceRequestService {
     @Autowired
     private DoctorService doctorService;
 
+    @Autowired
+    private EmailService emailService;
+
     public List<AbsenceRequestViewDTO> getAllByClinic(Long id){
         List<AbsenceRequest> requests = absenceRequestRepository.findAllByClinicIdAndAnswered(id,false);
         List<AbsenceRequestViewDTO> dtos = new ArrayList<AbsenceRequestViewDTO>();
@@ -32,19 +36,23 @@ public class AbsenceRequestService {
         return dtos;
     }
 
-    public void delete(Long id){
-        AbsenceRequest req = absenceRequestRepository.getOne(id);
+    public void delete(Long id,String reason,Long uid){
+        AbsenceRequest req = absenceRequestRepository.findById(id).orElseGet(null);
+        Doctor doc = doctorService.findById(uid);
         if(req != null) {
+            emailService.sendSimpleMail(doc.getEmail(),"Absence request","You're request for absence has been denied becouse of" + reason+  ".");
             req.setDoctor(null);
             req.setClinic(null);
             absenceRequestRepository.delete(req);
         }
     }
 
-    public Boolean changeAnswered(Long id)
+    public Boolean changeAnswered(Long id,Long uid)
     {
-        AbsenceRequest req = absenceRequestRepository.getOne(id);
-        if(req != null) {
+        AbsenceRequest req = absenceRequestRepository.findById(id).orElseGet(null);
+        Doctor doc = doctorService.findById(uid);
+        if(req != null && doc != null) {
+            emailService.sendSimpleMail(doc.getEmail(),"Absence request","You're request for absence has been accepted.");
             req.setAnswered(true);
             req = absenceRequestRepository.save(req);
             return true;

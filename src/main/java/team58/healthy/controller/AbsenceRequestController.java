@@ -19,18 +19,18 @@ public class AbsenceRequestController {
     @Autowired
     AbsenceRequestService absenceRequestService;
 
-    @DeleteMapping(value= "/request:{id}")
+    @DeleteMapping(value= "/request:{id}/reason:{reason}/doctor:{uid}")
     @PreAuthorize("hasRole('CLINIC_ADMIN')")
-    public ResponseEntity<Void> deleteRequest(@PathVariable Long id)
+    public ResponseEntity<Void> deleteRequest(@PathVariable Long id,@PathVariable String reason,@PathVariable Long uid)
     {
-        absenceRequestService.delete(id);
+        absenceRequestService.delete(id,reason,uid);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @PutMapping(value = "/request:{id}")
+    @PutMapping(value = "/request:{id}/userId:{uid}")
     @PreAuthorize("hasRole('CLINIC_ADMIN')")
-    public ResponseEntity<Boolean> setAnswered(@PathVariable Long id){
-        if(absenceRequestService.changeAnswered(id))
+    public ResponseEntity<Boolean> setAnswered(@PathVariable Long id,@PathVariable Long uid){
+        if(absenceRequestService.changeAnswered(id,uid))
             return new ResponseEntity<>(true,HttpStatus.OK);
         else
             return new ResponseEntity<>(false,HttpStatus.OK);

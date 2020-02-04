@@ -17,7 +17,7 @@ insert into clinic_center_admin (email, last_password_reset_date, password, auth
     to_timestamp('2019 12 10 7:00', 'YYYY MM DD HH24 MI'), '$2a$10$j8XGgt8oCja0ioWD/JK0C.iL22NKpW3n40THQBnjxO7E4h.qyT0Fu', 4);
 
 insert into doctor (name, last_name, working_time, clinic_id, email, password, last_password_reset_date, authority_id) values ('Name_A', 'Last_Name_A', 5, 1,
-    'doctor01@somemail.com', '$2a$10$j8XGgt8oCja0ioWD/JK0C.iL22NKpW3n40THQBnjxO7E4h.qyT0Fu', to_timestamp('2019 12 10 7:00', 'YYYY MM DD HH24 MI'), '2');
+    'isaprojektovanjeUsers@gmail.com', '$2a$10$j8XGgt8oCja0ioWD/JK0C.iL22NKpW3n40THQBnjxO7E4h.qyT0Fu', to_timestamp('2019 12 10 7:00', 'YYYY MM DD HH24 MI'), '2');
 insert into doctor (name, last_name, working_time, clinic_id, email, password, last_password_reset_date, authority_id) values ('Name_B', 'Last_Name_B', 6, 1,
     'doctor02@somemail.com', '$2a$10$j8XGgt8oCja0ioWD/JK0C.iL22NKpW3n40THQBnjxO7E4h.qyT0Fu', to_timestamp('2019 12 10 7:00', 'YYYY MM DD HH24 MI'), '2');
 insert into doctor (name, last_name, working_time, clinic_id, email, password, last_password_reset_date, authority_id) values ('Name_C', 'Last_Name_B', 7, 2,
