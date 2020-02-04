@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import team58.healthy.dto.CheckupDTO;
+import team58.healthy.dto.CheckupDTOPretty;
 import team58.healthy.model.Checkup;
 import team58.healthy.service.CheckupService;
 
@@ -64,5 +65,17 @@ public class CheckupController {
         }
 
         return new ResponseEntity<>(checkupDTOS, HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/user")
+    @PreAuthorize("hasRole('PATIENT')")
+    public ResponseEntity<List<CheckupDTOPretty>> getFromUser(@RequestHeader("Authorization") String token) {
+        return new ResponseEntity<>(checkupService.getFromUser(token), HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/user/type:{typeId}")
+    @PreAuthorize("hasRole('PATIENT')")
+    public ResponseEntity<List<CheckupDTOPretty>> getFromPatient(@RequestHeader("Authorization") String token, @PathVariable Long typeId) {
+        return new ResponseEntity<>(checkupService.getFromUserByType(token, typeId), HttpStatus.OK);
     }
 }

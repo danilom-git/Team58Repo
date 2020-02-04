@@ -12,11 +12,13 @@ import java.util.List;
 public class CheckupRequestService {
     @Autowired
     private CheckupRequestRepository checkupRequestRepository;
-
     @Autowired
     private DoctorService doctorService;
     @Autowired
     private CheckupTypeService checkupTypeService;
+    @Autowired
+    private ClinicService clinicService;
+
 
     public List<CheckupRequest> findAll() { return checkupRequestRepository.findAll(); }
 
@@ -24,6 +26,7 @@ public class CheckupRequestService {
         CheckupRequest checkupRequest = new CheckupRequest();
         checkupRequest.setStartDate(checkupRequestDTO.getStartDate());
         checkupRequest.setEndDate(checkupRequestDTO.getEndDate());
+        checkupRequest.setClinic(clinicService.findById(checkupRequestDTO.getClinicId()));
         checkupRequest.setDoctor(doctorService.findById(checkupRequestDTO.getDoctorId()));
         checkupRequest.setCheckupType(checkupTypeService.findById(checkupRequestDTO.getCheckupTypeId()));
 
