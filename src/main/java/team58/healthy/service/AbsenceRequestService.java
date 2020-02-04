@@ -75,7 +75,7 @@ public class AbsenceRequestService {
 
             return new AbsenceRequestDTO(absenceRequestRepository.save(req));
         }else
-            return new AbsenceRequestDTO(new AbsenceRequest());
+            return null;
 
     }
 }
