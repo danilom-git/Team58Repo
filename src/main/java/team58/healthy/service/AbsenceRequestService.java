@@ -32,6 +32,26 @@ public class AbsenceRequestService {
         return dtos;
     }
 
+    public void delete(Long id){
+        AbsenceRequest req = absenceRequestRepository.getOne(id);
+        if(req != null) {
+            req.setDoctor(null);
+            req.setClinic(null);
+            absenceRequestRepository.delete(req);
+        }
+    }
+
+    public Boolean changeAnswered(Long id)
+    {
+        AbsenceRequest req = absenceRequestRepository.getOne(id);
+        if(req != null) {
+            req.setAnswered(true);
+            req = absenceRequestRepository.save(req);
+            return true;
+        }else
+            return false;
+    }
+
     public AbsenceRequestDTO save(AbsenceRequestDTO requestDTO)
     {
         AbsenceRequest req = new AbsenceRequest();
