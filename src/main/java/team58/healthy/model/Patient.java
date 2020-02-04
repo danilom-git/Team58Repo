@@ -44,6 +44,9 @@ public class Patient implements ExtendedUserDetails {
     @Column
     private String phoneNumber;
 
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private MedicalRecord medicalRecord;
+
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Authority authority;
 
@@ -120,6 +123,14 @@ public class Patient implements ExtendedUserDetails {
 
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
+    }
+
+    public MedicalRecord getMedicalRecord() {
+        return medicalRecord;
+    }
+
+    public void setMedicalRecord(MedicalRecord medicalRecord) {
+        this.medicalRecord = medicalRecord;
     }
 
     @Override

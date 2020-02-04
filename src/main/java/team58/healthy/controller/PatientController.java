@@ -5,6 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import team58.healthy.dto.MedicalRecordDTO;
 import team58.healthy.dto.PatientDTO;
 import team58.healthy.service.PatientService;
 
@@ -42,7 +43,13 @@ public class PatientController {
 
     @PreAuthorize("hasRole('PATIENT')")
     @GetMapping(value = "/user")
-    public ResponseEntity<PatientDTO> getFromToken(@RequestHeader("Authorization") String token) {
-        return new ResponseEntity<>(patientService.getFromToken(token), HttpStatus.OK);
+    public ResponseEntity<PatientDTO> getUser(@RequestHeader("Authorization") String token) {
+        return new ResponseEntity<>(patientService.getUser(token), HttpStatus.OK);
+    }
+
+    @PreAuthorize("hasRole('PATIENT')")
+    @GetMapping(value = "/user/medical")
+    public ResponseEntity<MedicalRecordDTO> getMedicalFromUser(@RequestHeader("Authorization") String token) {
+        return new ResponseEntity<>(patientService.getMedicalFromUser(token), HttpStatus.OK);
     }
 }

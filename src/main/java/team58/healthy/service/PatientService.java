@@ -2,6 +2,7 @@ package team58.healthy.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import team58.healthy.dto.MedicalRecordDTO;
 import team58.healthy.dto.PatientDTO;
 import team58.healthy.model.Patient;
 import team58.healthy.repository.PatientRepository;
@@ -53,10 +54,16 @@ public class PatientService {
 
     public Patient save(Patient patient) { return patientRepository.save(patient); }
 
-    public PatientDTO getFromToken(String token) {
+    public PatientDTO getUser(String token) {
         String email = tokenUtils.getUsernameFromToken(token.substring(7));
         Patient patient = findByEmail(email);
         return new PatientDTO(patient);
+    }
+
+    public MedicalRecordDTO getMedicalFromUser(String token) {
+        String email = tokenUtils.getUsernameFromToken(token.substring(7));
+        Patient patient = findByEmail(email);
+        return new MedicalRecordDTO(patient.getMedicalRecord());
     }
 
 }
