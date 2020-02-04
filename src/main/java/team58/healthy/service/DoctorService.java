@@ -200,4 +200,10 @@ public class DoctorService {
         Doctor d  = this.findByEmail(email);
         return new DoctorDTO( d );
     }
+
+    public DoctorDTO getFromToken(String token) {
+        String email = tokenUtils.getUsernameFromToken(token.substring(7));
+        Doctor doc = findByEmail(email);
+        return new DoctorDTO(doc);
+    }
 }

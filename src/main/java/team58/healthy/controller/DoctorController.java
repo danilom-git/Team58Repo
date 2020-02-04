@@ -5,21 +5,20 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-import team58.healthy.dto.ClinicDTO;
 import team58.healthy.dto.DoctorDTO;
 import team58.healthy.dto.DoctorWithAvailableTimeDTO;
 import team58.healthy.dto.TokenDTO;
 import team58.healthy.model.Doctor;
 import team58.healthy.service.DoctorService;
+import team58.healthy.service.EmailService;
 
-import javax.websocket.server.PathParam;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
 @RestController
 @RequestMapping(value = "api/doctors")
-@CrossOrigin
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class DoctorController {
 
     @Autowired
@@ -115,5 +114,11 @@ public class DoctorController {
         for (Doctor doctor : doctors)
             doctorDTOS.add(new DoctorWithAvailableTimeDTO(new DoctorDTO(doctor), doctorService.availableTimeOnDate(doctor, cal.getTime())));
         return new ResponseEntity<>(doctorDTOS, HttpStatus.OK);
+    }
+
+    @PreAuthorize("hasRole('DOCTOR')")
+    @GetMapping(value = "/user")
+    public ResponseEntity<DoctorDTO> getFromToken(@RequestHeader("Authorization") String token) {
+        return new ResponseEntity<>(doctorService.getFromToken(token), HttpStatus.OK);
     }
 }
