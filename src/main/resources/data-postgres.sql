@@ -25,9 +25,6 @@ insert into doctor (name, last_name, working_time, clinic_id, email, password, l
 
 insert into clinic_admin (email, password, name, last_name, authority_id, last_password_reset_date,clinic_id) values
     ('clinicAdmin01@somemail.com', '$2a$10$j8XGgt8oCja0ioWD/JK0C.iL22NKpW3n40THQBnjxO7E4h.qyT0Fu', 'Name_A', 'Last_Name_A', 3, to_timestamp('2019 12 10 7:00', 'YYYY MM DD HH24 MI'),1);
-insert into doctor (name, last_name,email,working_time, clinic_id) values ('Name_A', 'Last_Name_A','email1@gmail.com',5, 1);
-insert into doctor (name, last_name,email,working_time, clinic_id) values ('Name_B', 'Last_Name_B','email2@gmail.com',6, 1);
-insert into doctor (name, last_name,email,working_time, clinic_id) values ('Name_C', 'Last_Name_B','email3@gmail.com',7, 2);
 
 insert into checkup_type (name) values ('Checkup_Type_A');
 insert into checkup_type (name) values ('Checkup_Type_B');
@@ -76,4 +73,4 @@ insert into clinic_checkup_type (clinic_id, checkup_type_id, price) values (2, 3
 
 insert into one_click (duration,end_time,price,start_time,checkup_type_id,clinic_id,doctor_id,hall_id) values('1h',to_timestamp('2020 2 25 13:00', 'YYYY MM DD HH24 MI'),1000,to_timestamp('2020 2 25 14:00', 'YYYY MM DD HH24 MI'),1,1,1,1);
 
-
+insert into absence_request(answered,start_date,end_date,type,clinic_id,doctor_id) values (false,to_timestamp('2020 2 16','YYYY MM DD'),to_timestamp('2020 2 18','YYYY MM DD'),'Annual leave',1,1);

@@ -19,7 +19,7 @@ public class AbsenceRequestController {
     @Autowired
     AbsenceRequestService absenceRequestService;
 
-    @DeleteMapping(value= "/request:{id}/reason:{reason}/doctor:{uid}")
+    @DeleteMapping(value= "/request:{id}/reason:{reason}/user:{uid}")
     @PreAuthorize("hasRole('CLINIC_ADMIN')")
     public ResponseEntity<Void> deleteRequest(@PathVariable Long id,@PathVariable String reason,@PathVariable Long uid)
     {
