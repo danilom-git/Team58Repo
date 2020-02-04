@@ -10,7 +10,6 @@ import team58.healthy.dto.DoctorWithAvailableTimeDTO;
 import team58.healthy.dto.TokenDTO;
 import team58.healthy.model.Doctor;
 import team58.healthy.service.DoctorService;
-import team58.healthy.service.EmailService;
 
 import java.util.ArrayList;
 import java.util.Calendar;

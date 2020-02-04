@@ -1,6 +1,5 @@
 package team58.healthy.dto;
 
-import team58.healthy.model.Absence;
 import team58.healthy.model.AbsenceRequest;
 
 import java.util.Date;

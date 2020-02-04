@@ -206,4 +206,6 @@ public class DoctorService {
         Doctor doc = findByEmail(email);
         return new DoctorDTO(doc);
     }
+
+
 }
