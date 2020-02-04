@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import team58.healthy.dto.ClinicAdminDTO;
+import team58.healthy.dto.DoctorDTO;
 import team58.healthy.dto.TokenDTO;
 import team58.healthy.repository.ClinicAdminRepository;
 import team58.healthy.service.ClinicAdminService;
@@ -18,6 +19,11 @@ public class ClinicAdminController {
     @Autowired
     private ClinicAdminService clinicAdminService;
 
+    @PreAuthorize("hasRole('CLINIC_ADMIN')")
+    @GetMapping(value = "/user")
+    public ResponseEntity<ClinicAdminDTO> getFromToken(@RequestHeader("Authorization") String token) {
+        return new ResponseEntity<>(clinicAdminService.getFromToken(token), HttpStatus.OK);
+    }
 
     @PostMapping(value = "/self")
     @PreAuthorize("hasRole('CLINIC_ADMIN')")

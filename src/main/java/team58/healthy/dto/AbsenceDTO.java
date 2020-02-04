@@ -1,25 +1,14 @@
-package team58.healthy.model;
+package team58.healthy.dto;
 
-import javax.persistence.*;
 import java.util.Date;
 
-@Entity
-public class Absence {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class AbsenceDTO {
     private Long id;
-
-    @Column
     private Date startDate;
-
-    @Column
     private Date endDate;
+    private Long doctorId;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    private Doctor doctor;
-
-    public Absence() {
+    public AbsenceDTO() {
     }
 
     public Long getId() {
@@ -46,11 +35,11 @@ public class Absence {
         this.endDate = endDate;
     }
 
-    public Doctor getDoctor() {
-        return doctor;
+    public Long getDoctorId() {
+        return doctorId;
     }
 
-    public void setDoctor(Doctor doctor) {
-        this.doctor = doctor;
+    public void setDoctorId(Long doctorId) {
+        this.doctorId = doctorId;
     }
 }
