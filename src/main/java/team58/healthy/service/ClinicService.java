@@ -34,6 +34,7 @@ public class ClinicService {
     public List<Clinic> findAllWithCheckupTypeOnDate(Long checkupTypeId, Date date) {
         List<Clinic> clinics = findAll();
         List<Clinic> availableClinics = new ArrayList<>();
+        //TODO check whether the clinic supports the the checkup type
         for (Clinic clinic : clinics)
             if (!doctorService.findAllByClinicWithCheckupTypeOnDate(clinic.getId(), checkupTypeId, date).isEmpty())
                 availableClinics.add(clinic);
@@ -47,7 +48,6 @@ public class ClinicService {
         cal.clear();
         cal.setTime(date);
 
-        //TODO: to be replaced by doctor work hours and a check if he is on holiday or leave
         int startHours = 7;
         int startMinutes = 0;
         int endHours = 15;

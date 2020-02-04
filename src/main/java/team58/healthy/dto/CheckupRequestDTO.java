@@ -5,10 +5,12 @@ import team58.healthy.model.CheckupRequest;
 import java.util.Date;
 
 public class CheckupRequestDTO {
+
     private Long id;
 
     private Date startDate;
     private Date endDate;
+    private Long clinicId;
     private Long doctorId;
     private Long checkupTypeId;
 
@@ -18,6 +20,7 @@ public class CheckupRequestDTO {
         this.id = checkupRequest.getId();
         this.startDate = checkupRequest.getStartDate();
         this.endDate = checkupRequest.getEndDate();
+        this.clinicId = checkupRequest.getClinic().getId();
         this.doctorId = checkupRequest.getDoctor().getId();
         this.checkupTypeId = checkupRequest.getCheckupType().getId();
     }
@@ -32,6 +35,10 @@ public class CheckupRequestDTO {
 
     public Date getEndDate() {
         return endDate;
+    }
+
+    public Long getClinicId() {
+        return clinicId;
     }
 
     public Long getDoctorId() {

@@ -1,5 +1,7 @@
 package team58.healthy.model;
 
+import team58.healthy.dto.CheckupRequestDTO;
+
 import javax.persistence.*;
 import java.util.Date;
 
@@ -15,6 +17,9 @@ public class CheckupRequest {
 
     @Column
     private Date endDate;
+
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Clinic clinic;
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Doctor doctor;
@@ -44,6 +49,14 @@ public class CheckupRequest {
 
     public void setEndDate(Date endDate) {
         this.endDate = endDate;
+    }
+
+    public Clinic getClinic() {
+        return clinic;
+    }
+
+    public void setClinic(Clinic clinic) {
+        this.clinic = clinic;
     }
 
     public Doctor getDoctor() {

@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import team58.healthy.dto.CheckupRequestDTO;
+import team58.healthy.model.Checkup;
 import team58.healthy.model.CheckupRequest;
 import team58.healthy.service.CheckupRequestService;
 

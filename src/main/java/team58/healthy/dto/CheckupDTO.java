@@ -23,7 +23,7 @@ public class CheckupDTO {
         this.patientId = checkup.getPatient().getId();
         this.doctorId = checkup.getDoctor().getId();
         this.checkupTypeId = checkup.getCheckupType().getId();
-        this.clinicId = checkup.getDoctor().getClinic().getId();
+        this.clinicId = checkup.getClinic().getId();
         this.hallId = checkup.getHall().getId();
     }
 
