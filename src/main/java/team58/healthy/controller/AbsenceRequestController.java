@@ -11,7 +11,7 @@ import team58.healthy.service.AbsenceRequestService;
 
 @RestController
 @RequestMapping(value = "api/absenceRequests")
-@CrossOrigin
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class AbsenceRequestController {
 
     @Autowired
@@ -23,5 +23,4 @@ public class AbsenceRequestController {
     {
         return new ResponseEntity<>(absenceRequestService.save(absenceRequestDTO), HttpStatus.OK);
     }
-
 }

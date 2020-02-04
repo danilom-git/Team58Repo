@@ -3,6 +3,7 @@ package team58.healthy.model;
 import javax.persistence.*;
 import java.util.Date;
 
+@Entity
 public class Absence {
 
     @Id
