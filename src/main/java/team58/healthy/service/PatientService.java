@@ -66,4 +66,24 @@ public class PatientService {
         return new MedicalRecordDTO(patient.getMedicalRecord());
     }
 
+    public PatientDTO updateInformation(String token, PatientDTO updates) {
+        String email = tokenUtils.getUsernameFromToken(token.substring(7));
+        Patient patient = findByEmail(email);
+
+        if (updates.getName() == null || updates.getLastName() == null || updates.getCountry() == null ||
+                updates.getCity() == null || updates.getAddress() == null || updates.getPhoneNumber() == null)
+            return new PatientDTO(patient);
+        if (updates.getName().isEmpty() || updates.getLastName().isEmpty() || updates.getCountry().isEmpty() ||
+                updates.getCity().isEmpty() || updates.getAddress().isEmpty() || updates.getPhoneNumber().isEmpty())
+            return new PatientDTO(patient);
+
+        patient.setName(updates.getName());
+        patient.setLastName(updates.getLastName());
+        patient.setCountry(updates.getCountry());
+        patient.setCity(updates.getCity());
+        patient.setAddress(updates.getAddress());
+        patient.setPhoneNumber(updates.getPhoneNumber());
+        return new PatientDTO(save(patient));
+    }
+
 }

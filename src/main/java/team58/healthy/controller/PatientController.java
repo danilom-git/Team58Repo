@@ -52,4 +52,10 @@ public class PatientController {
     public ResponseEntity<MedicalRecordDTO> getMedicalFromUser(@RequestHeader("Authorization") String token) {
         return new ResponseEntity<>(patientService.getMedicalFromUser(token), HttpStatus.OK);
     }
+
+    @PreAuthorize("hasRole('PATIENT')")
+    @PutMapping(value = "/user/info")
+    public ResponseEntity<PatientDTO> updateUserInfo(@RequestHeader("Authorization") String token, @RequestBody PatientDTO patientDTO) {
+        return new ResponseEntity<>(patientService.updateInformation(token, patientDTO), HttpStatus.OK);
+    }
 }
