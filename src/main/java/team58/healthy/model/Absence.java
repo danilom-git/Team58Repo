@@ -16,7 +16,7 @@ public class Absence {
     @Column
     private Date endDate;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Doctor doctor;
 
     public Absence() {

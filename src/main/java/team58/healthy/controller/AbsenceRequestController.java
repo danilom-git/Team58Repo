@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import team58.healthy.dto.AbsenceRequestDTO;
+import team58.healthy.dto.AbsenceRequestViewDTO;
 import team58.healthy.model.AbsenceRequest;
 import team58.healthy.service.AbsenceRequestService;
 
@@ -21,7 +22,7 @@ public class AbsenceRequestController {
 
     @GetMapping(value = "/all/clinic:{id}")
     @PreAuthorize("hasRole('CLINIC_ADMIN')")
-    public ResponseEntity<List<AbsenceRequestDTO>> getAllByClinic(@PathVariable Long id){
+    public ResponseEntity<List<AbsenceRequestViewDTO>> getAllByClinic(@PathVariable Long id){
         return new ResponseEntity<>(absenceRequestService.getAllByClinic(id),HttpStatus.OK);
     }
 

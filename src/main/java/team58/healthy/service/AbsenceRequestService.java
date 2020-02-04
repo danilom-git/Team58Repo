@@ -3,6 +3,7 @@ package team58.healthy.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import team58.healthy.dto.AbsenceRequestDTO;
+import team58.healthy.dto.AbsenceRequestViewDTO;
 import team58.healthy.model.AbsenceRequest;
 import team58.healthy.repository.AbsenceRequestRepository;
 
@@ -21,12 +22,12 @@ public class AbsenceRequestService {
     @Autowired
     private DoctorService doctorService;
 
-    public List<AbsenceRequestDTO> getAllByClinic(Long id){
-        List<AbsenceRequest> requests = absenceRequestRepository.findAllByClinicId(id);
-        List<AbsenceRequestDTO> dtos = new ArrayList<AbsenceRequestDTO>();
+    public List<AbsenceRequestViewDTO> getAllByClinic(Long id){
+        List<AbsenceRequest> requests = absenceRequestRepository.findAllByClinicIdAndAnswered(id,false);
+        List<AbsenceRequestViewDTO> dtos = new ArrayList<AbsenceRequestViewDTO>();
         for(AbsenceRequest r : requests)
         {
-            dtos.add(new AbsenceRequestDTO(r));
+            dtos.add(new AbsenceRequestViewDTO(r));
         }
         return dtos;
     }

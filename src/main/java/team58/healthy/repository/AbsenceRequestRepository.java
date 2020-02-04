@@ -6,5 +6,5 @@ import team58.healthy.model.AbsenceRequest;
 import java.util.List;
 
 public interface AbsenceRequestRepository extends JpaRepository<AbsenceRequest, Long> {
-    List<AbsenceRequest> findAllByClinicId(Long id);
+    List<AbsenceRequest> findAllByClinicIdAndAnswered(Long id,Boolean answered);
 }
