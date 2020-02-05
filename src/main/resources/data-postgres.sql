@@ -78,5 +78,14 @@ insert into clinic_checkup_type (clinic_id, checkup_type_id, price) values (2, 3
 insert into one_click (duration,end_time,price,start_time,checkup_type_id,clinic_id,doctor_id,hall_id)
     values ('1h',to_timestamp('2020 2 25 13:00', 'YYYY MM DD HH24 MI'),1000,to_timestamp('2020 2 25 14:00', 'YYYY MM DD HH24 MI'),1,1,1,1);
 
+insert into one_click (start_time, end_time, duration, clinic_id, hall_id, doctor_id, checkup_type_id, price) values
+    (to_timestamp('2020 2 26 13:00', 'YYYY MM DD HH24 MI'), to_timestamp('2020 2 26 14:00', 'YYYY MM DD HH24 MI'), '1h', 1, 2, 2, 2, 100);
+insert into one_click (start_time, end_time, duration, clinic_id, hall_id, doctor_id, checkup_type_id, price) values
+    (to_timestamp('2020 2 26 14:00', 'YYYY MM DD HH24 MI'), to_timestamp('2020 2 26 15:00', 'YYYY MM DD HH24 MI'), '1h', 1, 2, 2, 2, 100);
+insert into one_click (start_time, end_time, duration, clinic_id, hall_id, doctor_id, checkup_type_id, price) values
+    (to_timestamp('2020 2 27 10:00', 'YYYY MM DD HH24 MI'), to_timestamp('2020 2 27 11:00', 'YYYY MM DD HH24 MI'), '1h', 2, 1, 3, 2, 100);
+insert into one_click (start_time, end_time, duration, clinic_id, hall_id, doctor_id, checkup_type_id, price) values
+    (to_timestamp('2020 2 27 12:00', 'YYYY MM DD HH24 MI'), to_timestamp('2020 2 27 13:00', 'YYYY MM DD HH24 MI'), '1h', 2, 2, 3, 3, 100);
+
 insert into absence_request (answered,start_date,end_date,type,clinic_id,doctor_id) values
     (false,to_timestamp('2020 2 16','YYYY MM DD'),to_timestamp('2020 2 18','YYYY MM DD'),'Annual leave',1,1);

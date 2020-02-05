@@ -40,7 +40,7 @@ public class AbsenceRequestService {
         AbsenceRequest req = absenceRequestRepository.findById(id).orElseGet(null);
         Doctor doc = doctorService.findById(uid);
         if(req != null) {
-            emailService.sendSimpleMail(doc.getEmail(),"Absence request","You're request for absence has been denied becouse of " + reason+  ".");
+            emailService.sendSimpleMail(doc.getEmail(),"Absence request","You're request for absence has been denied because of " + reason +  ".");
             req.setDoctor(null);
             req.setClinic(null);
             absenceRequestRepository.delete(req);

@@ -31,6 +31,10 @@ public class CheckupService {
         return checkupRepository.findAllOnDate(date);
     }
 
+    public Checkup save(Checkup checkup) {
+        return checkupRepository.save(checkup);
+    }
+
     public List<Checkup> findAllOnDateByDoctor(Date date, Long doctorId) {
         return checkupRepository.findAllOnDateByDoctor(date, doctorId);
     }
@@ -65,4 +69,6 @@ public class CheckupService {
 
         return dtos;
     }
+
+
 }

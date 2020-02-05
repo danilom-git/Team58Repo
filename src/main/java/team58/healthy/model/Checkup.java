@@ -101,4 +101,16 @@ public class Checkup {
     public void setHall(Hall hall) {
         this.hall = hall;
     }
+
+    public Checkup() {}
+
+    public Checkup(OneClick oneClick, Patient patient) {
+        this.startDate = oneClick.getStartTime();
+        this.endDate = oneClick.getEndTime();
+        this.patient = patient;
+        this.checkupType = oneClick.getCheckupType();
+        this.clinic = oneClick.getClinic();
+        this.hall = oneClick.getHall();
+        this.doctor = oneClick.getDoctor();
+    }
 }
