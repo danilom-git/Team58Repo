@@ -74,3 +74,5 @@ insert into clinic_checkup_type (clinic_id, checkup_type_id, price) values (2, 3
 insert into one_click (duration,end_time,price,start_time,checkup_type_id,clinic_id,doctor_id,hall_id) values('1h',to_timestamp('2020 2 25 13:00', 'YYYY MM DD HH24 MI'),1000,to_timestamp('2020 2 25 14:00', 'YYYY MM DD HH24 MI'),1,1,1,1);
 
 insert into absence_request(answered,start_date,end_date,type,clinic_id,doctor_id) values (false,to_timestamp('2020 2 16','YYYY MM DD'),to_timestamp('2020 2 18','YYYY MM DD'),'Annual leave',1,1);
+
+insert into checup_request(start_date,end_date,doctor_id,checkup_type_id,clinic_id) values ( to_timestamp('2020 2 18 8:00', 'YYYY MM DD HH24 MI'), to_timestamp('2020 2 18 12:00', 'YYYY MM DD HH24 MI') ,1,1,1);

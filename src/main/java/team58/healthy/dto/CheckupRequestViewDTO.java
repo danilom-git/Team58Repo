@@ -4,23 +4,28 @@ import team58.healthy.model.CheckupRequest;
 
 import java.util.Date;
 
-public class CheckupRequestDTO {
+public class CheckupRequestViewDTO {
     private Long id;
     private Date startDate;
     private Date endDate;
     private Long doctorId;
     private Long checkupTypeId;
     private Long clinicId;
+    private String doctorName;
+    private String doctorLastName;
 
-    public CheckupRequestDTO() { }
+    public CheckupRequestViewDTO() {
+    }
 
-    public CheckupRequestDTO(CheckupRequest checkupRequest) {
+    public CheckupRequestViewDTO(CheckupRequest checkupRequest) {
         this.id = checkupRequest.getId();
         this.startDate = checkupRequest.getStartDate();
         this.endDate = checkupRequest.getEndDate();
         this.doctorId = checkupRequest.getDoctor().getId();
         this.checkupTypeId = checkupRequest.getCheckupType().getId();
         this.clinicId = checkupRequest.getClinic().getId();
+        this.doctorName = checkupRequest.getDoctor().getName();
+        this.doctorLastName = checkupRequest.getDoctor().getLastName();
     }
 
     public Long getId() {

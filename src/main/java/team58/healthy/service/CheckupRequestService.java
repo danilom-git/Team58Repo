@@ -3,9 +3,11 @@ package team58.healthy.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import team58.healthy.dto.CheckupRequestDTO;
+import team58.healthy.dto.CheckupRequestViewDTO;
 import team58.healthy.model.CheckupRequest;
 import team58.healthy.repository.CheckupRequestRepository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -28,5 +30,16 @@ public class CheckupRequestService {
         checkupRequest.setCheckupType(checkupTypeService.findById(checkupRequestDTO.getCheckupTypeId()));
 
         return checkupRequestRepository.save(checkupRequest);
+    }
+
+    public List<CheckupRequestViewDTO> findByClinic(Long id)
+    {
+        List<CheckupRequest> req = checkupRequestRepository.findAllByClinicId(id);
+        List<CheckupRequestViewDTO> dtos = new ArrayList<CheckupRequestViewDTO>();
+        for (CheckupRequest cr: req)
+        {
+            dtos.add(new CheckupRequestViewDTO(cr));
+        }
+        return dtos;
     }
 }

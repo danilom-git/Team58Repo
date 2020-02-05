@@ -16,11 +16,14 @@ public class CheckupRequest {
     @Column
     private Date endDate;
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Doctor doctor;
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private CheckupType checkupType;
+
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Clinic clinic;
 
     public Long getId() {
         return id;
@@ -60,5 +63,13 @@ public class CheckupRequest {
 
     public void setCheckupType(CheckupType checkupType) {
         this.checkupType = checkupType;
+    }
+
+    public Clinic getClinic() {
+        return clinic;
+    }
+
+    public void setClinic(Clinic clinic) {
+        this.clinic = clinic;
     }
 }
