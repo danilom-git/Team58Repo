@@ -31,6 +31,13 @@ public class CheckupRequestController {
         return new ResponseEntity<>(checkupRequestDTOS, HttpStatus.OK);
     }
 
+    @GetMapping(value = "/checkupRequest:{id}")
+    @PreAuthorize("hasRole('CLINIC_ADMIN')")
+    public ResponseEntity<CheckupRequestViewDTO> getOne(@PathVariable Long id)
+    {
+        return new ResponseEntity<>(checkupRequestService.getOne(id),HttpStatus.OK);
+    }
+
     @PostMapping(consumes = "application/json")
     @PreAuthorize("hasRole('PATIENT') or hasRole('DOCTOR') or hasRole('CLINIC_ADMIN')")
     public ResponseEntity<CheckupRequestDTO> post(@RequestBody CheckupRequestDTO checkupRequestDTO) {

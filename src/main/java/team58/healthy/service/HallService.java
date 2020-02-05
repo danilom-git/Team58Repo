@@ -2,12 +2,15 @@ package team58.healthy.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import team58.healthy.dto.CheckupDTO;
 import team58.healthy.dto.HallDTO;
+import team58.healthy.dto.HallSearchDTO;
 import team58.healthy.model.Checkup;
 import team58.healthy.model.Hall;
 import team58.healthy.repository.HallRepository;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -85,5 +88,26 @@ public class HallService {
         hall.setClinic(clinicService.findById(hallDTO.getClinicId()));
 
         return new HallDTO(hallRepository.save(hall));
+    }
+
+    public List<HallSearchDTO> findOnDateAndNameOrNumber(Date date, String name, String number)
+    {
+        List<Hall> halls  = hallRepository.getHallsOnDateAndName(date,name, number);
+        List<HallSearchDTO> dtos = new ArrayList<HallSearchDTO>();
+        for(Hall h : halls)
+        {
+            List<Checkup> curr = checkupService.findAllByHall(h.getId());
+            List<CheckupDTO> currDtos = new ArrayList<CheckupDTO>();
+
+            for(Checkup c : curr)
+            {
+                CheckupDTO dto = new CheckupDTO(c);
+                currDtos.add(dto);
+            }
+
+            HallSearchDTO dt = new HallSearchDTO(h,currDtos);
+            dtos.add(dt);
+        }
+        return dtos;
     }
 }

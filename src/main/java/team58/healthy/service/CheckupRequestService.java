@@ -42,4 +42,15 @@ public class CheckupRequestService {
         }
         return dtos;
     }
+
+    public CheckupRequestViewDTO getOne(Long id)
+    {
+        CheckupRequest cr = checkupRequestRepository.findById(id).orElseGet(null);
+        if(cr != null)
+        {
+            CheckupRequestViewDTO dto = new CheckupRequestViewDTO(cr);
+            return dto;
+        }
+        return null;
+    }
 }
