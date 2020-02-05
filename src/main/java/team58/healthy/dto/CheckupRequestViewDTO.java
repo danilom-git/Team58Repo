@@ -75,4 +75,20 @@ public class CheckupRequestViewDTO {
     public void setClinicId(Long clinicId) {
         this.clinicId = clinicId;
     }
+
+    public String getDoctorName() {
+        return doctorName;
+    }
+
+    public void setDoctorName(String doctorName) {
+        this.doctorName = doctorName;
+    }
+
+    public String getDoctorLastName() {
+        return doctorLastName;
+    }
+
+    public void setDoctorLastName(String doctorLastName) {
+        this.doctorLastName = doctorLastName;
+    }
 }
