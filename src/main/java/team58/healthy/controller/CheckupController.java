@@ -68,7 +68,7 @@ public class CheckupController {
     @GetMapping(value = "/confirm/token:{token}/request:{id}/hall:{hid}")
     public ResponseEntity<CheckupDTO> save(@PathVariable String token,@PathVariable Long id,@PathVariable Long hid)
     {
-        return new ResponseEntity<>(checkupService.save(token,id,hid),HttpStatus.OK);
+        return new ResponseEntity<>(checkupService.saveCheckup(token,id,hid),HttpStatus.OK);
     }
 
     @GetMapping(value = "/cancel/token:{token}/request:{id}/hall:{hid}")
@@ -80,7 +80,7 @@ public class CheckupController {
     @PostMapping(value= "/request:{rid}", consumes = "application/json")
     @PreAuthorize("hasRole('CLINIC_ADMIN')")
     public ResponseEntity<Boolean> saveCheckup(@RequestBody CheckupDTO checkupDTO,@PathVariable Long rid) throws MessagingException {
-        return new ResponseEntity<>(checkupService.saveCheck(checkupDTO,rid),HttpStatus.OK);
+        return new ResponseEntity<>(checkupService.sendNotif(checkupDTO,rid),HttpStatus.OK);
     }
 
 }

@@ -114,7 +114,7 @@ public class CheckupService {
         return checkupRepository.findAllByHallAndEndDate(id,endDate);
     }
 
-    public Boolean saveCheck(CheckupDTO checkupDTO,Long rid) throws MessagingException {
+    public Boolean sendNotif(CheckupDTO checkupDTO,Long rid) throws MessagingException {
         List<Checkup> checkList = findForCheckupSchedule(checkupDTO.getStartDate(),checkupDTO.getEndDate(),checkupDTO.getHallId());
         if(checkList.isEmpty())
         {
