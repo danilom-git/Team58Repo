@@ -92,7 +92,8 @@ public class HallService {
 
     public List<HallSearchDTO> findOnDateAndNameOrNumber(Date date, String name, String number)
     {
-        List<Hall> halls  = hallRepository.getHallsOnDateAndName(date,name, number);
+       // List<Hall> halls  = hallRepository.getHallsOnDateAndName(date,name, number);
+        List<Hall> halls  = hallRepository.getHallsOnNumberAndName(name, number);
         List<HallSearchDTO> dtos = new ArrayList<HallSearchDTO>();
         for(Hall h : halls)
         {

@@ -13,6 +13,9 @@ public interface HallRepository extends JpaRepository<Hall, Long> {
     Page<Hall> findAll(Pageable pageable);
     List<Hall> findAllByClinicId(Long id);
 
+    @Query(nativeQuery =  true,value = "select * from hall h  where (h.number like %?2%) and (h.name like %?1%)")
+    List<Hall> getHallsOnNumberAndName(String name, String number);
+
     @Query(nativeQuery =  true,value = "select distinct h.id,h.name,h.number,h.clinic_id from hall h join checkup c on h.id = c.hall_id where (date(c.start_date) = date(?1)) and (h.number like %?3%) and (h.name like %?2%)")
     List<Hall> getHallsOnDateAndName(Date date, String name, String number);
 }

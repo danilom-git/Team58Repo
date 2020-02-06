@@ -29,6 +29,9 @@ public class CheckupService {
     @Autowired
     private PatientService patientService;
 
+    @Autowired
+    private EmailService emailService;
+
     public List<Checkup> findAll() { return checkupRepository.findAll(); }
 
     public List<Checkup> findAllOnDate(Date date) {
@@ -68,6 +71,10 @@ public class CheckupService {
             c.setHall(hallService.findOne2(checkupDTO.getHallId()));
             c.setCheckupType(checkupTypeService.findOne(checkupDTO.getCheckupTypeId()));
             c.setPatient(patientService.getOne(checkupDTO.getPatientId()));
+
+            emailService.sendSimpleMail(c.getPatient().getEmail(),"isaprojektovanjeUsers@gmail.com","<html><body>sadsa</body></html>");
+            emailService.sendSimpleMail(c.getDoctor().getEmail(),"isaprojektovanjeUsers@gmail.com","Checkup has added.");
+
             return new CheckupDTO(checkupRepository.save(c));
         }
         return null;

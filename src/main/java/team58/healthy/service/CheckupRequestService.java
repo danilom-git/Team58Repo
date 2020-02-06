@@ -43,6 +43,11 @@ public class CheckupRequestService {
         return dtos;
     }
 
+    public void delete(Long id)
+    {
+
+    }
+
     public CheckupRequestViewDTO getOne(Long id)
     {
         CheckupRequest cr = checkupRequestRepository.findById(id).orElseGet(null);
