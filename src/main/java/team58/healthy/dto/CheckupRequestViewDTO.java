@@ -13,6 +13,7 @@ public class CheckupRequestViewDTO {
     private Long clinicId;
     private String doctorName;
     private String doctorLastName;
+    private Long patientId;
 
     public CheckupRequestViewDTO() {
     }
@@ -26,6 +27,7 @@ public class CheckupRequestViewDTO {
         this.clinicId = checkupRequest.getClinic().getId();
         this.doctorName = checkupRequest.getDoctor().getName();
         this.doctorLastName = checkupRequest.getDoctor().getLastName();
+        this.patientId = checkupRequest.getPatient().getId();
     }
 
     public Long getId() {
@@ -90,5 +92,13 @@ public class CheckupRequestViewDTO {
 
     public void setDoctorLastName(String doctorLastName) {
         this.doctorLastName = doctorLastName;
+    }
+
+    public Long getPatientId() {
+        return patientId;
+    }
+
+    public void setPatientId(Long patientId) {
+        this.patientId = patientId;
     }
 }

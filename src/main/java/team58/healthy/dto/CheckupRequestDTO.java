@@ -11,6 +11,7 @@ public class CheckupRequestDTO {
     private Long doctorId;
     private Long checkupTypeId;
     private Long clinicId;
+    private Long patientId;
 
     public CheckupRequestDTO() { }
 
@@ -21,6 +22,7 @@ public class CheckupRequestDTO {
         this.doctorId = checkupRequest.getDoctor().getId();
         this.checkupTypeId = checkupRequest.getCheckupType().getId();
         this.clinicId = checkupRequest.getClinic().getId();
+        this.patientId = checkupRequest.getPatient().getId();
     }
 
     public Long getId() {
@@ -69,5 +71,13 @@ public class CheckupRequestDTO {
 
     public void setClinicId(Long clinicId) {
         this.clinicId = clinicId;
+    }
+
+    public Long getPatientId() {
+        return patientId;
+    }
+
+    public void setPatientId(Long patientId) {
+        this.patientId = patientId;
     }
 }

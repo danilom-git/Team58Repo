@@ -25,6 +25,9 @@ public class CheckupRequest {
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Clinic clinic;
 
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Patient patient;
+
     public Long getId() {
         return id;
     }
@@ -71,5 +74,13 @@ public class CheckupRequest {
 
     public void setClinic(Clinic clinic) {
         this.clinic = clinic;
+    }
+
+    public Patient getPatient() {
+        return patient;
+    }
+
+    public void setPatient(Patient patient) {
+        this.patient = patient;
     }
 }

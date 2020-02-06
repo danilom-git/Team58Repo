@@ -64,7 +64,7 @@ public class CheckupService {
             Checkup c = new Checkup();
             c.setStartDate(checkupDTO.getStartDate());
             c.setEndDate(checkupDTO.getEndDate());
-            c.setDoctor(doctorService.findOne2(checkupDTO.getId()));
+            c.setDoctor(doctorService.findOne2(checkupDTO.getDoctorId()));
             c.setHall(hallService.findOne2(checkupDTO.getHallId()));
             c.setCheckupType(checkupTypeService.findOne(checkupDTO.getCheckupTypeId()));
             c.setPatient(patientService.getOne(checkupDTO.getPatientId()));
