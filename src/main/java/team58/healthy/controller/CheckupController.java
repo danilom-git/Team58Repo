@@ -9,6 +9,8 @@ import team58.healthy.dto.CheckupDTO;
 import team58.healthy.model.Checkup;
 import team58.healthy.service.CheckupService;
 
+import javax.mail.MessagingException;
+import javax.websocket.server.PathParam;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -48,11 +50,22 @@ public class CheckupController {
         return new ResponseEntity<>(checkupDTOS, HttpStatus.OK);
     }
 
-    @PostMapping(consumes = "application/json")
-    @PreAuthorize("hasRole('CLINIC_ADMIN')")
-    public ResponseEntity<CheckupDTO> saveCheckup(@RequestBody CheckupDTO checkupDTO)
+    @GetMapping(value = "/confirm/token:{token}/request:{id}/hall:{hid}")
+    public ResponseEntity<CheckupDTO> save(@PathVariable String token,@PathVariable Long id,@PathVariable Long hid)
     {
-        return new ResponseEntity<>(checkupService.save(checkupDTO),HttpStatus.OK);
+        return new ResponseEntity<>(checkupService.save(token,id,hid),HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/cancel/token:{token}/request:{id}/hall:{hid}")
+    public ResponseEntity<CheckupDTO> delete(@PathVariable String token,@PathVariable Long id,@PathVariable Long hid)
+    {
+        return new ResponseEntity<>(null,HttpStatus.OK);
+    }
+
+    @PostMapping(value= "/request:{rid}", consumes = "application/json")
+    @PreAuthorize("hasRole('CLINIC_ADMIN')")
+    public ResponseEntity<Boolean> saveCheckup(@RequestBody CheckupDTO checkupDTO,@PathVariable Long rid) throws MessagingException {
+        return new ResponseEntity<>(checkupService.saveCheck(checkupDTO,rid),HttpStatus.OK);
     }
 
     /*@GetMapping(value = "/{y1}:{m1}:{d1}:{h1}:{s1},{y2}:{m2}:{d2}:{h2}:{s2},{id1},{id2}")

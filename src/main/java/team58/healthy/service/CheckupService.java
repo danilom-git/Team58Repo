@@ -6,13 +6,20 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Service;
 import team58.healthy.dto.CheckupDTO;
 import team58.healthy.model.Checkup;
+import team58.healthy.model.CheckupRequest;
+import team58.healthy.model.Patient;
 import team58.healthy.repository.CheckupRepository;
+import team58.healthy.security.TokenUtils;
 
+import javax.mail.MessagingException;
 import java.util.Date;
 import java.util.List;
 
 @Service
 public class CheckupService {
+
+    @Autowired
+    private TokenUtils tokenUtils;
 
     @Autowired
     private CheckupRepository checkupRepository;
@@ -28,6 +35,9 @@ public class CheckupService {
 
     @Autowired
     private PatientService patientService;
+
+    @Autowired
+    private CheckupRequestService checkupRequestService;
 
     @Autowired
     private EmailService emailService;
@@ -59,24 +69,51 @@ public class CheckupService {
         return checkupRepository.findAllForCheckupSchedule(startDate,endDate,hallId);
     }
 
-    public CheckupDTO save(CheckupDTO checkupDTO)
+    public CheckupDTO save(String token,Long id,Long hid)
     {
+        String patientUsername = tokenUtils.getUsernameFromToken(token);
+        Patient pat  = patientService.findByEmail(patientUsername);
+        CheckupRequest cr = checkupRequestService.findOne(id);
+        if(cr.getPatient().getId() == pat.getId())
+        {
+            Checkup checkup = new Checkup();
+            checkup.setPatient(pat);
+            checkup.setCheckupType(cr.getCheckupType());
+            checkup.setHall(hallService.findOne2(hid));
+            checkup.setDoctor(cr.getDoctor());
+            checkup.setEndDate(cr.getEndDate());
+            checkup.setStartDate(cr.getStartDate());
+            return new CheckupDTO( checkupRepository.save(checkup));
+        }
+        return null;
+    }
+
+    public Boolean saveCheck(CheckupDTO checkupDTO,Long rid) throws MessagingException {
         List<Checkup> checkList = findForCheckupSchedule(checkupDTO.getStartDate(),checkupDTO.getEndDate(),checkupDTO.getHallId());
         if(checkList.isEmpty())
         {
             Checkup c = new Checkup();
-            c.setStartDate(checkupDTO.getStartDate());
-            c.setEndDate(checkupDTO.getEndDate());
-            c.setDoctor(doctorService.findOne2(checkupDTO.getDoctorId()));
+           // c.setStartDate(checkupDTO.getStartDate());
+           // c.setEndDate(checkupDTO.getEndDate());
+           // c.setDoctor(doctorService.findOne2(checkupDTO.getDoctorId()));
             c.setHall(hallService.findOne2(checkupDTO.getHallId()));
-            c.setCheckupType(checkupTypeService.findOne(checkupDTO.getCheckupTypeId()));
+           // c.setCheckupType(checkupTypeService.findOne(checkupDTO.getCheckupTypeId()));
             c.setPatient(patientService.getOne(checkupDTO.getPatientId()));
 
-            emailService.sendSimpleMail(c.getPatient().getEmail(),"isaprojektovanjeUsers@gmail.com","<html><body>sadsa</body></html>");
-            emailService.sendSimpleMail(c.getDoctor().getEmail(),"isaprojektovanjeUsers@gmail.com","Checkup has added.");
+            CheckupRequest cr = checkupRequestService.findOne(rid);
+            cr.setOnWait(true);
+            checkupRequestService.update(cr);
 
-            return new CheckupDTO(checkupRepository.save(c));
+            String patientUsername =  c.getPatient().getUsername();
+            String requestId = rid.toString();
+
+            String patientUsernameToken = tokenUtils.generateToken(patientUsername);
+
+            emailService.sendHtmlMail("isaprojektovanjeUsers@gmail.com","Checkups","<html><body>Clinic admin assigned you checkup request hall: "+ c.getHall().getNumber() +".<br></br><a href=\"http://localhost:8080/api/checkups/confirm/token:"+patientUsernameToken+"/request:"+requestId+"/hall:"+checkupDTO.getHallId()+"\">Confirm<a/><a href=\"http://localhost:8080/api/checkups/cancel/token:"+patientUsernameToken+"/request:"+requestId+"/hall:"+checkupDTO.getHallId()+"\">Cancel</a></body></html>");
+            emailService.sendSimpleMail("isaprojektovanjeUsers@gmail.com","Checkups","Checkup has added.");
+
+            return true;
         }
-        return null;
+        return false;
     }
 }

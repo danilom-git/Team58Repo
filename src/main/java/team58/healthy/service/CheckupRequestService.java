@@ -20,7 +20,9 @@ public class CheckupRequestService {
     @Autowired
     private CheckupTypeService checkupTypeService;
 
-    public List<CheckupRequest> findAll() { return checkupRequestRepository.findAll(); }
+    public List<CheckupRequest> findAll() {
+        return checkupRequestRepository.findAll();
+    }
 
     public CheckupRequest save(CheckupRequestDTO checkupRequestDTO) {
         CheckupRequest checkupRequest = new CheckupRequest();
@@ -32,20 +34,27 @@ public class CheckupRequestService {
         return checkupRequestRepository.save(checkupRequest);
     }
 
-    public List<CheckupRequestViewDTO> findByClinic(Long id)
-    {
-        List<CheckupRequest> req = checkupRequestRepository.findAllByClinicId(id);
+    public List<CheckupRequestViewDTO> findByClinic(Long id) {
+        List<CheckupRequest> req = checkupRequestRepository.findAllByClinicIdAndOnWait(id);
         List<CheckupRequestViewDTO> dtos = new ArrayList<CheckupRequestViewDTO>();
-        for (CheckupRequest cr: req)
-        {
+        for (CheckupRequest cr : req) {
             dtos.add(new CheckupRequestViewDTO(cr));
         }
         return dtos;
     }
 
-    public void delete(Long id)
-    {
+    public void delete(Long id) {
 
+    }
+
+    public void update(CheckupRequest checkupRequest)
+    {
+        checkupRequestRepository.save(checkupRequest);
+    }
+
+    public CheckupRequest findOne(Long id)
+    {
+        return  checkupRequestRepository.findById(id).orElseGet(null);
     }
 
     public CheckupRequestViewDTO getOne(Long id)

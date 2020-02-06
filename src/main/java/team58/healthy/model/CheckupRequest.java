@@ -16,6 +16,9 @@ public class CheckupRequest {
     @Column
     private Date endDate;
 
+    @Column
+    private Boolean onWait;
+
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Doctor doctor;
 
@@ -82,5 +85,13 @@ public class CheckupRequest {
 
     public void setPatient(Patient patient) {
         this.patient = patient;
+    }
+
+    public Boolean getOnWait() {
+        return onWait;
+    }
+
+    public void setOnWait(Boolean onWait) {
+        this.onWait = onWait;
     }
 }
