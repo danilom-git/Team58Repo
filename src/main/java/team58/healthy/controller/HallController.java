@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import team58.healthy.dto.FirstDateAvailableDTO;
 import team58.healthy.dto.HallDTO;
 
 import team58.healthy.dto.HallSearchDTO;
@@ -88,6 +89,13 @@ public class HallController {
         cal.clear();
         cal.set(y, m, d);
         return new ResponseEntity<>(hallService.findOnDateAndNameOrNumber(cal.getTime(),name,number),HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/firstAvailable/hall:{id}/request:{rid}")
+    @PreAuthorize("hasRole('CLINIC_ADMIN')")
+    public ResponseEntity<FirstDateAvailableDTO> getFirstDate(@PathVariable Long id, @PathVariable Long rid)
+    {
+        return new ResponseEntity<>(hallService.firstAvailable(id,rid),HttpStatus.OK);
     }
 
 }

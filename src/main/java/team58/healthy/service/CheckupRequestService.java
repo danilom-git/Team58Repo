@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import team58.healthy.dto.CheckupRequestDTO;
 import team58.healthy.dto.CheckupRequestViewDTO;
+import team58.healthy.dto.FirstDateAvailableDTO;
 import team58.healthy.model.CheckupRequest;
 import team58.healthy.repository.CheckupRequestRepository;
 
@@ -41,6 +42,14 @@ public class CheckupRequestService {
             dtos.add(new CheckupRequestViewDTO(cr));
         }
         return dtos;
+    }
+
+    public CheckupRequestDTO changeDate(FirstDateAvailableDTO firstDateAvailableDTO,Long id)
+    {
+        CheckupRequest cr = checkupRequestRepository.findById(id).orElseGet(null);
+        cr.setEndDate(firstDateAvailableDTO.getEndDate());
+        cr.setStartDate(firstDateAvailableDTO.getStartDate());
+        return new CheckupRequestDTO(checkupRequestRepository.save(cr));
     }
 
     public void delete(CheckupRequest cr) {

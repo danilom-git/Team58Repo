@@ -42,7 +42,9 @@ public class CheckupService {
     @Autowired
     private EmailService emailService;
 
-    public List<Checkup> findAll() { return checkupRepository.findAll(); }
+    public List<Checkup> findAll() {
+        return checkupRepository.findAll();
+    }
 
     public List<Checkup> findAllOnDate(Date date) {
         return checkupRepository.findAllOnDate(date);
@@ -52,43 +54,38 @@ public class CheckupService {
         return checkupRepository.findAllOnDateByDoctor(date, doctorId);
     }
 
-    public List<Checkup> findAllByHall(Long id){return checkupRepository.findAllByHall(id);}
-
-    public List<Checkup> findForOneClick (Date start,Date end,Long idd,Long idh)
-    {
-        return checkupRepository.findAllByDateAndDoctor(start,end,idd,idh);
+    public List<Checkup> findAllByHall(Long id) {
+        return checkupRepository.findAllByHall(id);
     }
 
-    public List<Checkup> findAllByHallAndDate(Long id,Date date)
-    {
-        return checkupRepository.findAllByHallAndDate(id,date);
+    public List<Checkup> findForOneClick(Date start, Date end, Long idd, Long idh) {
+        return checkupRepository.findAllByDateAndDoctor(start, end, idd, idh);
     }
 
-    public List<Checkup> findForCheckupSchedule(Date startDate,Date endDate,Long hallId)
-    {
-        return checkupRepository.findAllForCheckupSchedule(startDate,endDate,hallId);
+    public List<Checkup> findAllByHallAndDate(Long id, Date date) {
+        return checkupRepository.findAllByHallAndDate(id, date);
     }
 
-    public String delete(String token,Long id)
-    {
+    public List<Checkup> findForCheckupSchedule(Date startDate, Date endDate, Long hallId) {
+        return checkupRepository.findAllForCheckupSchedule(startDate, endDate, hallId);
+    }
+
+    public String delete(String token, Long id) {
         String patientUsername = tokenUtils.getUsernameFromToken(token);
-        Patient pat  = patientService.findByEmail(patientUsername);
+        Patient pat = patientService.findByEmail(patientUsername);
         CheckupRequest cr = checkupRequestService.findOne(id);
-        if(cr.getPatient().getId() == pat.getId())
-        {
+        if (cr.getPatient().getId() == pat.getId()) {
             checkupRequestService.delete(cr);
             return "Checkup was canceled.";
         }
         return "You are not allowed to cancel this checkup.";
     }
 
-    public CheckupDTO save(String token,Long id,Long hid)
-    {
+    public CheckupDTO save(String token, Long id, Long hid) {
         String patientUsername = tokenUtils.getUsernameFromToken(token);
-        Patient pat  = patientService.findByEmail(patientUsername);
+        Patient pat = patientService.findByEmail(patientUsername);
         CheckupRequest cr = checkupRequestService.findOne(id);
-        if(cr.getPatient().getId() == pat.getId())
-        {
+        if (cr.getPatient().getId() == pat.getId()) {
             Checkup checkup = new Checkup();
             checkup.setPatient(pat);
             checkup.setCheckupType(cr.getCheckupType());
@@ -96,9 +93,18 @@ public class CheckupService {
             checkup.setDoctor(cr.getDoctor());
             checkup.setEndDate(cr.getEndDate());
             checkup.setStartDate(cr.getStartDate());
-            return new CheckupDTO( checkupRepository.save(checkup));
+            return new CheckupDTO(checkupRepository.save(checkup));
         }
         return null;
+    }
+
+    public List<Checkup> findAllDateAndHall(Date start, Date end, Long id) {
+        return checkupRepository.findAllByDateAndHall(start, end, id);
+    }
+
+    public List<Checkup> findAllHallAndEndDate(Long id, Date endDate)
+    {
+        return checkupRepository.findAllByHallAndEndDate(id,endDate);
     }
 
     public Boolean saveCheck(CheckupDTO checkupDTO,Long rid) throws MessagingException {

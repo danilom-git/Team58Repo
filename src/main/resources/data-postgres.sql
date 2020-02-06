@@ -58,6 +58,10 @@ insert into doctor_checkup_types (doctor_id, checkup_types_id) values (3, 3);
 insert into checkup (start_date, end_date, checkup_type_id, doctor_id, hall_id, patient_id) values
     (to_timestamp('2020 2 15 7:00', 'YYYY MM DD HH24 MI'), to_timestamp('2020 2 15 10:00', 'YYYY MM DD HH24 MI'), 1, 1, 1, 1);
 insert into checkup (start_date, end_date, checkup_type_id, doctor_id, hall_id, patient_id) values
+    (to_timestamp('2020 2 15 12:00', 'YYYY MM DD HH24 MI'), to_timestamp('2020 2 15 13:00', 'YYYY MM DD HH24 MI'), 1, 1, 1, 1);
+insert into checkup (start_date, end_date, checkup_type_id, doctor_id, hall_id, patient_id) values
+    (to_timestamp('2020 2 15 14:00', 'YYYY MM DD HH24 MI'), to_timestamp('2020 2 15 16:00', 'YYYY MM DD HH24 MI'), 1, 1, 1, 1);
+insert into checkup (start_date, end_date, checkup_type_id, doctor_id, hall_id, patient_id) values
     (to_timestamp('2020 2 15 8:00', 'YYYY MM DD HH24 MI'), to_timestamp('2020 2 15 12:00', 'YYYY MM DD HH24 MI'), 2, 2, 2, 1);
 insert into checkup (start_date, end_date, checkup_type_id, doctor_id, hall_id, patient_id) values
     (to_timestamp('2020 2 16 12:00', 'YYYY MM DD HH24 MI'), to_timestamp('2020 2 16 14:00', 'YYYY MM DD HH24 MI'), 2, 2, 1, 1);
@@ -77,3 +81,4 @@ insert into absence_request(answered,start_date,end_date,type,clinic_id,doctor_i
 
 insert into checkup_request(start_date,end_date,doctor_id,checkup_type_id,clinic_id,patient_id,on_wait) values ( to_timestamp('2020 2 18 7:00', 'YYYY MM DD HH24 MI'), to_timestamp('2020 2 18 08:00', 'YYYY MM DD HH24 MI') ,1,1,1,1,false);
 insert into checkup_request(start_date,end_date,doctor_id,checkup_type_id,clinic_id,patient_id,on_wait) values ( to_timestamp('2020 2 15 7:00', 'YYYY MM DD HH24 MI'), to_timestamp('2020 2 15 08:00', 'YYYY MM DD HH24 MI') ,1,1,1,1,false);
+insert into checkup_request(start_date,end_date,doctor_id,checkup_type_id,clinic_id,patient_id,on_wait) values ( to_timestamp('2020 2 20 7:00', 'YYYY MM DD HH24 MI'), to_timestamp('2020 2 20 08:00', 'YYYY MM DD HH24 MI') ,1,1,1,1,false);

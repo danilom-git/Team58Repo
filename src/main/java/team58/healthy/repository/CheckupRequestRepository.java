@@ -9,7 +9,7 @@ import java.util.List;
 public interface CheckupRequestRepository extends JpaRepository<CheckupRequest, Long> {
     List<CheckupRequest> findAllByClinicId(Long id);
 
-    @Query(nativeQuery =  true,value = "select * from checkup_request c  where (c.id = ?1) and (c.on_wait = false)")
+    @Query(nativeQuery =  true,value = "select * from checkup_request c  where (c.clinic_id = ?1) and (c.on_wait = false)")
     List<CheckupRequest> findAllByClinicIdAndOnWait(Long id);
 
 }
