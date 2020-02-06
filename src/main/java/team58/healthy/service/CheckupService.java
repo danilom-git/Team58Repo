@@ -94,6 +94,7 @@ public class CheckupService {
         CheckupRequest cr = checkupRequestService.findOne(id);
         if (cr.getPatient().getId() == pat.getId()) {
             Checkup checkup = new Checkup();
+            checkup.setClinic(cr.getClinic());
             checkup.setPatient(pat);
             checkup.setCheckupType(cr.getCheckupType());
             checkup.setHall(hallService.findOne2(hid));
