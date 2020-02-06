@@ -57,9 +57,9 @@ public class CheckupController {
     }
 
     @GetMapping(value = "/cancel/token:{token}/request:{id}/hall:{hid}")
-    public ResponseEntity<CheckupDTO> delete(@PathVariable String token,@PathVariable Long id,@PathVariable Long hid)
+    public ResponseEntity<String> delete(@PathVariable String token,@PathVariable Long id,@PathVariable Long hid)
     {
-        return new ResponseEntity<>(null,HttpStatus.OK);
+        return new ResponseEntity<>(checkupService.delete(token,id),HttpStatus.OK);
     }
 
     @PostMapping(value= "/request:{rid}", consumes = "application/json")

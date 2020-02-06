@@ -69,6 +69,19 @@ public class CheckupService {
         return checkupRepository.findAllForCheckupSchedule(startDate,endDate,hallId);
     }
 
+    public String delete(String token,Long id)
+    {
+        String patientUsername = tokenUtils.getUsernameFromToken(token);
+        Patient pat  = patientService.findByEmail(patientUsername);
+        CheckupRequest cr = checkupRequestService.findOne(id);
+        if(cr.getPatient().getId() == pat.getId())
+        {
+            checkupRequestService.delete(cr);
+            return "Checkup was canceled.";
+        }
+        return "You are not allowed to cancel this checkup.";
+    }
+
     public CheckupDTO save(String token,Long id,Long hid)
     {
         String patientUsername = tokenUtils.getUsernameFromToken(token);

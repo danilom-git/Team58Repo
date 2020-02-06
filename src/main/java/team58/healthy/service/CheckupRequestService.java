@@ -43,8 +43,12 @@ public class CheckupRequestService {
         return dtos;
     }
 
-    public void delete(Long id) {
-
+    public void delete(CheckupRequest cr) {
+        cr.setCheckupType(null);
+        cr.setDoctor(null);
+        cr.setClinic(null);
+        cr.setPatient(null);
+        checkupRequestRepository.delete(cr);
     }
 
     public void update(CheckupRequest checkupRequest)
