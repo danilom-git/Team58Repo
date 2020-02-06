@@ -4,25 +4,29 @@ import team58.healthy.model.CheckupRequest;
 
 import java.util.Date;
 
-public class CheckupRequestDTO {
+public class CheckupRequestViewDTO {
     private Long id;
-
     private Date startDate;
     private Date endDate;
     private Long doctorId;
     private Long checkupTypeId;
     private Long clinicId;
+    private String doctorName;
+    private String doctorLastName;
     private Long patientId;
 
-    public CheckupRequestDTO() { }
+    public CheckupRequestViewDTO() {
+    }
 
-    public CheckupRequestDTO(CheckupRequest checkupRequest) {
+    public CheckupRequestViewDTO(CheckupRequest checkupRequest) {
         this.id = checkupRequest.getId();
         this.startDate = checkupRequest.getStartDate();
         this.endDate = checkupRequest.getEndDate();
         this.doctorId = checkupRequest.getDoctor().getId();
         this.checkupTypeId = checkupRequest.getCheckupType().getId();
         this.clinicId = checkupRequest.getClinic().getId();
+        this.doctorName = checkupRequest.getDoctor().getName();
+        this.doctorLastName = checkupRequest.getDoctor().getLastName();
         this.patientId = checkupRequest.getPatient().getId();
     }
 
@@ -72,6 +76,22 @@ public class CheckupRequestDTO {
 
     public void setClinicId(Long clinicId) {
         this.clinicId = clinicId;
+    }
+
+    public String getDoctorName() {
+        return doctorName;
+    }
+
+    public void setDoctorName(String doctorName) {
+        this.doctorName = doctorName;
+    }
+
+    public String getDoctorLastName() {
+        return doctorLastName;
+    }
+
+    public void setDoctorLastName(String doctorLastName) {
+        this.doctorLastName = doctorLastName;
     }
 
     public Long getPatientId() {

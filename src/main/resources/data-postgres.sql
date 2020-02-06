@@ -59,14 +59,18 @@ insert into doctor_checkup_types (doctor_id, checkup_types_id) values (3, 2);
 insert into doctor_checkup_types (doctor_id, checkup_types_id) values (3, 3);
 
 -- MM (01 - 12)
-insert into checkup (start_date, end_date, checkup_type_id, clinic_id, doctor_id, hall_id, patient_id) values
-    (to_timestamp('2020 2 15 7:00', 'YYYY MM DD HH24 MI'), to_timestamp('2020 2 15 10:00', 'YYYY MM DD HH24 MI'), 1, 1, 1, 1, 1);
-insert into checkup (start_date, end_date, checkup_type_id, clinic_id, doctor_id, hall_id, patient_id) values
-    (to_timestamp('2020 2 15 8:00', 'YYYY MM DD HH24 MI'), to_timestamp('2020 2 15 12:00', 'YYYY MM DD HH24 MI'), 2, 1, 2, 2, 1);
-insert into checkup (start_date, end_date, checkup_type_id, clinic_id, doctor_id, hall_id, patient_id) values
-    (to_timestamp('2020 2 16 12:00', 'YYYY MM DD HH24 MI'), to_timestamp('2020 2 16 14:00', 'YYYY MM DD HH24 MI'), 2, 1, 2, 1, 1);
-insert into checkup (start_date, end_date, checkup_type_id, clinic_id, doctor_id, hall_id, patient_id) values
-    (to_timestamp('2020 2 16 10:00', 'YYYY MM DD HH24 MI'), to_timestamp('2020 2 16 13:00', 'YYYY MM DD HH24 MI'), 1, 1, 1, 2, 1);
+insert into checkup (start_date, end_date, checkup_type_id, doctor_id, hall_id, patient_id) values
+    (to_timestamp('2020 2 15 7:00', 'YYYY MM DD HH24 MI'), to_timestamp('2020 2 15 10:00', 'YYYY MM DD HH24 MI'), 1, 1, 1, 1);
+insert into checkup (start_date, end_date, checkup_type_id, doctor_id, hall_id, patient_id) values
+    (to_timestamp('2020 2 15 12:00', 'YYYY MM DD HH24 MI'), to_timestamp('2020 2 15 13:00', 'YYYY MM DD HH24 MI'), 1, 1, 1, 1);
+insert into checkup (start_date, end_date, checkup_type_id, doctor_id, hall_id, patient_id) values
+    (to_timestamp('2020 2 15 14:00', 'YYYY MM DD HH24 MI'), to_timestamp('2020 2 15 16:00', 'YYYY MM DD HH24 MI'), 1, 1, 1, 1);
+insert into checkup (start_date, end_date, checkup_type_id, doctor_id, hall_id, patient_id) values
+    (to_timestamp('2020 2 15 8:00', 'YYYY MM DD HH24 MI'), to_timestamp('2020 2 15 12:00', 'YYYY MM DD HH24 MI'), 2, 2, 2, 1);
+insert into checkup (start_date, end_date, checkup_type_id, doctor_id, hall_id, patient_id) values
+    (to_timestamp('2020 2 16 12:00', 'YYYY MM DD HH24 MI'), to_timestamp('2020 2 16 14:00', 'YYYY MM DD HH24 MI'), 2, 2, 1, 1);
+insert into checkup (start_date, end_date, checkup_type_id, doctor_id, hall_id, patient_id) values
+    (to_timestamp('2020 2 16 10:00', 'YYYY MM DD HH24 MI'), to_timestamp('2020 2 16 13:00', 'YYYY MM DD HH24 MI'), 1, 1, 2, 1);
 
 insert into clinic_checkup_type (clinic_id, checkup_type_id, price) values (1, 1, 250);
 insert into clinic_checkup_type (clinic_id, checkup_type_id, price) values (1, 2, 300);
@@ -89,3 +93,7 @@ insert into one_click (start_time, end_time, duration, clinic_id, hall_id, docto
 
 insert into absence_request (answered,start_date,end_date,type,clinic_id,doctor_id) values
     (false,to_timestamp('2020 2 16','YYYY MM DD'),to_timestamp('2020 2 18','YYYY MM DD'),'Annual leave',1,1);
+
+insert into checkup_request(start_date,end_date,doctor_id,checkup_type_id,clinic_id,patient_id,on_wait) values ( to_timestamp('2020 2 18 7:00', 'YYYY MM DD HH24 MI'), to_timestamp('2020 2 18 08:00', 'YYYY MM DD HH24 MI') ,1,1,1,1,false);
+insert into checkup_request(start_date,end_date,doctor_id,checkup_type_id,clinic_id,patient_id,on_wait) values ( to_timestamp('2020 2 15 7:00', 'YYYY MM DD HH24 MI'), to_timestamp('2020 2 15 08:00', 'YYYY MM DD HH24 MI') ,1,1,1,1,false);
+insert into checkup_request(start_date,end_date,doctor_id,checkup_type_id,clinic_id,patient_id,on_wait) values ( to_timestamp('2020 2 20 7:00', 'YYYY MM DD HH24 MI'), to_timestamp('2020 2 20 08:00', 'YYYY MM DD HH24 MI') ,1,1,1,1,false);

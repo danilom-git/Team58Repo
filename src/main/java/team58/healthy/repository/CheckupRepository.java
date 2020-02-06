@@ -32,4 +32,16 @@ public interface CheckupRepository extends JpaRepository<Checkup, Long> {
     @Query(nativeQuery = true,
         value = "select * from checkup where patient_id = ?1 and checkup_type_id = ?2 order by start_date asc")
     List<Checkup> findByPatientIdAndTypeId(Long patientId, Long checkupTypeId);
+
+    @Query(nativeQuery = true,value = "select * from checkup where (hall_id = ?1) and (date(start_date) = date(?2))")
+    List<Checkup> findAllByHallAndDate (Long hallId,Date date);
+
+    @Query(nativeQuery = true,value = "select * from checkup where (hall_id = ?1) and (date(start_date) = date(?2)) and (end_date > ?2) ORDER BY end_date ASC")
+    List<Checkup> findAllByHallAndEndDate (Long hallId,Date endDate);
+
+    @Query(nativeQuery =  true,value = "select * from checkup c where  (NOT((c.start_date <= ?1 and c.end_date <= ?1) or ( c.start_date >= ?2 and c.end_date >= ?2)) and (date(c.start_date) = date(?1)) and (c.hall_id = ?3)) ")
+    List<Checkup> findAllForCheckupSchedule (Date startTime,Date endTime,Long hallId);
+
+    @Query(nativeQuery =  true,value = "select * from checkup c where  (NOT((c.start_date <= ?1 and c.end_date <= ?1) or ( c.start_date >= ?2 and c.end_date >= ?2)) and (date(c.start_date) = date(?1)) and (c.hall_id = ?3)) ")
+    List<Checkup> findAllByDateAndHall (Date startTime,Date endTime,Long hallId);
 }

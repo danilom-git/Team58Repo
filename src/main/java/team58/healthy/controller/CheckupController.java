@@ -7,9 +7,11 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import team58.healthy.dto.CheckupDTO;
 import team58.healthy.dto.CheckupDTOPretty;
+import team58.healthy.dto.FirstDateAvailableDTO;
 import team58.healthy.model.Checkup;
 import team58.healthy.service.CheckupService;
 
+import javax.mail.MessagingException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -22,23 +24,7 @@ public class CheckupController {
     @Autowired
     private CheckupService checkupService;
 
-    /*@GetMapping(value = "/{y1}:{m1}:{d1}:{h1}:{s1},{y2}:{m2}:{d2}:{h2}:{s2},{id1},{id2}")
-    public ResponseEntity<List<CheckupDTO>> getShit(@PathVariable int y1, @PathVariable int m1, @PathVariable int d1,@PathVariable int h1,@PathVariable int s1,@PathVariable int y2, @PathVariable int m2, @PathVariable int d2,@PathVariable int h2,@PathVariable int s2,@PathVariable Long id1,@PathVariable Long id2){
-        Calendar c = Calendar.getInstance();
-        c.set(y1,m1-1,d1,h1,s1);
-        Date start = c.getTime();
-        c.clear();
-        c.set(y2,m2-1,d2,h2,s2);
-        Date end = c.getTime();
 
-        List<Checkup> checkups = checkupService.findForOneClick(start,end,id1,id2);
-        List<CheckupDTO> checkupDTOS = new ArrayList<>();
-        for (Checkup checkup : checkups) {
-            checkupDTOS.add(new CheckupDTO(checkup));
-        }
-
-        return new ResponseEntity<>(checkupDTOS,HttpStatus.OK);
-    }*/
 
     @GetMapping(value = "/all")
     @PreAuthorize("hasRole('DOCTOR') or hasRole('CLINIC_ADMIN')")
@@ -78,4 +64,23 @@ public class CheckupController {
     public ResponseEntity<List<CheckupDTOPretty>> getFromPatient(@RequestHeader("Authorization") String token, @PathVariable Long typeId) {
         return new ResponseEntity<>(checkupService.getFromUserByType(token, typeId), HttpStatus.OK);
     }
+
+    @GetMapping(value = "/confirm/token:{token}/request:{id}/hall:{hid}")
+    public ResponseEntity<CheckupDTO> save(@PathVariable String token,@PathVariable Long id,@PathVariable Long hid)
+    {
+        return new ResponseEntity<>(checkupService.save(token,id,hid),HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/cancel/token:{token}/request:{id}/hall:{hid}")
+    public ResponseEntity<String> delete(@PathVariable String token,@PathVariable Long id,@PathVariable Long hid)
+    {
+        return new ResponseEntity<>(checkupService.delete(token,id),HttpStatus.OK);
+    }
+
+    @PostMapping(value= "/request:{rid}", consumes = "application/json")
+    @PreAuthorize("hasRole('CLINIC_ADMIN')")
+    public ResponseEntity<Boolean> saveCheckup(@RequestBody CheckupDTO checkupDTO,@PathVariable Long rid) throws MessagingException {
+        return new ResponseEntity<>(checkupService.saveCheck(checkupDTO,rid),HttpStatus.OK);
+    }
+
 }

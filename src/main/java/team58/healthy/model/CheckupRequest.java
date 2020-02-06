@@ -1,7 +1,5 @@
 package team58.healthy.model;
 
-import team58.healthy.dto.CheckupRequestDTO;
-
 import javax.persistence.*;
 import java.util.Date;
 
@@ -18,14 +16,20 @@ public class CheckupRequest {
     @Column
     private Date endDate;
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private Clinic clinic;
+    @Column
+    private Boolean onWait;
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Doctor doctor;
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private CheckupType checkupType;
+
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Clinic clinic;
+
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Patient patient;
 
     public Long getId() {
         return id;
@@ -51,14 +55,6 @@ public class CheckupRequest {
         this.endDate = endDate;
     }
 
-    public Clinic getClinic() {
-        return clinic;
-    }
-
-    public void setClinic(Clinic clinic) {
-        this.clinic = clinic;
-    }
-
     public Doctor getDoctor() {
         return doctor;
     }
@@ -73,5 +69,29 @@ public class CheckupRequest {
 
     public void setCheckupType(CheckupType checkupType) {
         this.checkupType = checkupType;
+    }
+
+    public Clinic getClinic() {
+        return clinic;
+    }
+
+    public void setClinic(Clinic clinic) {
+        this.clinic = clinic;
+    }
+
+    public Patient getPatient() {
+        return patient;
+    }
+
+    public void setPatient(Patient patient) {
+        this.patient = patient;
+    }
+
+    public Boolean getOnWait() {
+        return onWait;
+    }
+
+    public void setOnWait(Boolean onWait) {
+        this.onWait = onWait;
     }
 }

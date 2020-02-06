@@ -45,6 +45,8 @@ public class PatientService {
         return dtos;
     }
 
+    public Patient getOne(Long id){return patientRepository.findById(id).orElseGet(null);}
+
     public PatientDTO getOneById(Long id)
     {
         return new PatientDTO(patientRepository.findById(id).orElseGet(null));
