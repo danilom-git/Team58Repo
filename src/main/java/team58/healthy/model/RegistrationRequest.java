@@ -46,6 +46,9 @@ public class RegistrationRequest {
     private boolean accepted;
 
     @Column
+    private boolean verified;
+
+    @Column
     private boolean archived;
 
     public RegistrationRequest() { }
@@ -62,6 +65,7 @@ public class RegistrationRequest {
         this.phoneNumber = requestDTO.getPhoneNumber();
         this.creationDate = new Date();
         this.accepted = false;
+        this.verified = false;
         this.archived = false;
     }
 
@@ -159,6 +163,14 @@ public class RegistrationRequest {
 
     public void setAccepted(boolean accepted) {
         this.accepted = accepted;
+    }
+
+    public boolean isVerified() {
+        return verified;
+    }
+
+    public void setVerified(boolean verified) {
+        this.verified = verified;
     }
 
     public boolean isArchived() {

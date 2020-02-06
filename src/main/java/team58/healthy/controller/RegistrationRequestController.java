@@ -5,12 +5,14 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import team58.healthy.dto.PatientDTO;
 import team58.healthy.dto.RegistrationRequestDTO;
 import team58.healthy.model.RegistrationRequest;
 import team58.healthy.service.RegistrationRequestService;
 
 @RestController
 @RequestMapping(value = "api/registration")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class RegistrationRequestController {
 
     @Autowired
@@ -22,19 +24,14 @@ public class RegistrationRequestController {
         return new ResponseEntity<>(new RegistrationRequestDTO(request), HttpStatus.CREATED);
     }
 
-    @PutMapping(value = "/enable/id:{id}")
+    @PutMapping(value = "/enable/id:{requestId}")
     @PreAuthorize("hasRole('ROLE_CLINIC_CENTER_ADMIN')")
-    public ResponseEntity<String> enableAccount(@PathVariable Long id) {
-        //System.out.println("Registration Request ID: " + id);
-        RegistrationRequest request = registrationRequestService.findById(id);
-        if (request == null)
-            return new ResponseEntity<>("A request with the selected ID does not exist.", HttpStatus.BAD_REQUEST);
-        if (request.isArchived())
-            return new ResponseEntity<>("This registration request is archived and can not be altered.", HttpStatus.BAD_REQUEST);
-        if (request.isAccepted())
-            return new ResponseEntity<>("This registration request is already accepted.", HttpStatus.BAD_REQUEST);
+    public ResponseEntity<String> enableAccount(@PathVariable Long requestId) {
+         return new ResponseEntity<>(registrationRequestService.enableAccount(requestId), HttpStatus.OK);
+    }
 
-        registrationRequestService.enableAccount(request);
-        return new ResponseEntity<>("Created new patient account.", HttpStatus.OK);
+    @GetMapping(value = "/verify/user:{token}/request:{requestId}")
+    public ResponseEntity<String> verifyAccount(@PathVariable Long requestId, @PathVariable String token) {
+        return new ResponseEntity<>(registrationRequestService.verifyAccount(requestId, token), HttpStatus.OK);
     }
 }

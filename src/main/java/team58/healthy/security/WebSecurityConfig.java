@@ -55,6 +55,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests().antMatchers("/auth/**").permitAll().and()
                 .authorizeRequests().antMatchers("/api/checkups/confirm/token:{token}/request:{id}/hall:{hid}").permitAll().and()
                 .authorizeRequests().antMatchers("/api/checkups/cancel/token:{token}/request:{id}/hall:{hid}").permitAll().and()
+                .authorizeRequests().antMatchers("/api/registration/verify/user:{token}/request:{requestId}").permitAll().and()
                 .authorizeRequests().antMatchers("/api/registration/new").permitAll()
                 .anyRequest().authenticated().and()
                 .cors().and()
@@ -69,6 +70,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         webSecurity.ignoring().antMatchers(HttpMethod.POST, "auth/login");
         webSecurity.ignoring().antMatchers(HttpMethod.GET, "/api/checkups/confirm/token:{token}/request:{id}/hall:{hid}");
         webSecurity.ignoring().antMatchers(HttpMethod.GET, "/api/checkups/cancel/token:{token}/request:{id}/hall:{hid}");
+        webSecurity.ignoring().antMatchers(HttpMethod.PUT, "/api/registration/verify/user:{token}/request:{requestId}");
         webSecurity.ignoring().antMatchers(HttpMethod.POST, "api/registration/new");
     }
 }
