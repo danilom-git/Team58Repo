@@ -96,7 +96,7 @@ public class HallService {
         List<HallSearchDTO> dtos = new ArrayList<HallSearchDTO>();
         for(Hall h : halls)
         {
-            List<Checkup> curr = checkupService.findAllByHall(h.getId());
+            List<Checkup> curr = checkupService.findAllByHallAndDate(h.getId(),date);
             List<CheckupDTO> currDtos = new ArrayList<CheckupDTO>();
 
             for(Checkup c : curr)
