@@ -27,7 +27,10 @@ public class CheckupTypeService {
         List<CheckupTypeViewDTO> dtos = new ArrayList<CheckupTypeViewDTO>();
         for(CheckupType c: ct)
         {
-            dtos.add( new CheckupTypeViewDTO(c.getId(),c.getName(),checkupTypeRepository.findPriceOfCheckup(c.getId(),id)));
+            Long idc = checkupTypeRepository.findIdOfCheckup(c.getId());
+            double price = checkupTypeRepository.findPriceOfCheckup(idc,id);
+            dtos.add( new CheckupTypeViewDTO(idc,c.getName(),price));
+
         }
         return dtos;
     }
