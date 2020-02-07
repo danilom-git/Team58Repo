@@ -31,4 +31,17 @@ public class CheckupTypeService {
         }
         return dtos;
     }
+
+    public List<CheckupTypeViewDTO> findByClinicFalse(Long id)
+    {
+        List<CheckupType> ct = checkupTypeRepository.findAllByClinicIdFalse(id);
+        List<CheckupTypeViewDTO> dtos = new ArrayList<CheckupTypeViewDTO>();
+        for(CheckupType c: ct)
+        {
+            Long idc = checkupTypeRepository.findIdOfCheckup(c.getId());
+            double price = checkupTypeRepository.findPriceOfCheckup(idc,id);
+            dtos.add( new CheckupTypeViewDTO(idc,c.getName(),price));
+        }
+        return dtos;
+    }
 }

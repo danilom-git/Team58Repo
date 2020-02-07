@@ -30,6 +30,8 @@ insert into clinic_admin (email, password, name, last_name, authority_id, last_p
 insert into checkup_type (name) values ('Checkup_Type_A');
 insert into checkup_type (name) values ('Checkup_Type_B');
 insert into checkup_type (name) values ('Checkup_Type_C');
+insert into checkup_type (name) values ('Checkup_Type_D');
+
 
 insert into medical_record (age, blood_type, diopter, height, weight) values (20, 'A+', 0, 185, 93);
 insert into patient (email, password, health_insurance_id, name, last_name, country, city, address, phone_number, last_password_reset_date, authority_id, medical_record_id) values
@@ -78,6 +80,8 @@ insert into clinic_checkup_type (clinic_id, checkup_type_id, price) values (1, 3
 insert into clinic_checkup_type (clinic_id, checkup_type_id, price) values (2, 1, 400);
 insert into clinic_checkup_type (clinic_id, checkup_type_id, price) values (2, 2, 450);
 insert into clinic_checkup_type (clinic_id, checkup_type_id, price) values (2, 3, 550);
+insert into clinic_checkup_type (clinic_id, checkup_type_id, price) values (2, 4, 1000);
+
 
 insert into one_click (duration,end_time,price,start_time,checkup_type_id,clinic_id,doctor_id,hall_id)
     values ('1h',to_timestamp('2020 2 25 13:00', 'YYYY MM DD HH24 MI'),1000,to_timestamp('2020 2 25 14:00', 'YYYY MM DD HH24 MI'),1,1,1,1);

@@ -34,11 +34,17 @@ public class CheckupTypeController {
         return new ResponseEntity<>(checkupTypeDTOS, HttpStatus.OK);
     }
 
-    @GetMapping(value = "all/clinic:{id}")
+    @GetMapping(value = "/all/clinic:{id}")
     @PreAuthorize("hasRole('CLINIC_ADMIN')")
     public ResponseEntity<List<CheckupTypeViewDTO>> getAllByClinic(@PathVariable Long id)
     {
         return new ResponseEntity<>(checkupTypeService.findByClinic(id),HttpStatus.OK);
     }
 
+    @GetMapping(value = "/allFalse/clinic:{id}")
+    @PreAuthorize("hasRole('CLINIC_ADMIN')")
+    public ResponseEntity<List<CheckupTypeViewDTO>> getAllByClinicFalse(@PathVariable Long id)
+    {
+        return new ResponseEntity<>(checkupTypeService.findByClinicFalse(id),HttpStatus.OK);
+    }
 }
