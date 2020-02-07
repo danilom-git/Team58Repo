@@ -37,6 +37,14 @@ public class ClinicCheckupTypeDTO {
         this.id = id;
     }
 
+    public Long getClinicCheckupTypeId() {
+        return clinicCheckupTypeId;
+    }
+
+    public void setClinicCheckupTypeId(Long clinicCheckupTypeId) {
+        this.clinicCheckupTypeId = clinicCheckupTypeId;
+    }
+
     public String getName() {
         return name;
     }
@@ -51,5 +59,13 @@ public class ClinicCheckupTypeDTO {
 
     public void setPrice(double price) {
         this.price = price;
+    }
+
+    public Long getClinicId() {
+        return clinicId;
+    }
+
+    public void setClinicId(Long clinicId) {
+        this.clinicId = clinicId;
     }
 }

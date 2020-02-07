@@ -17,6 +17,9 @@ public class ClinicCheckupTypeService {
     @Autowired
     private ClinicService clinicService;
 
+    @Autowired
+    private CheckupTypeService checkupTypeService;
+
     public ClinicCheckupType findByClinicAndCheckupTypeId(Clinic clinic, Long checkupTypeId) {
         return clinicCheckupTypeRepository.findByClinicAndCheckupTypeId(clinic, checkupTypeId);
     }
@@ -25,14 +28,9 @@ public class ClinicCheckupTypeService {
     {
         ClinicCheckupType clinicCheckupType = new ClinicCheckupType();
         clinicCheckupType.setClinic(clinicService.findById(id));
-
-        CheckupType ct = new CheckupType();
-        ct.setId(clinicCheckupTypeDTO.getId());
-        ct.setName(clinicCheckupTypeDTO.getName());
-
-        clinicCheckupType.setCheckupType(ct);
+        clinicCheckupType.setCheckupType(checkupTypeService.findById(clinicCheckupTypeDTO.getId()));
         clinicCheckupType.setPrice(clinicCheckupTypeDTO.getPrice());
 
-        return  new ClinicCheckupTypeDTO(clinicCheckupTypeRepository.save(clinicCheckupType));
+        return new ClinicCheckupTypeDTO(clinicCheckupTypeRepository.save(clinicCheckupType));
     }
 }

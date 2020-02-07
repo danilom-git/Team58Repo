@@ -9,6 +9,7 @@ import team58.healthy.dto.CheckupTypeDTO;
 import team58.healthy.dto.ClinicCheckupTypeDTO;
 import team58.healthy.model.CheckupType;
 import team58.healthy.service.CheckupTypeService;
+import team58.healthy.service.ClinicCheckupTypeService;
 
 import java.util.ArrayList;
 import java.util.List;
