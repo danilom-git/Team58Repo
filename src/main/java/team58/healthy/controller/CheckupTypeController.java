@@ -4,11 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import team58.healthy.dto.CheckupTypeDTO;
+import team58.healthy.dto.CheckupTypeViewDTO;
 import team58.healthy.dto.ClinicDTO;
 import team58.healthy.model.CheckupType;
 import team58.healthy.model.Clinic;
@@ -35,4 +33,12 @@ public class CheckupTypeController {
 
         return new ResponseEntity<>(checkupTypeDTOS, HttpStatus.OK);
     }
+
+    @GetMapping(value = "all/clinic:{id}")
+    @PreAuthorize("hasRole('CLINIC_ADMIN')")
+    public ResponseEntity<List<CheckupTypeViewDTO>> getAllByClinic(@PathVariable Long id)
+    {
+        return new ResponseEntity<>(checkupTypeService.findByClinic(id),HttpStatus.OK);
+    }
+
 }

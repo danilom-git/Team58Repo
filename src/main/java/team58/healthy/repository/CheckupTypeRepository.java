@@ -12,6 +12,6 @@ public interface CheckupTypeRepository extends JpaRepository<CheckupType, Long> 
     @Query(nativeQuery = true,value = "select * from checkup_type ct join clinic_checkup_type cct on ct.id = cct.checkup_type_id where cct.clinic_id = ?1")
     List<CheckupType> findAllByClinicId(Long id);
 
-    @Query(nativeQuery = true,value = "select cct.price from clinic_checkup_type cct where cct.checkup_type_id = ?1")
-    double findPriceOfCheckup(Long id);
+    @Query(nativeQuery = true,value = "select cct.price from clinic_checkup_type cct where (cct.checkup_type_id = ?1) and (cct.clinic_id = ?2)")
+    double findPriceOfCheckup(Long id,Long clinic_id);
 }
