@@ -6,6 +6,7 @@ import team58.healthy.dto.CheckupTypeViewDTO;
 import team58.healthy.model.CheckupType;
 import team58.healthy.repository.CheckupTypeRepository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -20,8 +21,14 @@ public class CheckupTypeService {
 
     public CheckupType findById(Long id) { return checkupTypeRepository.findById(id).orElseGet(null); }
 
-    public CheckupTypeViewDTO findByClinic(Long id)
+    public List<CheckupTypeViewDTO> findByClinic(Long id)
     {
-        return null;
+        List<CheckupType> ct = checkupTypeRepository.findAllByClinicId(id);
+        List<CheckupTypeViewDTO> dtos = new ArrayList<CheckupTypeViewDTO>();
+        for(CheckupType c: ct)
+        {
+            dtos.add( new CheckupTypeViewDTO(c.getId(),c.getName(),checkupTypeRepository.findPriceOfCheckup(c.getId())));
+        }
+        return dtos;
     }
 }
