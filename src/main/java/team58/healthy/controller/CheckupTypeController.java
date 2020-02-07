@@ -43,7 +43,7 @@ public class CheckupTypeController {
 
     @GetMapping(value = "/allFalse/clinic:{id}")
     @PreAuthorize("hasRole('CLINIC_ADMIN')")
-    public ResponseEntity<List<CheckupTypeViewDTO>> getAllByClinicFalse(@PathVariable Long id)
+    public ResponseEntity<List<CheckupTypeDTO>> getAllByClinicFalse(@PathVariable Long id)
     {
         return new ResponseEntity<>(checkupTypeService.findByClinicFalse(id),HttpStatus.OK);
     }

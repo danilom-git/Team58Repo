@@ -9,10 +9,10 @@ import java.util.List;
 
 public interface CheckupTypeRepository extends JpaRepository<CheckupType, Long> {
 
-    @Query(nativeQuery = true,value = "select * from checkup_type ct join clinic_checkup_type cct on ct.id = cct.checkup_type_id where cct.clinic_id = ?1")
+    @Query(nativeQuery = true,value = "select ct.id,ct.name from checkup_type ct join clinic_checkup_type cct on ct.id = cct.checkup_type_id where cct.clinic_id = ?1")
     List<CheckupType> findAllByClinicId(Long id);
 
-    @Query(nativeQuery = true,value = "select distinct * from clinic_checkup_type cct join checkup_type ctt on ctt.id = cct.checkup_type_id where cct.checkup_type_id not in (select ct.checkup_type_id from clinic_checkup_type ct where ct.clinic_id = ?1)")
+    @Query(nativeQuery = true,value = "select distinct ctt.id,ctt.name from clinic_checkup_type cct right join checkup_type ctt on ctt.id = cct.checkup_type_id where cct.checkup_type_id not in (select ct.checkup_type_id from clinic_checkup_type ct where ct.clinic_id = ?1)")
     List<CheckupType> findAllByClinicIdFalse(Long id);
 
     @Query(nativeQuery = true,value = "select price from clinic_checkup_type  where (checkup_type_id = ?1) and (clinic_id = ?2)")
