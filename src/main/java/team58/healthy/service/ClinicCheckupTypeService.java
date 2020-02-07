@@ -24,6 +24,17 @@ public class ClinicCheckupTypeService {
         return clinicCheckupTypeRepository.findByClinicAndCheckupTypeId(clinic, checkupTypeId);
     }
 
+    public ClinicCheckupTypeDTO update(Long id,Long cid,double price)
+    {
+        ClinicCheckupType cct = clinicCheckupTypeRepository.findByClinicAndCheckupTypeId(clinicService.findById(cid), id);
+        if(cct != null)
+        {
+            cct.setPrice(price);
+            return new ClinicCheckupTypeDTO(clinicCheckupTypeRepository.save(cct));
+        }
+        return null;
+    }
+
     public Boolean delete(Long id,Long cid) {
         ClinicCheckupType cct = clinicCheckupTypeRepository.findByClinicAndCheckupTypeId(clinicService.findById(cid), id);
         if (cct != null) {
