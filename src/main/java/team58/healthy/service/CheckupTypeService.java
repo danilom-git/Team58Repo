@@ -2,6 +2,7 @@ package team58.healthy.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import team58.healthy.dto.CheckupTypeViewDTO;
 import team58.healthy.model.CheckupType;
 import team58.healthy.repository.CheckupTypeRepository;
 
@@ -18,4 +19,9 @@ public class CheckupTypeService {
     public List<CheckupType> findAll() { return checkupTypeRepository.findAll(); }
 
     public CheckupType findById(Long id) { return checkupTypeRepository.findById(id).orElseGet(null); }
+
+    public CheckupTypeViewDTO findByClinic(Long id)
+    {
+        return null;
+    }
 }
