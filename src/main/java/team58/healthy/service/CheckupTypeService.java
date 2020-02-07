@@ -3,8 +3,9 @@ package team58.healthy.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import team58.healthy.dto.CheckupTypeDTO;
-import team58.healthy.dto.CheckupTypeViewDTO;
+import team58.healthy.dto.ClinicCheckupTypeDTO;
 import team58.healthy.model.CheckupType;
+import team58.healthy.model.ClinicCheckupType;
 import team58.healthy.repository.CheckupTypeRepository;
 
 import java.util.ArrayList;
@@ -22,14 +23,14 @@ public class CheckupTypeService {
 
     public CheckupType findById(Long id) { return checkupTypeRepository.findById(id).orElseGet(null); }
 
-    public List<CheckupTypeViewDTO> findByClinic(Long id)
+    public List<ClinicCheckupTypeDTO> findByClinic(Long id)
     {
         List<CheckupType> ct = checkupTypeRepository.findAllByClinicId(id);
-        List<CheckupTypeViewDTO> dtos = new ArrayList<CheckupTypeViewDTO>();
+        List<ClinicCheckupTypeDTO> dtos = new ArrayList<ClinicCheckupTypeDTO>();
         for(CheckupType c: ct)
         {
             double price = checkupTypeRepository.findPriceOfCheckup(c.getId(),id);
-            dtos.add( new CheckupTypeViewDTO(c.getId(),c.getName(),price));
+            dtos.add( new ClinicCheckupTypeDTO(c.getId(),c.getName(),price));
         }
         return dtos;
     }

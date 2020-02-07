@@ -6,10 +6,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import team58.healthy.dto.CheckupTypeDTO;
-import team58.healthy.dto.CheckupTypeViewDTO;
-import team58.healthy.dto.ClinicDTO;
+import team58.healthy.dto.ClinicCheckupTypeDTO;
 import team58.healthy.model.CheckupType;
-import team58.healthy.model.Clinic;
 import team58.healthy.service.CheckupTypeService;
 
 import java.util.ArrayList;
@@ -36,7 +34,7 @@ public class CheckupTypeController {
 
     @GetMapping(value = "/all/clinic:{id}")
     @PreAuthorize("hasRole('CLINIC_ADMIN')")
-    public ResponseEntity<List<CheckupTypeViewDTO>> getAllByClinic(@PathVariable Long id)
+    public ResponseEntity<List<ClinicCheckupTypeDTO>> getAllByClinic(@PathVariable Long id)
     {
         return new ResponseEntity<>(checkupTypeService.findByClinic(id),HttpStatus.OK);
     }
