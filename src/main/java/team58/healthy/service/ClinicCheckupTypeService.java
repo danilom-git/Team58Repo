@@ -3,13 +3,19 @@ package team58.healthy.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import team58.healthy.dto.ClinicCheckupTypeDTO;
+import team58.healthy.model.Checkup;
 import team58.healthy.model.CheckupType;
 import team58.healthy.model.Clinic;
 import team58.healthy.model.ClinicCheckupType;
 import team58.healthy.repository.ClinicCheckupTypeRepository;
 
+import java.util.List;
+
 @Service
 public class ClinicCheckupTypeService {
+
+    @Autowired
+    private CheckupService checkupService;
 
     @Autowired
     private ClinicCheckupTypeRepository clinicCheckupTypeRepository;
@@ -27,7 +33,8 @@ public class ClinicCheckupTypeService {
     public ClinicCheckupTypeDTO update(Long id,Long cid,double price)
     {
         ClinicCheckupType cct = clinicCheckupTypeRepository.findByClinicAndCheckupTypeId(clinicService.findById(cid), id);
-        if(cct != null)
+        List<Checkup> checks = checkupService.findByType(id);
+        if(cct != null && checks.isEmpty())
         {
             cct.setPrice(price);
             return new ClinicCheckupTypeDTO(clinicCheckupTypeRepository.save(cct));
@@ -37,7 +44,8 @@ public class ClinicCheckupTypeService {
 
     public Boolean delete(Long id,Long cid) {
         ClinicCheckupType cct = clinicCheckupTypeRepository.findByClinicAndCheckupTypeId(clinicService.findById(cid), id);
-        if (cct != null) {
+        List<Checkup> checks = checkupService.findByType(id);
+        if (cct != null && checks.isEmpty()) {
             cct.setCheckupType(null);
             cct.setClinic(null);
             clinicCheckupTypeRepository.delete(cct);
