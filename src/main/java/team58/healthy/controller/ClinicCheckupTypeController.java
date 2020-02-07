@@ -28,4 +28,10 @@ public class ClinicCheckupTypeController {
     public ResponseEntity<Boolean> delete(@PathVariable Long cid, @PathVariable Long id) {
         return new ResponseEntity<>(clinicCheckupTypeService.delete(id,cid),HttpStatus.OK);
     }
+
+    @PutMapping(value = "/clinic:{cid}/type:{id}/price:{price}")
+    @PreAuthorize("hasRole('CLINIC_ADMIN')")
+    public ResponseEntity<ClinicCheckupTypeDTO> update(@PathVariable Long cid, @PathVariable Long id,@PathVariable double price) {
+        return new ResponseEntity<>(clinicCheckupTypeService.update(id,cid,price),HttpStatus.OK);
+    }
 }
