@@ -17,11 +17,15 @@ public class ClinicCheckupTypeController {
     @Autowired
     private ClinicCheckupTypeService clinicCheckupTypeService;
 
-    @PostMapping(value= "/clinic:{id}",consumes = "application/json")
+    @PostMapping(value = "/clinic:{id}", consumes = "application/json")
     @PreAuthorize("hasRole('CLINIC_ADMIN')")
-    public ResponseEntity<ClinicCheckupTypeDTO> save(@RequestBody ClinicCheckupTypeDTO clinicCheckupTypeDTO, @PathVariable Long id)
-    {
-        return new ResponseEntity<>(clinicCheckupTypeService.save(clinicCheckupTypeDTO,id), HttpStatus.OK);
+    public ResponseEntity<ClinicCheckupTypeDTO> save(@RequestBody ClinicCheckupTypeDTO clinicCheckupTypeDTO, @PathVariable Long id) {
+        return new ResponseEntity<>(clinicCheckupTypeService.save(clinicCheckupTypeDTO, id), HttpStatus.OK);
     }
 
+    @DeleteMapping(value = "/clinic:{cid}/type:{id}")
+    @PreAuthorize("hasRole('CLINIC_ADMIN')")
+    public ResponseEntity<Boolean> delete(@PathVariable Long cid, @PathVariable Long id) {
+        return new ResponseEntity<>(clinicCheckupTypeService.delete(id,cid),HttpStatus.OK);
+    }
 }
