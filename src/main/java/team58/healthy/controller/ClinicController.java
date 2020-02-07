@@ -38,6 +38,12 @@ public class ClinicController {
         return new ResponseEntity<>(clinicDTOs, HttpStatus.OK);
     }
 
+    @GetMapping(value = "/getOne/clinic:{id}")
+    @PreAuthorize("hasRole('CLINIC_ADMIN')")
+    public ResponseEntity<ClinicDTO> getOne(@PathVariable Long id)
+    {
+        return new ResponseEntity<>(clinicService.findByIdDTO(id),HttpStatus.OK);
+    }
 
     @GetMapping(value = "/checkupType:{checkupTypeId}")
     @PreAuthorize("hasRole('PATIENT') or hasRole('DOCTOR') or hasRole('CLINIC_ADMIN')")

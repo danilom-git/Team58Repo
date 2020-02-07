@@ -1,5 +1,5 @@
-insert into clinic (name, country, city, address) values ('Clinic_A', 'Country_A', 'City_A', 'Street_A');
-insert into clinic (name, country, city, address) values ('Clinic_B', 'Country_A', 'City_B', 'Street_A');
+insert into clinic (name, country, city, address,x_coord,y_coord) values ('Clinic_A', 'Country_A', 'City_A', 'Street_A',45.29,19.83);
+insert into clinic (name, country, city, address,x_coord,y_coord) values ('Clinic_B', 'Country_A', 'City_B', 'Street_A',45.10,19.75);
 
 insert into hall (name,number , clinic_id) values ('Hall_A','101', 1);
 insert into hall (name,number , clinic_id) values ('Hall_B','102', 1);
