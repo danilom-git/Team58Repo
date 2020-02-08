@@ -74,7 +74,7 @@ insert into checkup (start_date, end_date, checkup_type_id, doctor_id, hall_id, 
 insert into checkup (start_date, end_date, checkup_type_id, doctor_id, hall_id, patient_id,clinic_id) values
     (to_timestamp('2020 2 16 10:00', 'YYYY MM DD HH24 MI'), to_timestamp('2020 2 16 13:00', 'YYYY MM DD HH24 MI'), 1, 1, 2, 1,1);
 insert into checkup (start_date, end_date, checkup_type_id, doctor_id, hall_id, patient_id,clinic_id) values
-    (to_timestamp('2020 2 8 4:00', 'YYYY MM DD HH24 MI'), to_timestamp('2020 2 8 13:00', 'YYYY MM DD HH24 MI'), 1, 1, 1, 1,1);
+    (to_timestamp('2020 2 8 4:00', 'YYYY MM DD HH24 MI'), to_timestamp('2020 2 8 22:00', 'YYYY MM DD HH24 MI'), 1, 1, 1, 1,1);
 
 
 insert into clinic_checkup_type (clinic_id, checkup_type_id, price) values (1, 1, 250);

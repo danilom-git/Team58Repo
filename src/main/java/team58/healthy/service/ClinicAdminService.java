@@ -21,6 +21,16 @@ public class ClinicAdminService {
 
     public ClinicAdmin save(ClinicAdmin clinicAdmin) { return clinicAdminRepository.save(clinicAdmin); }
 
+    public ClinicAdminDTO update(ClinicAdminDTO clinicAdminDTO)
+    {
+        ClinicAdmin admin = clinicAdminRepository.findById(clinicAdminDTO.getId()).orElseGet(null);
+        if(admin != null) {
+            admin.setName(clinicAdminDTO.getName());
+            admin.setLastName(clinicAdminDTO.getLastName());
+            return new ClinicAdminDTO(clinicAdminRepository.save(admin));
+        }
+        return null;
+    }
 
     public ClinicAdminDTO findOne(Long id){
         return new ClinicAdminDTO(clinicAdminRepository.findById(id).orElseGet(null));

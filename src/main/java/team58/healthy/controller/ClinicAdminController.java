@@ -25,6 +25,12 @@ public class ClinicAdminController {
         return new ResponseEntity<>(clinicAdminService.getFromToken(token), HttpStatus.OK);
     }
 
+    @PutMapping(consumes = "application/json")
+    @PreAuthorize("hasRole('CLINIC_ADMIN')")
+    public ResponseEntity<ClinicAdminDTO> update(@RequestBody ClinicAdminDTO clinicAdminDTO){
+        return new ResponseEntity<>(clinicAdminService.update(clinicAdminDTO), HttpStatus.OK);
+    }
+
     @PostMapping(value = "/self")
     @PreAuthorize("hasRole('CLINIC_ADMIN')")
     public ResponseEntity<ClinicAdminDTO> getOne(@RequestBody TokenDTO tokenDTO){
