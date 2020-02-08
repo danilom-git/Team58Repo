@@ -33,6 +33,18 @@ public class ClinicService {
         return new ClinicDTO(clinicRepository.findById(id).orElseGet(null));
     }
 
+    public ClinicDTO saveInfo(ClinicDTO clinicDTO)
+    {
+        Clinic clinic = findById(clinicDTO.getId());
+        clinic.setAddress(clinicDTO.getAddress());
+        clinic.setCity(clinicDTO.getCity());
+        clinic.setCountry(clinicDTO.getCountry());
+        clinic.setName(clinicDTO.getName());
+        clinic.setxCoord(clinicDTO.getxCoord());
+        clinic.setyCoord(clinic.getyCoord());
+        return new ClinicDTO(clinicRepository.save(clinic));
+    }
+
     public List<Clinic> findAllWithCheckupType(Long checkupTypeId) {
         return clinicRepository.findAllWithCheckupTypeId(checkupTypeId);
     }
