@@ -22,20 +22,24 @@ public class CheckupRequestService {
     @Autowired
     private ClinicService clinicService;
 
+    @Autowired
+    private PatientService patientService;
 
     public List<CheckupRequest> findAll() {
         return checkupRequestRepository.findAll();
     }
 
-    public CheckupRequest save(CheckupRequestDTO checkupRequestDTO) {
+    public CheckupRequestDTO save(CheckupRequestDTO checkupRequestDTO) {
         CheckupRequest checkupRequest = new CheckupRequest();
         checkupRequest.setStartDate(checkupRequestDTO.getStartDate());
         checkupRequest.setEndDate(checkupRequestDTO.getEndDate());
         checkupRequest.setClinic(clinicService.findById(checkupRequestDTO.getClinicId()));
         checkupRequest.setDoctor(doctorService.findById(checkupRequestDTO.getDoctorId()));
         checkupRequest.setCheckupType(checkupTypeService.findById(checkupRequestDTO.getCheckupTypeId()));
+        checkupRequest.setPatient(patientService.getOne(checkupRequestDTO.getPatientId()));
+        checkupRequest.setOnWait(false);
 
-        return checkupRequestRepository.save(checkupRequest);
+        return new CheckupRequestDTO(checkupRequestRepository.save(checkupRequest));
     }
 
     public List<CheckupRequestViewDTO> findByClinic(Long id) {

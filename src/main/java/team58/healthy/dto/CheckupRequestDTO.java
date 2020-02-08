@@ -6,7 +6,6 @@ import java.util.Date;
 
 public class CheckupRequestDTO {
     private Long id;
-
     private Date startDate;
     private Date endDate;
     private Long doctorId;

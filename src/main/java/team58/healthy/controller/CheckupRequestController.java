@@ -43,7 +43,7 @@ public class CheckupRequestController {
     @PostMapping(consumes = "application/json")
     @PreAuthorize("hasRole('PATIENT') or hasRole('DOCTOR') or hasRole('CLINIC_ADMIN')")
     public ResponseEntity<CheckupRequestDTO> post(@RequestBody CheckupRequestDTO checkupRequestDTO) {
-        return new ResponseEntity<>(new CheckupRequestDTO(checkupRequestService.save(checkupRequestDTO)), HttpStatus.OK);
+        return new ResponseEntity<>(checkupRequestService.save(checkupRequestDTO), HttpStatus.OK);
     }
 
     @PostMapping(value =  "/changeDate/request:{id}",consumes = "application/json")
@@ -58,4 +58,6 @@ public class CheckupRequestController {
     {
         return new ResponseEntity<>(checkupRequestService.findByClinic(id),HttpStatus.OK);
     }
+
+
 }
