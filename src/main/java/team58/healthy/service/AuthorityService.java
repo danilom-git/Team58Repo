@@ -16,4 +16,9 @@ public class AuthorityService {
     public List<Authority> findByName(String name) {
         return authorityRepository.findByName(name);
     }
+
+    public Authority findById(Long id)
+    {
+        return authorityRepository.findById(id).orElseGet(null);
+    }
 }
