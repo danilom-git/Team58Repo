@@ -4,15 +4,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import team58.healthy.dto.CheckupTypeDTO;
-import team58.healthy.dto.ClinicDTO;
+import team58.healthy.dto.ClinicCheckupTypeDTO;
 import team58.healthy.model.CheckupType;
-import team58.healthy.model.Clinic;
 import team58.healthy.service.CheckupTypeService;
+import team58.healthy.service.ClinicCheckupTypeService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,5 +31,19 @@ public class CheckupTypeController {
         }
 
         return new ResponseEntity<>(checkupTypeDTOS, HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/all/clinic:{id}")
+    @PreAuthorize("hasRole('CLINIC_ADMIN')")
+    public ResponseEntity<List<ClinicCheckupTypeDTO>> getAllByClinic(@PathVariable Long id)
+    {
+        return new ResponseEntity<>(checkupTypeService.findByClinic(id),HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/allFalse/clinic:{id}")
+    @PreAuthorize("hasRole('CLINIC_ADMIN')")
+    public ResponseEntity<List<CheckupTypeDTO>> getAllByClinicFalse(@PathVariable Long id)
+    {
+        return new ResponseEntity<>(checkupTypeService.findByClinicFalse(id),HttpStatus.OK);
     }
 }

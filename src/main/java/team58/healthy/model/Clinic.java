@@ -22,6 +22,12 @@ public class Clinic {
     @Column
     private String address;
 
+    @Column
+    private double xCoord;
+
+    @Column
+    private double yCoord;
+
     @OneToMany(mappedBy = "clinic", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Doctor> doctors;
 
@@ -115,5 +121,21 @@ public class Clinic {
 
     public void setClinicRatings(List<ClinicRating> clinicRatings) {
         this.clinicRatings = clinicRatings;
+    }
+
+    public double getxCoord() {
+        return xCoord;
+    }
+
+    public void setxCoord(double xCoord) {
+        this.xCoord = xCoord;
+    }
+
+    public double getyCoord() {
+        return yCoord;
+    }
+
+    public void setyCoord(double yCoord) {
+        this.yCoord = yCoord;
     }
 }

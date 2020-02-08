@@ -8,6 +8,11 @@ public class CheckupTypeDTO {
 
     public CheckupTypeDTO() { }
 
+    public CheckupTypeDTO(Long id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+
     public CheckupTypeDTO(CheckupType checkupType) {
         this.id = checkupType.getId();
         this.name = checkupType.getName();

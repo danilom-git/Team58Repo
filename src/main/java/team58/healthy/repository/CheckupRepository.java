@@ -44,4 +44,7 @@ public interface CheckupRepository extends JpaRepository<Checkup, Long> {
 
     @Query(nativeQuery =  true,value = "select * from checkup c where  (NOT((c.start_date <= ?1 and c.end_date <= ?1) or ( c.start_date >= ?2 and c.end_date >= ?2)) and (date(c.start_date) = date(?1)) and (c.hall_id = ?3)) ")
     List<Checkup> findAllByDateAndHall (Date startTime,Date endTime,Long hallId);
+
+    List<Checkup> findAllByCheckupTypeId(Long id);
+
 }

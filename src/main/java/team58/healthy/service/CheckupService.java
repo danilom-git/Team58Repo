@@ -106,43 +106,46 @@ public class CheckupService {
         return null;
     }
 
+    public List<Checkup> findByType(Long id) {
+        return checkupRepository.findAllByCheckupTypeId(id);
+    }
+
     public List<Checkup> findAllDateAndHall(Date start, Date end, Long id) {
         return checkupRepository.findAllByDateAndHall(start, end, id);
     }
 
-    public List<Checkup> findAllHallAndEndDate(Long id, Date endDate)
-    {
-        return checkupRepository.findAllByHallAndEndDate(id,endDate);
+    public List<Checkup> findAllHallAndEndDate(Long id, Date endDate) {
+        return checkupRepository.findAllByHallAndEndDate(id, endDate);
     }
 
-    public Boolean sendNotif(CheckupDTO checkupDTO,Long rid) throws MessagingException {
-        List<Checkup> checkList = findForCheckupSchedule(checkupDTO.getStartDate(),checkupDTO.getEndDate(),checkupDTO.getHallId());
-        if(checkList.isEmpty())
-        {
+    public Boolean sendNotif(CheckupDTO checkupDTO, Long rid) throws MessagingException {
+        List<Checkup> checkList = findForCheckupSchedule(checkupDTO.getStartDate(), checkupDTO.getEndDate(), checkupDTO.getHallId());
+        if (checkList.isEmpty()) {
             Checkup c = new Checkup();
-           // c.setStartDate(checkupDTO.getStartDate());
-           // c.setEndDate(checkupDTO.getEndDate());
-           // c.setDoctor(doctorService.findOne2(checkupDTO.getDoctorId()));
+            // c.setStartDate(checkupDTO.getStartDate());
+            // c.setEndDate(checkupDTO.getEndDate());
+            // c.setDoctor(doctorService.findOne2(checkupDTO.getDoctorId()));
             c.setHall(hallService.findOne2(checkupDTO.getHallId()));
-           // c.setCheckupType(checkupTypeService.findOne(checkupDTO.getCheckupTypeId()));
+            // c.setCheckupType(checkupTypeService.findOne(checkupDTO.getCheckupTypeId()));
             c.setPatient(patientService.getOne(checkupDTO.getPatientId()));
 
             CheckupRequest cr = checkupRequestService.findOne(rid);
             cr.setOnWait(true);
             checkupRequestService.update(cr);
 
-            String patientUsername =  c.getPatient().getUsername();
+            String patientUsername = c.getPatient().getUsername();
             String requestId = rid.toString();
 
             String patientUsernameToken = tokenUtils.generateToken(patientUsername);
 
-            emailService.sendHtmlMail("isaprojektovanjeUsers@gmail.com","Checkups","<html><body>Clinic admin assigned you checkup request hall: "+ c.getHall().getNumber() +".<br></br><a href=\"http://localhost:8080/api/checkups/confirm/token:"+patientUsernameToken+"/request:"+requestId+"/hall:"+checkupDTO.getHallId()+"\">Confirm<a/><a href=\"http://localhost:8080/api/checkups/cancel/token:"+patientUsernameToken+"/request:"+requestId+"/hall:"+checkupDTO.getHallId()+"\">Cancel</a></body></html>");
-            emailService.sendSimpleMail("isaprojektovanjeUsers@gmail.com","Checkups","Checkup has added.");
+            emailService.sendHtmlMail("isaprojektovanjeUsers@gmail.com", "Checkups", "<html><body>Clinic admin assigned you checkup request hall: " + c.getHall().getNumber() + ".<br></br><a href=\"http://localhost:8080/api/checkups/confirm/token:" + patientUsernameToken + "/request:" + requestId + "/hall:" + checkupDTO.getHallId() + "\">Confirm<a/><a href=\"http://localhost:8080/api/checkups/cancel/token:" + patientUsernameToken + "/request:" + requestId + "/hall:" + checkupDTO.getHallId() + "\">Cancel</a></body></html>");
+            emailService.sendSimpleMail("isaprojektovanjeUsers@gmail.com", "Checkups", "Checkup has added.");
 
             return true;
         }
         return false;
     }
+
     public List<CheckupDTOPretty> getFromUser(String token) {
         String email = tokenUtils.getUsernameFromToken(token.substring(7));
         Patient patient = patientService.findByEmail(email);

@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import team58.healthy.dto.ClinicDTO;
 import team58.healthy.model.CheckupType;
 import team58.healthy.model.Clinic;
 import team58.healthy.repository.ClinicRepository;
@@ -26,6 +27,23 @@ public class ClinicService {
     public Page<Clinic> findAll(Pageable pageable) { return clinicRepository.findAll(pageable); }
 
     public Clinic findById(Long id) { return clinicRepository.findById(id).orElseGet(null); }
+
+    public ClinicDTO findByIdDTO(Long id)
+    {
+        return new ClinicDTO(clinicRepository.findById(id).orElseGet(null));
+    }
+
+    public ClinicDTO saveInfo(ClinicDTO clinicDTO)
+    {
+        Clinic clinic = findById(clinicDTO.getId());
+        clinic.setAddress(clinicDTO.getAddress());
+        clinic.setCity(clinicDTO.getCity());
+        clinic.setCountry(clinicDTO.getCountry());
+        clinic.setName(clinicDTO.getName());
+        clinic.setxCoord(clinicDTO.getxCoord());
+        clinic.setyCoord(clinic.getyCoord());
+        return new ClinicDTO(clinicRepository.save(clinic));
+    }
 
     public List<Clinic> findAllWithCheckupType(Long checkupTypeId) {
         return clinicRepository.findAllWithCheckupTypeId(checkupTypeId);

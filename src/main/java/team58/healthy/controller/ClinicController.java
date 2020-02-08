@@ -19,6 +19,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping(value = "api/clinics")
+@CrossOrigin
 public class ClinicController {
 
     @Autowired
@@ -38,6 +39,12 @@ public class ClinicController {
         return new ResponseEntity<>(clinicDTOs, HttpStatus.OK);
     }
 
+    @GetMapping(value = "/getOne/clinic:{id}")
+    @PreAuthorize("hasRole('CLINIC_ADMIN')")
+    public ResponseEntity<ClinicDTO> getOne(@PathVariable Long id)
+    {
+        return new ResponseEntity<>(clinicService.findByIdDTO(id),HttpStatus.OK);
+    }
 
     @GetMapping(value = "/checkupType:{checkupTypeId}")
     @PreAuthorize("hasRole('PATIENT') or hasRole('DOCTOR') or hasRole('CLINIC_ADMIN')")
@@ -51,6 +58,13 @@ public class ClinicController {
         }
 
         return new ResponseEntity<>(clinicWithCheckupDTOS, HttpStatus.OK);
+    }
+
+    @PutMapping(value = "/save")
+    @PreAuthorize("hasRole('CLINIC_ADMIN')")
+    public ResponseEntity<ClinicDTO> save(@RequestBody ClinicDTO clinicDTO)
+    {
+        return new ResponseEntity<>(clinicService.saveInfo(clinicDTO),HttpStatus.OK);
     }
 
 
