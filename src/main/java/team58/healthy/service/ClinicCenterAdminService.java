@@ -12,4 +12,5 @@ public class ClinicCenterAdminService {
     private ClinicCenterAdminRepository clinicCenterAdminRepository;
 
     public ClinicCenterAdmin findByEmail(String email) { return clinicCenterAdminRepository.findByEmail(email); }
+    public ClinicCenterAdmin save(ClinicCenterAdmin clinicCenterAdmin) { return clinicCenterAdminRepository.save(clinicCenterAdmin); }
 }

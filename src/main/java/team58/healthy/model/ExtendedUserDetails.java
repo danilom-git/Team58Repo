@@ -6,4 +6,6 @@ import java.util.Date;
 
 public interface ExtendedUserDetails extends UserDetails {
     Date getLastPasswordResetDate();
+    void setPassword(String password);
+    String getEmail();
 }

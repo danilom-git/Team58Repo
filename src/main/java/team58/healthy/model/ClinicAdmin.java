@@ -60,6 +60,7 @@ public class ClinicAdmin implements ExtendedUserDetails{
         this.clinic = clinic;
     }
 
+    @Override
     public String getEmail() {
         return email;
     }
@@ -96,6 +97,7 @@ public class ClinicAdmin implements ExtendedUserDetails{
         return authorities;
     }
 
+    @Override
     public void setPassword(String password) {
         this.lastPasswordResetDate = new Date();
         this.password = password;

@@ -69,6 +69,7 @@ public class ClinicCenterAdmin implements ExtendedUserDetails {
         this.id = id;
     }
 
+    @Override
     public String getEmail() {
         return email;
     }
@@ -77,7 +78,9 @@ public class ClinicCenterAdmin implements ExtendedUserDetails {
         this.email = email;
     }
 
+    @Override
     public void setPassword(String password) {
+        this.lastPasswordResetDate = new Date();
         this.password = password;
     }
 

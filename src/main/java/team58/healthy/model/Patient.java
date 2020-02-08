@@ -69,6 +69,7 @@ public class Patient implements ExtendedUserDetails {
         this.healthInsuranceId = healthInsuranceId;
     }
 
+    @Override
     public String getEmail() {
         return email;
     }
@@ -153,6 +154,7 @@ public class Patient implements ExtendedUserDetails {
         return authorities;
     }
 
+    @Override
     public void setPassword(String password) {
         this.lastPasswordResetDate = new Date();
         this.password = password;

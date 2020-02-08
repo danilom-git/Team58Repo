@@ -22,11 +22,8 @@ public class UserService implements UserDetailsService {
     private ClinicAdminService clinicAdminService;
     @Autowired
     private ClinicCenterAdminService clinicCenterAdminService;
-
-
     @Autowired
     private PasswordEncoder passwordEncoder;
-
     @Autowired
     private AuthenticationManager authenticationManager;
 
@@ -81,23 +78,51 @@ public class UserService implements UserDetailsService {
         return "";
     }
 
-    public void changePassword(String oldPassword, String newPassword) {
+    public String changePassword(String oldPassword, String newPassword) {
         Authentication currentUser = SecurityContextHolder.getContext().getAuthentication();
         String email = currentUser.getName();
 
         if (authenticationManager == null) {
             System.out.println("Authentication manager not set. Cannot change password.");
-            return;
+            return "Authentication manager not set. Cannot change password.";
         }
 
-        System.out.println("Re-authenticating patient '" + email + "' for password change request.");
-        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(email, oldPassword));
+        System.out.println("Re-authenticating user '" + email + "' for password change request.");
+        try {
+            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(email, oldPassword));
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "Error occurred during authentication of user " + email + ".";
+        }
 
-        System.out.println("Changing password for " + email);
-        Patient patient = (Patient)loadUserByUsername(email);
-        patient.setPassword(passwordEncoder.encode(newPassword));
+        System.out.println("Changing password for " + email + ".");
 
-        // TODO: add calls to other services depending on authorities
-        patientService.save(patient);
+        ExtendedUserDetails user;
+        try {
+            user = loadUserByUsername(email);
+        } catch (UsernameNotFoundException e) {
+            System.out.println("No user found for username.");
+            return "No user found for username.";
+        }
+
+        if (user instanceof Patient) {
+            Patient patient = (Patient)user;
+            patient.setPassword(passwordEncoder.encode(newPassword));
+            patientService.save(patient);
+        } else if (user instanceof Doctor) {
+            Doctor doctor = (Doctor) user;
+            doctor.setPassword(passwordEncoder.encode(newPassword));
+            doctorService.save(doctor);
+        } else if (user instanceof ClinicAdmin) {
+            ClinicAdmin clinicAdmin = (ClinicAdmin) user;
+            clinicAdmin.setPassword(passwordEncoder.encode(newPassword));
+            clinicAdminService.save(clinicAdmin);
+        } else if (user instanceof ClinicCenterAdmin) {
+            ClinicCenterAdmin clinicCenterAdmin = (ClinicCenterAdmin) user;
+            clinicCenterAdmin.setPassword(passwordEncoder.encode(newPassword));
+            clinicCenterAdminService.save(clinicCenterAdmin);
+        }
+
+        return "Password for " + user.getEmail() + " successfully changed.";
     }
 }

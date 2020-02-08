@@ -110,6 +110,7 @@ public class Doctor implements ExtendedUserDetails{
         this.workingTime = workingTime;
     }
 
+    @Override
     public String getEmail() {
         return email;
     }
@@ -138,6 +139,7 @@ public class Doctor implements ExtendedUserDetails{
         return authorities;
     }
 
+    @Override
     public void setPassword(String password) {
         this.lastPasswordResetDate = new Date();
         this.password = password;
