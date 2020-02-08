@@ -15,6 +15,7 @@ import team58.healthy.security.TokenUtils;
 
 import javax.mail.MessagingException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -170,5 +171,15 @@ public class CheckupService {
         return dtos;
     }
 
-
+    public CheckupDTO findForCheckupStart(Long did,Long pid)
+    {
+        Calendar cal = Calendar.getInstance();
+        Date now = cal.getTime();
+        Checkup ret = checkupRepository.findForCheckupStart(did,pid,now);
+        if(ret != null)
+        {
+            return new CheckupDTO(ret);
+        }
+        return null;
+    }
 }

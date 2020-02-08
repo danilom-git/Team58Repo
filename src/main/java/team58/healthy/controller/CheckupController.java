@@ -19,6 +19,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping(value = "api/checkups")
+@CrossOrigin
 public class CheckupController {
 
     @Autowired
@@ -75,6 +76,13 @@ public class CheckupController {
     public ResponseEntity<String> delete(@PathVariable String token,@PathVariable Long id,@PathVariable Long hid)
     {
         return new ResponseEntity<>(checkupService.delete(token,id),HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/checkStart/patient:{pid}/doctor:{did}")
+    @PreAuthorize("hasRole('DOCTOR')")
+    public ResponseEntity<CheckupDTO> checkStart(@PathVariable Long pid,@PathVariable Long did)
+    {
+        return new ResponseEntity<>(checkupService.findForCheckupStart(did,pid),HttpStatus.OK);
     }
 
     @PostMapping(value= "/request:{rid}", consumes = "application/json")
