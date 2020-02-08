@@ -8,5 +8,4 @@ import java.util.List;
 public interface AuthorityRepository extends JpaRepository<Authority, Long> {
 
     List<Authority> findByName(String name);
-
 }

@@ -17,6 +17,7 @@ public class DoctorDTO {
     private String email;
     private Long clinicId;
     private String clinicName;
+    private Boolean firstPasswordChanged;
     //    private float averageRating;
     private List<Long> checkupTypeIds;
     private List<Long> checkupIds;
@@ -27,6 +28,7 @@ public class DoctorDTO {
     }
 
     public DoctorDTO(Doctor doctor) {
+        this.firstPasswordChanged = doctor.getFirstPasswordChanged();
         this.id = doctor.getId();
         this.name = doctor.getName();
         this.lastName = doctor.getLastName();
@@ -112,5 +114,21 @@ public class DoctorDTO {
 
     public void setClinicName(String clinicName) {
         this.clinicName = clinicName;
+    }
+
+    public Boolean getFirstPasswordChanged() {
+        return firstPasswordChanged;
+    }
+
+    public void setFirstPasswordChanged(Boolean firstPasswordChanged) {
+        this.firstPasswordChanged = firstPasswordChanged;
+    }
+
+    public void setCheckupTypeIds(List<Long> checkupTypeIds) {
+        this.checkupTypeIds = checkupTypeIds;
+    }
+
+    public void setCheckupIds(List<Long> checkupIds) {
+        this.checkupIds = checkupIds;
     }
 }

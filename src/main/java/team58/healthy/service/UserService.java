@@ -27,6 +27,10 @@ public class UserService implements UserDetailsService {
     @Autowired
     private AuthenticationManager authenticationManager;
 
+    public String encode(String password)
+    {
+        return  passwordEncoder.encode(password);
+    }
 
     @Override
     public ExtendedUserDetails loadUserByUsername(String email) throws UsernameNotFoundException {

@@ -2,6 +2,8 @@ package team58.healthy.service;
 
 import javafx.util.Pair;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import team58.healthy.dto.DoctorDTO;
 import team58.healthy.model.Checkup;
@@ -16,6 +18,9 @@ import java.util.concurrent.TimeUnit;
 public class DoctorService {
 
     @Autowired
+    private UserService userService;
+
+    @Autowired
     private DoctorRepository doctorRepository;
 
     @Autowired
@@ -25,7 +30,13 @@ public class DoctorService {
     private ClinicService clinicService;
 
     @Autowired
-    TokenUtils tokenUtils;
+    private TokenUtils tokenUtils;
+
+    @Autowired
+    private EmailService emailService;
+
+    @Autowired
+    private AuthorityService authorityService;
 
     public DoctorDTO findOne(Long id)
     {
@@ -88,6 +99,7 @@ public class DoctorService {
                 doctor.setWorkingTime(doctorDTO.getWorkingTime());
                 doctor.setName(doctorDTO.getName());
                 doctor.setLastName(doctorDTO.getLastName());
+                doctor.setFirstPasswordChanged(doctorDTO.getFirstPasswordChanged());
                 doctor.setEmail(doctorDTO.getEmail());
                 return new DoctorDTO( doctorRepository.save(doctor));
             }
@@ -105,7 +117,12 @@ public class DoctorService {
         doctor.setWorkingTime(doctorDTO.getWorkingTime());
         doctor.setClinic(clinicService.findById(doctorDTO.getClinicId()));
         doctor.setEmail(doctorDTO.getEmail());
-        return doctorRepository.save(doctor);//PROMENITI NA DTO
+        doctor.setFirstPasswordChanged(false);
+        doctor.setPassword(userService.encode("123"));
+        long auth = 2;
+        doctor.setAuthority(authorityService.findById(auth));
+        emailService.sendSimpleMail("isaprojektovanjeUsers@gmail.com","Account added","You are added to system. Temporal password: 123");
+        return doctorRepository.save(doctor);
     }
 
     public Doctor save(Doctor doctor) { return doctorRepository.save(doctor); }
