@@ -182,4 +182,17 @@ public class CheckupService {
         }
         return null;
     }
+
+    public List<CheckupDTO> checkMedicalRecord(Long did,Long pid)
+    {
+        Calendar cal = Calendar.getInstance();
+        Date now = cal.getTime();
+        List<Checkup> checks = checkupRepository.findByDoctorPatientAndDate(did,pid,now);
+        List<CheckupDTO> dtos = new ArrayList<>();
+        for(Checkup c : checks)
+        {
+            dtos.add(new CheckupDTO(c));
+        }
+        return dtos;
+    }
 }

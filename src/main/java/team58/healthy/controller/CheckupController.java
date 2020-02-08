@@ -91,4 +91,10 @@ public class CheckupController {
         return new ResponseEntity<>(checkupService.sendNotif(checkupDTO,rid),HttpStatus.OK);
     }
 
+    @GetMapping(value = "/checkMedicalRecord/patient:{pid}/doctor:{did}")
+    @PreAuthorize("hasRole('DOCTOR')")
+    public ResponseEntity<List<CheckupDTO>> checkMediacalRecord(@PathVariable Long pid,@PathVariable Long did)
+    {
+        return new ResponseEntity<>(checkupService.checkMedicalRecord(did,pid),HttpStatus.OK);
+    }
 }
