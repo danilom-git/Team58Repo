@@ -32,7 +32,6 @@ insert into checkup_type (name) values ('Checkup_Type_B');
 insert into checkup_type (name) values ('Checkup_Type_C');
 insert into checkup_type (name) values ('Checkup_Type_D');
 
-
 insert into medical_record (age, blood_type, diopter, height, weight) values (20, 'A+', 0, 185, 93);
 insert into patient (email, password, health_insurance_id, name, last_name, country, city, address, phone_number, last_password_reset_date, authority_id, medical_record_id) values
     ('patient01@somemail.com', '$2a$10$j8XGgt8oCja0ioWD/JK0C.iL22NKpW3n40THQBnjxO7E4h.qyT0Fu', '1', 'Patient_A', 'Last_A',
@@ -53,6 +52,10 @@ insert into clinic_rating (patient_id, clinic_id, rating) values (2, 1, 4);
 insert into clinic_rating (patient_id, clinic_id, rating) values (3, 1, 3);
 insert into clinic_rating (patient_id, clinic_id, rating) values (1, 2, 5);
 insert into clinic_rating (patient_id, clinic_id, rating) values (2, 2, 2);
+
+insert into doctor_rating(clinic_id,doctor_id,rating) values (1, 1, 5);
+insert into doctor_rating(clinic_id,doctor_id,rating) values (1, 2, 4);
+insert into doctor_rating(clinic_id,doctor_id,rating) values (2, 3, 10);
 
 insert into doctor_checkup_types (doctor_id, checkup_types_id) values (1, 1);
 insert into doctor_checkup_types (doctor_id, checkup_types_id) values (1, 2);
