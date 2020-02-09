@@ -16,19 +16,14 @@ public class ClinicReportDTO {
     public ClinicReportDTO() {
     }
 
-    public ClinicReportDTO(Clinic clinic,List<CheckupDTO> checkups)
+    public ClinicReportDTO(Clinic clinic,List<CheckupDTO> checkups,List<DoctorDTO> doctors)
     {
         int sum = 0;
         for (ClinicRating rating : clinic.getClinicRatings()) {
             sum += rating.getRating();
         }
         this.clinicRating = (double)sum / clinic.getClinicRatings().size();
-        List<DoctorDTO> docDtos = new ArrayList<DoctorDTO>();
-        for(Doctor d:  clinic.getDoctors())
-        {
-            docDtos.add(new DoctorDTO(d));
-        }
-        this.doctors = docDtos;
+        this.doctors = doctors;
         this.checkups = checkups;
     }
 
