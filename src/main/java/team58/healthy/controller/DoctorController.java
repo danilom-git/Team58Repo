@@ -7,6 +7,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import team58.healthy.dto.DoctorDTO;
 import team58.healthy.dto.DoctorWithAvailableTimeDTO;
+import team58.healthy.dto.PasswordChangeDTO;
 import team58.healthy.dto.TokenDTO;
 import team58.healthy.model.Doctor;
 import team58.healthy.service.DoctorService;

@@ -9,6 +9,7 @@ public class ClinicAdminDTO {
     private String lastName;
     private String email;
     private Long clinicId;
+    private Boolean firstPasswordChanged;
 
     public ClinicAdminDTO() {
     }
@@ -19,6 +20,7 @@ public class ClinicAdminDTO {
         this.clinicId = clinicAdmin.getClinic().getId();
         this.lastName = clinicAdmin.getLastName();
         this.email = clinicAdmin.getEmail();
+        this.firstPasswordChanged = clinicAdmin.getFirstPasswordChanged();
     }
 
     public Long getId() {
@@ -59,5 +61,13 @@ public class ClinicAdminDTO {
 
     public void setClinicId(Long clinicId) {
         this.clinicId = clinicId;
+    }
+
+    public Boolean getFirstPasswordChanged() {
+        return firstPasswordChanged;
+    }
+
+    public void setFirstPasswordChanged(Boolean firstPasswordChanged) {
+        this.firstPasswordChanged = firstPasswordChanged;
     }
 }
