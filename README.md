@@ -9,4 +9,5 @@ Frontend: https://github.com/danilom-git/Team58RepoFront
 
 Creators:
   Danilo Markovic RA109/2016
+  
   Djordje Petrovic RA68/2016
