@@ -45,4 +45,14 @@ public class CheckupTypeService {
         }
         return dtos;
     }
+
+    public List<CheckupTypeDTO> getAllCheckupTypes() {
+        List<CheckupType> checkupTypes = findAll();
+        List<CheckupTypeDTO> checkupTypeDTOS = new ArrayList<>();
+        for (CheckupType checkupType : checkupTypes) {
+            checkupTypeDTOS.add(new CheckupTypeDTO(checkupType));
+        }
+
+        return checkupTypeDTOS;
+    }
 }

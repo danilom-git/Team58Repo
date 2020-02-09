@@ -24,13 +24,7 @@ public class CheckupTypeController {
     @GetMapping(value = "/all")
     @PreAuthorize("hasRole('PATIENT') or hasRole('DOCTOR') or hasRole('CLINIC_ADMIN')")
     public ResponseEntity<List<CheckupTypeDTO>> getAllCheckupTypes() {
-        List<CheckupType> checkupTypes = checkupTypeService.findAll();
-        List<CheckupTypeDTO> checkupTypeDTOS = new ArrayList<>();
-        for (CheckupType checkupType : checkupTypes) {
-            checkupTypeDTOS.add(new CheckupTypeDTO(checkupType));
-        }
-
-        return new ResponseEntity<>(checkupTypeDTOS, HttpStatus.OK);
+        return new ResponseEntity<>(checkupTypeService.getAllCheckupTypes(), HttpStatus.OK);
     }
 
     @GetMapping(value = "/all/clinic:{id}")

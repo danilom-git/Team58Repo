@@ -30,13 +30,7 @@ public class ClinicController {
     @GetMapping(value = "/all")
     @PreAuthorize("hasRole('PATIENT') or hasRole('DOCTOR') or hasRole('CLINIC_ADMIN')")
     public ResponseEntity<List<ClinicDTO>> getAllClinics() {
-        List<Clinic> clinics = clinicService.findAll();
-        List<ClinicDTO> clinicDTOs = new ArrayList<>();
-        for (Clinic clinic : clinics) {
-            clinicDTOs.add(new ClinicDTO(clinic));
-        }
-
-        return new ResponseEntity<>(clinicDTOs, HttpStatus.OK);
+        return new ResponseEntity<>(clinicService.getAllClinics(), HttpStatus.OK);
     }
 
     @GetMapping(value = "/getOne/clinic:{id}")
@@ -49,15 +43,7 @@ public class ClinicController {
     @GetMapping(value = "/checkupType:{checkupTypeId}")
     @PreAuthorize("hasRole('PATIENT') or hasRole('DOCTOR') or hasRole('CLINIC_ADMIN')")
     public ResponseEntity<List<ClinicWithCheckupDTO>> getAllClinicsWithCheckupType(@PathVariable Long checkupTypeId) {
-        List<Clinic> clinics = clinicService.findAllWithCheckupType(checkupTypeId);
-
-        List<ClinicWithCheckupDTO> clinicWithCheckupDTOS = new ArrayList<>();
-        for (Clinic clinic : clinics) {
-            ClinicCheckupType clinicCheckupType = clinicCheckupTypeService.findByClinicAndCheckupTypeId(clinic, checkupTypeId);
-            clinicWithCheckupDTOS.add(new ClinicWithCheckupDTO(new ClinicDTO(clinic), clinicCheckupType));
-        }
-
-        return new ResponseEntity<>(clinicWithCheckupDTOS, HttpStatus.OK);
+        return new ResponseEntity<>(clinicService.getAllClinicsWithCheckupType(checkupTypeId), HttpStatus.OK);
     }
 
     @PutMapping(value = "/save")
@@ -70,19 +56,8 @@ public class ClinicController {
 
     @GetMapping(value = "/checkupType:{checkupTypeId}/date:{y}-{m}-{d}")
     @PreAuthorize("hasRole('PATIENT') or hasRole('DOCTOR') or hasRole('CLINIC_ADMIN')")
-    public ResponseEntity<List<ClinicWithCheckupDTO>> getAllClinicsWithCheckupTypeOnDate(@PathVariable Long checkupTypeId, @PathVariable int y, @PathVariable int m, @PathVariable int d) {
-        Calendar cal = Calendar.getInstance();
-        cal.clear();
-        cal.set(y, m - 1, d);
-
-        List<Clinic> clinics = clinicService.findAllWithCheckupTypeOnDate(checkupTypeId, cal.getTime());
-
-        List<ClinicWithCheckupDTO> clinicWithCheckupDTOS = new ArrayList<>();
-        for (Clinic clinic : clinics) {
-            ClinicCheckupType clinicCheckupType = clinicCheckupTypeService.findByClinicAndCheckupTypeId(clinic, checkupTypeId);
-            clinicWithCheckupDTOS.add(new ClinicWithCheckupDTO(new ClinicDTO(clinic), clinicCheckupType));
-        }
-
-        return new ResponseEntity<>(clinicWithCheckupDTOS, HttpStatus.OK);
+    public ResponseEntity<List<ClinicWithCheckupDTO>> getAllClinicsWithCheckupTypeOnDate(@PathVariable Long checkupTypeId,
+        @PathVariable int y, @PathVariable int m, @PathVariable int d) {
+        return new ResponseEntity<>(clinicService.getAllClinicsWithCheckupTypeOnDate(checkupTypeId, y, m, d), HttpStatus.OK);
     }
 }

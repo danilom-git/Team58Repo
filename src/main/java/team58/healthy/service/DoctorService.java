@@ -4,6 +4,7 @@ import javafx.util.Pair;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import team58.healthy.dto.DoctorDTO;
+import team58.healthy.dto.DoctorWithAvailableTimeDTO;
 import team58.healthy.model.Checkup;
 import team58.healthy.model.Doctor;
 import team58.healthy.repository.DoctorRepository;
@@ -139,12 +140,11 @@ public class DoctorService {
         cal.clear();
         cal.setTime(date);
 
-        //TODO: to be replaced by doctor work hours and a check if he is on holiday or leave
         int startHours = 7;
         int startMinutes = 0;
-        int endHours = 15;
+        int endHours = 19;
         int endMinutes = 0;
-        int durationMinutes = 30;
+        int durationMinutes = 60;
 
         cal.set(Calendar.HOUR_OF_DAY, startHours);
         cal.set(Calendar.MINUTE, startMinutes);
@@ -158,7 +158,6 @@ public class DoctorService {
 
         if (checkups.isEmpty()) {
             free.add(new Pair<>(startDate, endDate));
-//            System.out.println("\t\t\tDoctor id: " + doctor.getId().toString() + " has no checkups on " + date.toString());
             return free;
         }
 
@@ -169,12 +168,8 @@ public class DoctorService {
             long milliseconds = Math.abs(checkup.getStartDate().getTime() - startDate.getTime());
             long minutes = TimeUnit.MINUTES.convert(milliseconds, TimeUnit.MILLISECONDS);
 
-//            System.out.println("\t\t\t\tCurrent checkup: " + checkup.getId());
-
             if (minutes > durationMinutes) {
                 free.add(new Pair<>(startDate, checkup.getStartDate()));
-//                System.out.println("\t\t\tDoctor id: " + doctor.getId().toString() + " has time between " +
-//                        startDate.toString() + " and " + checkup.getStartDate().toString());
             }
 
             startDate = checkup.getEndDate();
@@ -186,8 +181,6 @@ public class DoctorService {
 
         if (minutes > durationMinutes) {
             free.add(new Pair<>(startDate, endDate));
-//            System.out.println("\t\t\tDoctor id: " + doctor.getId().toString() + " has time after last checkup " +
-//                    startDate.toString() + " and before end of shift " + endDate.toString());
         }
 
         return free;
@@ -207,5 +200,25 @@ public class DoctorService {
         return new DoctorDTO(doc);
     }
 
+    public List<DoctorDTO> getAllInClinicWithCheckupType(Long clinicId, Long checkupTypeId) {
+        List<Doctor> doctors = findAllByClinicAndCheckupType(clinicId, checkupTypeId);
+        List<DoctorDTO> doctorDTOS = new ArrayList<>();
+        for (Doctor doctor : doctors)
+            doctorDTOS.add(new DoctorDTO(doctor));
 
+        return doctorDTOS;
+    }
+
+    public List<DoctorWithAvailableTimeDTO> getAllInClinicWithCheckupTypeOnDate(Long clinicId, Long checkupTypeId, int y, int m, int d) {
+        Calendar cal = Calendar.getInstance();
+        cal.clear();
+        cal.set(y, m - 1, d);
+        List<Doctor> doctors = findAllByClinicWithCheckupTypeOnDate(clinicId, checkupTypeId, cal.getTime());
+
+        List<DoctorWithAvailableTimeDTO> doctorDTOS = new ArrayList<>();
+        for (Doctor doctor : doctors)
+            doctorDTOS.add(new DoctorWithAvailableTimeDTO(new DoctorDTO(doctor), availableTimeOnDate(doctor, cal.getTime())));
+
+        return doctorDTOS;
+    }
 }

@@ -24,34 +24,15 @@ import java.io.IOException;
 @RestController
 @RequestMapping(value = "auth")
 public class AuthenticationController {
-
-    @Autowired
-    private TokenUtils tokenUtils;
-
     @Autowired
     private UserService userService;
 
-    @Autowired
-    private AuthenticationManager authenticationManager;
-
-    @Autowired
-    private AuthorityService authorityService;
-
     @PostMapping(value = "/login")
-    public ResponseEntity<?> createAuthenticationToken(@RequestBody JwtAuthenticationRequest authenticationRequest,
-                                                       HttpServletResponse response) throws AuthenticationException, IOException {
-
-        final Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
-                authenticationRequest.getUsername(), authenticationRequest.getPassword()));
-
-        SecurityContextHolder.getContext().setAuthentication(authentication);
-
-        ExtendedUserDetails extendedUserDetails = (ExtendedUserDetails)authentication.getPrincipal();
-        String jwt = tokenUtils.generateToken(extendedUserDetails.getUsername());
-        Long expiresIn = tokenUtils.getExpiresIn();
-        String userType = userService.findUserType(tokenUtils.getUsernameFromToken(jwt));
-
-        return ResponseEntity.ok(new TokenDTO(jwt, expiresIn, userType));
+    public ResponseEntity<TokenDTO> createAuthenticationToken(@RequestBody JwtAuthenticationRequest authenticationRequest) {
+        TokenDTO tokenDTO = userService.createAuthenticationToken(authenticationRequest);
+        if (tokenDTO == null)
+            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(tokenDTO, HttpStatus.OK);
     }
 
     @PutMapping(value = "/changePassword")
@@ -59,5 +40,4 @@ public class AuthenticationController {
     public ResponseEntity<String> changePassword(@RequestBody PasswordChangeDTO passwordChangeDTO) {
         return new ResponseEntity<>(userService.changePassword(passwordChangeDTO.getOldPassword(), passwordChangeDTO.getNewPassword()), HttpStatus.OK);
     }
-
 }

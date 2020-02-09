@@ -9,7 +9,10 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import team58.healthy.dto.TokenDTO;
 import team58.healthy.model.*;
+import team58.healthy.security.TokenUtils;
+import team58.healthy.security.auth.JwtAuthenticationRequest;
 
 @Service
 public class UserService implements UserDetailsService {
@@ -26,6 +29,8 @@ public class UserService implements UserDetailsService {
     private PasswordEncoder passwordEncoder;
     @Autowired
     private AuthenticationManager authenticationManager;
+    @Autowired
+    private TokenUtils tokenUtils;
 
 
     @Override
@@ -124,5 +129,28 @@ public class UserService implements UserDetailsService {
         }
 
         return "Password for " + user.getEmail() + " successfully changed.";
+    }
+
+    public TokenDTO createAuthenticationToken(JwtAuthenticationRequest authenticationRequest) {
+        String token;
+        Long expiresIn;
+        String userType;
+
+        try {
+            final Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
+                    authenticationRequest.getUsername(), authenticationRequest.getPassword()));
+
+            SecurityContextHolder.getContext().setAuthentication(authentication);
+
+            ExtendedUserDetails extendedUserDetails = (ExtendedUserDetails) authentication.getPrincipal();
+            token = tokenUtils.generateToken(extendedUserDetails.getUsername());
+            expiresIn = tokenUtils.getExpiresIn();
+            userType = findUserType(authenticationRequest.getUsername());
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+
+        return new TokenDTO(token, expiresIn, userType);
     }
 }

@@ -195,4 +195,26 @@ public class CheckupService {
         }
         return dtos;
     }
+
+    public List<CheckupDTO> getAllCheckups() {
+        List<Checkup> checkups = findAll();
+        List<CheckupDTO> checkupDTOS = new ArrayList<>();
+        for (Checkup checkup : checkups)
+            checkupDTOS.add(new CheckupDTO(checkup));
+
+        return checkupDTOS;
+    }
+
+    public List<CheckupDTO> getAllCheckupsOnDate(int y, int m, int d) {
+        Calendar cal = Calendar.getInstance();
+        cal.clear();
+        cal.set(y, m - 1, d);
+        List<Checkup> checkups = findAllOnDate(cal.getTime());
+        List<CheckupDTO> checkupDTOS = new ArrayList<>();
+        for (Checkup checkup : checkups) {
+            checkupDTOS.add(new CheckupDTO(checkup));
+        }
+
+        return checkupDTOS;
+    }
 }

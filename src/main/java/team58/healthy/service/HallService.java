@@ -134,8 +134,13 @@ public class HallService {
         return  null;
     }
 
-    public List<HallSearchDTO> findOnDateAndNameOrNumber(Date date, String name, String number)
+    public List<HallSearchDTO> findOnDateAndNameOrNumber(int y, int m, int d, String name, String number)
     {
+        Calendar cal = Calendar.getInstance();
+        cal.clear();
+        cal.set(y, m, d);
+        Date date = cal.getTime();
+
         // List<Hall> halls  = hallRepository.getHallsOnDateAndName(date,name, number);
         List<Hall> halls  = hallRepository.getHallsOnNumberAndName(name, number);
         List<HallSearchDTO> dtos = new ArrayList<HallSearchDTO>();

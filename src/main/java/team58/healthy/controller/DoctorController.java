@@ -90,29 +90,16 @@ public class DoctorController {
 
     @GetMapping(value = "/clinic:{clinicId}/checkupType:{checkupTypeId}")
     @PreAuthorize("hasRole('PATIENT') or hasRole('DOCTOR') or hasRole('CLINIC_ADMIN')")
-    public ResponseEntity<List<DoctorDTO>> getAllInClinicWithCheckupType(
-            @PathVariable Long clinicId, @PathVariable Long checkupTypeId) {
-        List<Doctor> doctors = doctorService.findAllByClinicAndCheckupType(clinicId, checkupTypeId);
-
-        List<DoctorDTO> doctorDTOS = new ArrayList<>();
-        for (Doctor doctor : doctors)
-            doctorDTOS.add(new DoctorDTO(doctor));
-        return new ResponseEntity<>(doctorDTOS, HttpStatus.OK);
+    public ResponseEntity<List<DoctorDTO>> getAllInClinicWithCheckupType(@PathVariable Long clinicId, @PathVariable Long checkupTypeId) {
+        return new ResponseEntity<>(doctorService.getAllInClinicWithCheckupType(clinicId, checkupTypeId), HttpStatus.OK);
     }
 
     @GetMapping(value = "/clinic:{clinicId}/checkupType:{checkupTypeId}/date:{y}-{m}-{d}")
     @PreAuthorize("hasRole('PATIENT') or hasRole('DOCTOR') or hasRole('CLINIC_ADMIN')")
     public ResponseEntity<List<DoctorWithAvailableTimeDTO>> getAllInClinicWithCheckupTypeOnDate(
             @PathVariable Long clinicId, @PathVariable Long checkupTypeId, @PathVariable int y, @PathVariable int m, @PathVariable int d) {
-        Calendar cal = Calendar.getInstance();
-        cal.clear();
-        cal.set(y, m - 1, d);
-        List<Doctor> doctors = doctorService.findAllByClinicWithCheckupTypeOnDate(clinicId, checkupTypeId, cal.getTime());
 
-        List<DoctorWithAvailableTimeDTO> doctorDTOS = new ArrayList<>();
-        for (Doctor doctor : doctors)
-            doctorDTOS.add(new DoctorWithAvailableTimeDTO(new DoctorDTO(doctor), doctorService.availableTimeOnDate(doctor, cal.getTime())));
-        return new ResponseEntity<>(doctorDTOS, HttpStatus.OK);
+        return new ResponseEntity<>(doctorService.getAllInClinicWithCheckupTypeOnDate(clinicId, checkupTypeId, y, m, d), HttpStatus.OK);
     }
 
     @PreAuthorize("hasRole('DOCTOR')")

@@ -2,13 +2,16 @@ package team58.healthy.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import team58.healthy.dto.CheckupDTO;
 import team58.healthy.dto.CheckupRequestDTO;
 import team58.healthy.dto.CheckupRequestViewDTO;
 import team58.healthy.dto.FirstDateAvailableDTO;
+import team58.healthy.model.Checkup;
 import team58.healthy.model.CheckupRequest;
 import team58.healthy.repository.CheckupRequestRepository;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 @Service
@@ -53,7 +56,10 @@ public class CheckupRequestService {
 
     public CheckupRequestDTO changeDate(FirstDateAvailableDTO firstDateAvailableDTO,Long id)
     {
-        CheckupRequest cr = checkupRequestRepository.findById(id).orElseGet(null);
+        CheckupRequest cr = checkupRequestRepository.findById(id).orElse(null);
+        if (cr == null)
+            return null;
+
         cr.setEndDate(firstDateAvailableDTO.getEndDate());
         cr.setStartDate(firstDateAvailableDTO.getStartDate());
         return new CheckupRequestDTO(checkupRequestRepository.save(cr));
@@ -74,17 +80,24 @@ public class CheckupRequestService {
 
     public CheckupRequest findOne(Long id)
     {
-        return  checkupRequestRepository.findById(id).orElseGet(null);
+        return  checkupRequestRepository.findById(id).orElse(null);
     }
 
     public CheckupRequestViewDTO getOne(Long id)
     {
-        CheckupRequest cr = checkupRequestRepository.findById(id).orElseGet(null);
+        CheckupRequest cr = checkupRequestRepository.findById(id).orElse(null);
         if(cr != null)
-        {
-            CheckupRequestViewDTO dto = new CheckupRequestViewDTO(cr);
-            return dto;
-        }
+            return new CheckupRequestViewDTO(cr);
+
         return null;
+    }
+
+    public List<CheckupRequestDTO> getAll() {
+        List<CheckupRequest> checkupRequests = findAll();
+        List<CheckupRequestDTO> checkupRequestDTOS = new ArrayList<>();
+        for (CheckupRequest checkupRequest : checkupRequests)
+            checkupRequestDTOS.add(new CheckupRequestDTO(checkupRequest));
+
+        return checkupRequestDTOS;
     }
 }

@@ -30,28 +30,13 @@ public class CheckupController {
     @GetMapping(value = "/all")
     @PreAuthorize("hasRole('DOCTOR') or hasRole('CLINIC_ADMIN')")
     public ResponseEntity<List<CheckupDTO>> getAllCheckups() {
-        List<Checkup> checkups = checkupService.findAll();
-        List<CheckupDTO> checkupDTOS = new ArrayList<>();
-        for (Checkup checkup : checkups) {
-            checkupDTOS.add(new CheckupDTO(checkup));
-        }
-
-        return new ResponseEntity<>(checkupDTOS, HttpStatus.OK);
+        return new ResponseEntity<>(checkupService.getAllCheckups(), HttpStatus.OK);
     }
 
     @GetMapping(value = "/allOnDate/{y}-{m}-{d}")
     @PreAuthorize("hasRole('DOCTOR') or hasRole('CLINIC_ADMIN')")
     public ResponseEntity<List<CheckupDTO>> getAllCheckupsOnDate(@PathVariable int y, @PathVariable int m, @PathVariable int d) {
-        Calendar cal = Calendar.getInstance();
-        cal.clear();
-        cal.set(y, m - 1, d);
-        List<Checkup> checkups = checkupService.findAllOnDate(cal.getTime());
-        List<CheckupDTO> checkupDTOS = new ArrayList<>();
-        for (Checkup checkup : checkups) {
-            checkupDTOS.add(new CheckupDTO(checkup));
-        }
-
-        return new ResponseEntity<>(checkupDTOS, HttpStatus.OK);
+        return new ResponseEntity<>(checkupService.getAllCheckupsOnDate(y, m, d), HttpStatus.OK);
     }
 
     @GetMapping(value = "/user")

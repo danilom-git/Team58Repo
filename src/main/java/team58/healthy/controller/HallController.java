@@ -85,10 +85,7 @@ public class HallController {
     @PreAuthorize("hasRole('CLINIC_ADMIN')")
     public ResponseEntity<List<HallSearchDTO>> searchHall(@PathVariable String name, @PathVariable String number, @PathVariable int y, @PathVariable int m, @PathVariable int d)
     {
-        Calendar cal = Calendar.getInstance();
-        cal.clear();
-        cal.set(y, m, d);
-        return new ResponseEntity<>(hallService.findOnDateAndNameOrNumber(cal.getTime(),name,number),HttpStatus.OK);
+        return new ResponseEntity<>(hallService.findOnDateAndNameOrNumber(y, m, d, name, number),HttpStatus.OK);
     }
 
     @GetMapping(value = "/firstAvailable/hall:{id}/request:{rid}")
