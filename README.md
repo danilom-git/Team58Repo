@@ -5,7 +5,7 @@ Frontend: https://github.com/danilom-git/Team58RepoFront
 
 1. Take project from github
 2. Install maven(Terminal command: mvn install or mvn package)
-3. Run project with maven from project folder(mvn spring-boot:run)
+3. Run project by maven from project folder(mvn spring-boot:run)
 
 Creators:
 
