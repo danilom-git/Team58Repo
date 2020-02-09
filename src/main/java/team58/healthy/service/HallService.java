@@ -119,13 +119,22 @@ public class HallService {
             List<Checkup> allOnDate = checkupService.findAllHallAndEndDate(id,cr.getEndDate());
             for(Checkup c: allOnDate)
             {
+                Calendar help = Calendar.getInstance();
+                help.clear();
+                help.set(2020,2,2,19,0);
+
                 Calendar calendar = Calendar.getInstance();
                 calendar.clear();
                 calendar.setTime(c.getEndDate());
                 calendar.set(calendar.get(Calendar.YEAR),calendar.get(Calendar.MONTH),calendar.get(Calendar.DAY_OF_MONTH),calendar.get(Calendar.HOUR_OF_DAY) + difH,calendar.get(Calendar.MINUTE) + difM);
                 Date endDate = calendar.getTime();
+
+                Calendar help2 = Calendar.getInstance();
+                help2.clear();
+                help2.setTime(endDate);
+
                 List<Checkup> checks = checkupService.findAllDateAndHall(c.getEndDate(),endDate,id);
-                if(checks.isEmpty())
+                if(checks.isEmpty() && (help.HOUR_OF_DAY - help2.HOUR_OF_DAY >= 0))
                 {
                     return new FirstDateAvailableDTO(c.getEndDate(),endDate);
                 }

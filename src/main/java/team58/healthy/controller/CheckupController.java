@@ -24,8 +24,6 @@ import java.util.List;
 @RestController
 @RequestMapping(value = "api/checkups")
 @CrossOrigin
-@EnableScheduling
-@Transactional
 public class CheckupController {
 
     @Autowired
@@ -90,11 +88,5 @@ public class CheckupController {
         return new ResponseEntity<>(checkupService.checkMedicalRecord(did,pid),HttpStatus.OK);
     }
 
-    @Transactional
-    @Scheduled(fixedRate = 1000)
-    public void Check()
-    {
-        long a = 1;
-        System.out.println(doctorService.findOne(a).getName());
-    }
+
 }

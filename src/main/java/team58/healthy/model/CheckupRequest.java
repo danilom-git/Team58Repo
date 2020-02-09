@@ -17,6 +17,9 @@ public class CheckupRequest {
     private Date endDate;
 
     @Column
+    private Date dateAdded;
+
+    @Column
     private Boolean onWait;
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
@@ -93,5 +96,13 @@ public class CheckupRequest {
 
     public void setOnWait(Boolean onWait) {
         this.onWait = onWait;
+    }
+
+    public Date getDateAdded() {
+        return dateAdded;
+    }
+
+    public void setDateAdded(Date dateAdded) {
+        this.dateAdded = dateAdded;
     }
 }

@@ -83,6 +83,8 @@ public class DoctorService {
         doctor.setClinic(null);
         doctor.setCheckups(null);
         doctor.setCheckupTypes(null);
+        doctor.setAuthority(null);
+        doctor.setCheckupTypes(null);
         doctorRepository.deleteById(id);
         return true;
     }

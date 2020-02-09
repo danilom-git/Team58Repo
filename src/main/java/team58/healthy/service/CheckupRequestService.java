@@ -1,14 +1,15 @@
 package team58.healthy.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.flyway.FlywayDataSource;
+import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
-import team58.healthy.dto.CheckupDTO;
-import team58.healthy.dto.CheckupRequestDTO;
-import team58.healthy.dto.CheckupRequestViewDTO;
-import team58.healthy.dto.FirstDateAvailableDTO;
+import team58.healthy.dto.*;
 import team58.healthy.model.*;
 import team58.healthy.repository.CheckupRequestRepository;
 
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -24,9 +25,12 @@ public class CheckupRequestService {
     private CheckupTypeService checkupTypeService;
     @Autowired
     private ClinicService clinicService;
-
     @Autowired
     private PatientService patientService;
+    @Autowired
+    private HallService hallService;
+    @Autowired
+    private CheckupService checkupService;
 
     public List<CheckupRequest> findAll() {
         return checkupRequestRepository.findAll();
@@ -56,6 +60,8 @@ public class CheckupRequestService {
         checkupRequest.setPatient(patient);
         checkupRequest.setOnWait(false);
 
+        Calendar calendar = Calendar.getInstance();
+        checkupRequest.setDateAdded(calendar.getTime());
         CheckupRequestDTO saved;
         try {
             saved = new CheckupRequestDTO(checkupRequestRepository.save(checkupRequest));
@@ -122,4 +128,5 @@ public class CheckupRequestService {
 
         return checkupRequestDTOS;
     }
+
 }
