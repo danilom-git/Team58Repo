@@ -121,5 +121,4 @@ public class ClinicService {
         }
         return new ClinicReportDTO(clinic,cdots);
     }
-
 }
