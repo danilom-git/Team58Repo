@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.*;
 import team58.healthy.dto.ClinicCheckupTypeDTO;
 import team58.healthy.service.ClinicCheckupTypeService;
 
+import java.util.List;
+
 @RestController
 @RequestMapping(value = "api/clinicCheckupTypes")
 @CrossOrigin
@@ -16,6 +18,13 @@ public class ClinicCheckupTypeController {
 
     @Autowired
     private ClinicCheckupTypeService clinicCheckupTypeService;
+
+    @GetMapping(value= "/clinic:{id}")
+    @PreAuthorize("hasRole('CLINIC_ADMIN')")
+    public ResponseEntity<List<ClinicCheckupTypeDTO>> getAll(@PathVariable Long id)
+    {
+        return new ResponseEntity<>(clinicCheckupTypeService.getAllByClinic(id),HttpStatus.OK);
+    }
 
     @PostMapping(value = "/clinic:{id}", consumes = "application/json")
     @PreAuthorize("hasRole('CLINIC_ADMIN')")

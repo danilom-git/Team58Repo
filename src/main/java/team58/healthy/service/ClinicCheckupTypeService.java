@@ -2,6 +2,7 @@ package team58.healthy.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import team58.healthy.dto.CheckupTypeDTO;
 import team58.healthy.dto.ClinicCheckupTypeDTO;
 import team58.healthy.model.Checkup;
 import team58.healthy.model.CheckupType;
@@ -9,6 +10,7 @@ import team58.healthy.model.Clinic;
 import team58.healthy.model.ClinicCheckupType;
 import team58.healthy.repository.ClinicCheckupTypeRepository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -40,6 +42,19 @@ public class ClinicCheckupTypeService {
             return new ClinicCheckupTypeDTO(clinicCheckupTypeRepository.save(cct));
         }
         return null;
+    }
+
+    public List<ClinicCheckupTypeDTO> getAllByClinic(Long id)
+    {
+        List<ClinicCheckupType> types = clinicCheckupTypeRepository.findAllByClinicId(id);
+        List<ClinicCheckupTypeDTO> dtos = new ArrayList<>();
+
+        for(ClinicCheckupType ct : types)
+        {
+            dtos.add(new ClinicCheckupTypeDTO(ct));
+        }
+
+        return dtos;
     }
 
     public Boolean delete(Long id,Long cid) {

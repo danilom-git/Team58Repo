@@ -4,10 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import team58.healthy.dto.CheckupDTO;
-import team58.healthy.dto.ClinicDTO;
-import team58.healthy.dto.ClinicReportDTO;
-import team58.healthy.dto.ClinicWithCheckupDTO;
+import team58.healthy.dto.*;
 import team58.healthy.model.Checkup;
 import team58.healthy.model.CheckupType;
 import team58.healthy.model.Clinic;
@@ -28,7 +25,6 @@ public class ClinicService {
     private DoctorService doctorService;
     @Autowired
     private ClinicCheckupTypeService clinicCheckupTypeService;
-
     @Autowired
     private CheckupService checkupService;
 
@@ -113,12 +109,15 @@ public class ClinicService {
         Calendar cal = Calendar.getInstance();
         Clinic clinic = clinicRepository.findById(id).orElse(null);
         List<Checkup> checks = checkupService.findAllByClinic(id);
+
+        List<DoctorDTO> doctors = doctorService.findAllByClinicDTO(clinic.getId());
+
         List<CheckupDTO> cdots = new ArrayList<CheckupDTO>();
         for(Checkup c : checks)
         {
             if(c.getEndDate().compareTo(cal.getTime()) < 0)
                 cdots.add(new CheckupDTO(c));
         }
-        return new ClinicReportDTO(clinic,cdots);
+        return new ClinicReportDTO(clinic,cdots,doctors);
     }
 }
