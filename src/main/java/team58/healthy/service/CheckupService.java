@@ -2,6 +2,8 @@ package team58.healthy.service;
 
 import org.hibernate.annotations.Check;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Service;
 import team58.healthy.dto.CheckupDTO;
@@ -14,10 +16,12 @@ import team58.healthy.repository.CheckupRepository;
 import team58.healthy.security.TokenUtils;
 
 import javax.mail.MessagingException;
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+
 
 @Service
 public class CheckupService {
@@ -109,6 +113,11 @@ public class CheckupService {
             return new CheckupDTO(checkupRepository.save(checkup));
         }
         return null;
+    }
+
+    public void saveFromLoop(Checkup checkup)
+    {
+        checkupRepository.save(checkup);
     }
 
     public List<Checkup> findByType(Long id) {
@@ -221,4 +230,6 @@ public class CheckupService {
 
         return checkupDTOS;
     }
+
+
 }
