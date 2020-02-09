@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import team58.healthy.dto.ClinicDTO;
+import team58.healthy.dto.ClinicReportDTO;
 import team58.healthy.dto.ClinicWithCheckupDTO;
 import team58.healthy.model.Clinic;
 import team58.healthy.model.ClinicCheckupType;
@@ -31,6 +32,13 @@ public class ClinicController {
     @PreAuthorize("hasRole('PATIENT') or hasRole('DOCTOR') or hasRole('CLINIC_ADMIN')")
     public ResponseEntity<List<ClinicDTO>> getAllClinics() {
         return new ResponseEntity<>(clinicService.getAllClinics(), HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/report/clinic:{id}")
+    @PreAuthorize("hasRole('CLINIC_ADMIN')")
+    public ResponseEntity<ClinicReportDTO> getReport(@PathVariable Long id)
+    {
+        return new ResponseEntity<>(clinicService.getReport(id),HttpStatus.OK);
     }
 
     @GetMapping(value = "/getOne/clinic:{id}")

@@ -29,6 +29,9 @@ public class Doctor implements ExtendedUserDetails{
     private int workingTime;
 
     @Column
+    private double rating;
+
+    @Column
     private Boolean firstPasswordChanged;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
@@ -184,5 +187,13 @@ public class Doctor implements ExtendedUserDetails{
 
     public void setFirstPasswordChanged(Boolean firstPasswordChanged) {
         this.firstPasswordChanged = firstPasswordChanged;
+    }
+
+    public double getRating() {
+        return rating;
+    }
+
+    public void setRating(double rating) {
+        this.rating = rating;
     }
 }

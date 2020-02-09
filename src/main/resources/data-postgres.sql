@@ -16,12 +16,12 @@ insert into authority (name) values ('ROLE_CLINIC_CENTER_ADMIN');
 insert into clinic_center_admin (email, last_password_reset_date, password, authority_id) values ('bigboy@somemail.com',
     to_timestamp('2019 12 10 7:00', 'YYYY MM DD HH24 MI'), '$2a$10$j8XGgt8oCja0ioWD/JK0C.iL22NKpW3n40THQBnjxO7E4h.qyT0Fu', 4);
 
-insert into doctor (name, last_name, working_time, clinic_id, email, password, last_password_reset_date, authority_id,first_password_changed) values ('Name_A', 'Last_Name_A', 5, 1,
-    'isaprojektovanjeUsers@gmail.com', '$2a$10$j8XGgt8oCja0ioWD/JK0C.iL22NKpW3n40THQBnjxO7E4h.qyT0Fu', to_timestamp('2019 12 10 7:00', 'YYYY MM DD HH24 MI'), '2',true);
-insert into doctor (name, last_name, working_time, clinic_id, email, password, last_password_reset_date, authority_id,first_password_changed) values ('Name_B', 'Last_Name_B', 6, 1,
-    'doctor02@somemail.com', '$2a$10$j8XGgt8oCja0ioWD/JK0C.iL22NKpW3n40THQBnjxO7E4h.qyT0Fu', to_timestamp('2019 12 10 7:00', 'YYYY MM DD HH24 MI'), '2',true);
-insert into doctor (name, last_name, working_time, clinic_id, email, password, last_password_reset_date, authority_id,first_password_changed) values ('Name_C', 'Last_Name_B', 7, 2,
-    'doctor03@somemail.com', '$2a$10$j8XGgt8oCja0ioWD/JK0C.iL22NKpW3n40THQBnjxO7E4h.qyT0Fu', to_timestamp('2019 12 10 7:00', 'YYYY MM DD HH24 MI'), '2',true);
+insert into doctor (name, last_name, working_time, clinic_id, email, password, last_password_reset_date, authority_id,first_password_changed,rating) values ('Name_A', 'Last_Name_A', 5, 1,
+    'isaprojektovanjeUsers@gmail.com', '$2a$10$j8XGgt8oCja0ioWD/JK0C.iL22NKpW3n40THQBnjxO7E4h.qyT0Fu', to_timestamp('2019 12 10 7:00', 'YYYY MM DD HH24 MI'), '2',true,7);
+insert into doctor (name, last_name, working_time, clinic_id, email, password, last_password_reset_date, authority_id,first_password_changed,rating) values ('Name_B', 'Last_Name_B', 6, 1,
+    'doctor02@somemail.com', '$2a$10$j8XGgt8oCja0ioWD/JK0C.iL22NKpW3n40THQBnjxO7E4h.qyT0Fu', to_timestamp('2019 12 10 7:00', 'YYYY MM DD HH24 MI'), '2',true,10);
+insert into doctor (name, last_name, working_time, clinic_id, email, password, last_password_reset_date, authority_id,first_password_changed,rating) values ('Name_C', 'Last_Name_B', 7, 2,
+    'doctor03@somemail.com', '$2a$10$j8XGgt8oCja0ioWD/JK0C.iL22NKpW3n40THQBnjxO7E4h.qyT0Fu', to_timestamp('2019 12 10 7:00', 'YYYY MM DD HH24 MI'), '2',true,5);
 
 insert into clinic_admin (email, password, name, last_name, authority_id, last_password_reset_date, clinic_id,first_password_changed) values
     ('clinicAdmin01@somemail.com', '$2a$10$j8XGgt8oCja0ioWD/JK0C.iL22NKpW3n40THQBnjxO7E4h.qyT0Fu', 'Name_A', 'Last_Name_A', 3,

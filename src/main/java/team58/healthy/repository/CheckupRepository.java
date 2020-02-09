@@ -53,4 +53,6 @@ public interface CheckupRepository extends JpaRepository<Checkup, Long> {
     @Query(nativeQuery = true,value = "select * from checkup where (doctor_id = ?1) and (patient_id = ?2) and (end_date < ?3)")
     List<Checkup> findByDoctorPatientAndDate (Long did,Long pid,Date now);
 
+    List<Checkup> findByClinicId(Long id);
+
 }
