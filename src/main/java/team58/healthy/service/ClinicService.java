@@ -30,7 +30,7 @@ public class ClinicService {
 
     public Page<Clinic> findAll(Pageable pageable) { return clinicRepository.findAll(pageable); }
 
-    public Clinic findById(Long id) { return clinicRepository.findById(id).orElseGet(null); }
+    public Clinic findById(Long id) { return clinicRepository.findById(id).orElse(null); }
 
     public ClinicDTO findByIdDTO(Long id)
     {

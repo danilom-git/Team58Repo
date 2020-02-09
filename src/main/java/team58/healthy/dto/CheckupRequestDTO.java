@@ -25,6 +25,15 @@ public class CheckupRequestDTO {
         this.patientId = checkupRequest.getPatient().getId();
     }
 
+    public CheckupRequestDTO(Date startDate, Date endDate, Long doctorId, Long checkupTypeId, Long clinicId, Long patientId) {
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.doctorId = doctorId;
+        this.checkupTypeId = checkupTypeId;
+        this.clinicId = clinicId;
+        this.patientId = patientId;
+    }
+
     public Long getId() {
         return id;
     }

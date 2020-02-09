@@ -6,12 +6,12 @@ import team58.healthy.dto.CheckupDTO;
 import team58.healthy.dto.CheckupRequestDTO;
 import team58.healthy.dto.CheckupRequestViewDTO;
 import team58.healthy.dto.FirstDateAvailableDTO;
-import team58.healthy.model.Checkup;
-import team58.healthy.model.CheckupRequest;
+import team58.healthy.model.*;
 import team58.healthy.repository.CheckupRequestRepository;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -34,15 +34,37 @@ public class CheckupRequestService {
 
     public CheckupRequestDTO save(CheckupRequestDTO checkupRequestDTO) {
         CheckupRequest checkupRequest = new CheckupRequest();
+
+        Date startDate = checkupRequestDTO.getStartDate();
+        Date endDate = checkupRequestDTO.getEndDate();
+        Clinic clinic = clinicService.findById(checkupRequestDTO.getClinicId());
+        Doctor doctor = doctorService.findById(checkupRequestDTO.getDoctorId());
+        CheckupType checkupType = checkupTypeService.findById(checkupRequestDTO.getCheckupTypeId());
+        Patient patient = patientService.getOne(checkupRequestDTO.getPatientId());
+        if (checkupRequestDTO.getStartDate() == null || checkupRequestDTO.getEndDate() == null || clinic == null ||
+            doctor == null || checkupType == null || patient == null)
+            return null;
+
+        if (endDate.before(startDate))
+            return null;
+
         checkupRequest.setStartDate(checkupRequestDTO.getStartDate());
         checkupRequest.setEndDate(checkupRequestDTO.getEndDate());
-        checkupRequest.setClinic(clinicService.findById(checkupRequestDTO.getClinicId()));
-        checkupRequest.setDoctor(doctorService.findById(checkupRequestDTO.getDoctorId()));
-        checkupRequest.setCheckupType(checkupTypeService.findById(checkupRequestDTO.getCheckupTypeId()));
-        checkupRequest.setPatient(patientService.getOne(checkupRequestDTO.getPatientId()));
+        checkupRequest.setClinic(clinic);
+        checkupRequest.setDoctor(doctor);
+        checkupRequest.setCheckupType(checkupType);
+        checkupRequest.setPatient(patient);
         checkupRequest.setOnWait(false);
 
-        return new CheckupRequestDTO(checkupRequestRepository.save(checkupRequest));
+        CheckupRequestDTO saved;
+        try {
+            saved = new CheckupRequestDTO(checkupRequestRepository.save(checkupRequest));
+        } catch (Exception e) { // unique identifier constraint
+            e.printStackTrace();
+            return null;
+        }
+
+        return saved;
     }
 
     public List<CheckupRequestViewDTO> findByClinic(Long id) {

@@ -41,13 +41,15 @@ public class DoctorService {
 
     public DoctorDTO findOne(Long id)
     {
-        Doctor doc = doctorRepository.findById(id).orElseGet(null);
+        Doctor doc = doctorRepository.findById(id).orElse(null);
+        if (doc == null)
+            return null;
         return new DoctorDTO(doc);
     }
 
     public Doctor findOne2(Long id)
     {
-        return doctorRepository.findById(id).orElseGet(null);
+        return doctorRepository.findById(id).orElse(null);
     }
 
     public List<Doctor> findAllByName(String name)
@@ -65,28 +67,24 @@ public class DoctorService {
         return doctorsDTO;
     }
 
-    public Doctor findById(Long id) { return doctorRepository.findById(id).orElseGet(null); }
+    public Doctor findById(Long id) { return doctorRepository.findById(id).orElse(null); }
 
     public List<Doctor> findAllByClinicAndCheckupType(Long clinicId, Long checkupTypeId) {
         return doctorRepository.findAllByClinicAndCheckupType(clinicId, checkupTypeId);
     }
 
     public boolean remove(Long id){
-        Doctor doctor = doctorRepository.findById(id).orElseGet(null);
+        Doctor doctor = doctorRepository.findById(id).orElse(null);
+
+        if (doctor == null)
+            return false;
 
         System.out.println(doctor.toString());
-        if(doctor != null  && doctor.getCheckups().isEmpty())
-        {
-            doctor.setClinic(null);
-            doctor.setCheckups(null);
-            doctor.setCheckupTypes(null);
-            doctorRepository.deleteById(id);
-            return true;
-        }else
-        {
-            return false;
-        }
-
+        doctor.setClinic(null);
+        doctor.setCheckups(null);
+        doctor.setCheckupTypes(null);
+        doctorRepository.deleteById(id);
+        return true;
     }
 
     public DoctorDTO update(DoctorDTO doctorDTO)

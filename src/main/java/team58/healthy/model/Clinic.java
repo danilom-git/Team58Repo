@@ -40,7 +40,7 @@ public class Clinic {
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<ClinicAdmin> clinicAdmins;
 
-    @OneToMany(mappedBy = "clinic", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "clinic", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<ClinicRating> clinicRatings;
 
     public Long getId() {

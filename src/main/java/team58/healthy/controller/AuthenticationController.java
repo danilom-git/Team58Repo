@@ -21,12 +21,18 @@ import team58.healthy.service.UserService;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+
+
 @RestController
 @RequestMapping(value = "auth")
 @CrossOrigin
 public class AuthenticationController {
     @Autowired
     private UserService userService;
+    @Autowired
+    private AuthenticationManager authenticationManager;
+    @Autowired
+    private TokenUtils tokenUtils;
 
     @GetMapping(value = "/getUser/token:{token}/type:{type}")
     @PreAuthorize("hasRole('PATIENT') or hasRole('DOCTOR') or hasRole('CLINIC_ADMIN')")
