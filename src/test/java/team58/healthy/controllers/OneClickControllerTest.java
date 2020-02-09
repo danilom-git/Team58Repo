@@ -4,6 +4,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 
 import java.nio.charset.Charset;
 
@@ -30,19 +31,22 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 import team58.healthy.constants.ClinicConstants;
+import team58.healthy.constants.DoctorConstants;
+import team58.healthy.constants.OneClickConstants;
+import team58.healthy.dto.DoctorDTO;
 import team58.healthy.dto.TokenDTO;
 import team58.healthy.security.auth.JwtAuthenticationRequest;
 
 import javax.annotation.PostConstruct;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
+import java.util.List;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestPropertySource("classpath:application-test.properties")
-public class ClinicControllerTest {
-
-    private static final String URL_PREFIX = "/api/clinics/";
+public class OneClickControllerTest {
+    private static final String URL_PREFIX = "/api/oneClickCheckup/";
 
     private MediaType contentType = new MediaType(MediaType.APPLICATION_JSON.getType(),
             MediaType.APPLICATION_JSON.getSubtype(), StandardCharsets.UTF_8);
@@ -71,16 +75,15 @@ public class ClinicControllerTest {
     }
 
     @Test
-    public void getAllClinicsWithCheckupType() throws Exception {
+    public void testReserve() throws Exception {
         final Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
                 "patient01@somemail.com", "123"));
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
-        String url = URL_PREFIX + "checkupType:" + ClinicConstants.CHK_T_ID_3;
-        mockMvc.perform(get(url).header("Authorization", token))
+        String url = URL_PREFIX + "reserve:" + OneClickConstants.OC_ID_5;
+        mockMvc.perform(put(url).header("Authorization", token))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$", hasSize(ClinicConstants.COUNT_3)))
-                .andExpect(jsonPath("$.[0].id").value(ClinicConstants.CLINIC_ID_3));
+                .andExpect(jsonPath("$.checkupTypeName").value(OneClickConstants.CHK_T_NAME_5));
     }
 }
