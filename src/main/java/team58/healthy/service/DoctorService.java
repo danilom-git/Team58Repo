@@ -96,6 +96,7 @@ public class DoctorService {
                 doctor.setId(doctorDTO.getId());
                 doctor.setClinic(clinicService.findById(doctorDTO.getClinicId()));
                 doctor.setWorkingTime(doctorDTO.getWorkingTime());
+                doctor.setRating(doctorDTO.getRating());
                 doctor.setName(doctorDTO.getName());
                 doctor.setLastName(doctorDTO.getLastName());
                 doctor.setFirstPasswordChanged(doctorDTO.getFirstPasswordChanged());
@@ -115,6 +116,7 @@ public class DoctorService {
         doctor.setLastName(doctorDTO.getLastName());
         doctor.setWorkingTime(doctorDTO.getWorkingTime());
         doctor.setClinic(clinicService.findById(doctorDTO.getClinicId()));
+        doctor.setRating(0);
         doctor.setEmail(doctorDTO.getEmail());
         doctor.setFirstPasswordChanged(false);
         doctor.setPassword(userService.encode("123"));

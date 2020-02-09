@@ -62,6 +62,10 @@ public class CheckupService {
         return checkupRepository.findAllOnDateByDoctor(date, doctorId);
     }
 
+    public List<Checkup> findAllByClinic(Long id){
+        return checkupRepository.findByClinicId(id);
+    }
+
     public List<Checkup> findAllByHall(Long id) {
         return checkupRepository.findAllByHall(id);
     }

@@ -14,6 +14,7 @@ public class DoctorDTO {
     private String name;
     private String lastName;
     private int workingTime;
+    private double rating;
     private String email;
     private Long clinicId;
     private String clinicName;
@@ -31,6 +32,7 @@ public class DoctorDTO {
         this.firstPasswordChanged = doctor.getFirstPasswordChanged();
         this.id = doctor.getId();
         this.name = doctor.getName();
+        this.rating = doctor.getRating();
         this.lastName = doctor.getLastName();
         this.workingTime = doctor.getWorkingTime();
         this.email = doctor.getEmail();
@@ -50,6 +52,8 @@ public class DoctorDTO {
             for (Checkup checkup : checkups)
                 checkupIds.add(checkup.getId());
         }
+
+
     }
 
     public String getEmail() {
@@ -130,5 +134,13 @@ public class DoctorDTO {
 
     public void setCheckupIds(List<Long> checkupIds) {
         this.checkupIds = checkupIds;
+    }
+
+    public double getRating() {
+        return rating;
+    }
+
+    public void setRating(double rating) {
+        this.rating = rating;
     }
 }

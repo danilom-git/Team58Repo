@@ -3,6 +3,8 @@ package team58.healthy.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import team58.healthy.dto.CheckupDTO;
@@ -10,8 +12,10 @@ import team58.healthy.dto.CheckupDTOPretty;
 import team58.healthy.dto.FirstDateAvailableDTO;
 import team58.healthy.model.Checkup;
 import team58.healthy.service.CheckupService;
+import team58.healthy.service.DoctorService;
 
 import javax.mail.MessagingException;
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -20,12 +24,15 @@ import java.util.List;
 @RestController
 @RequestMapping(value = "api/checkups")
 @CrossOrigin
+@EnableScheduling
+@Transactional
 public class CheckupController {
 
     @Autowired
     private CheckupService checkupService;
 
-
+    @Autowired
+    private DoctorService doctorService;
 
     @GetMapping(value = "/all")
     @PreAuthorize("hasRole('DOCTOR') or hasRole('CLINIC_ADMIN')")
@@ -81,5 +88,13 @@ public class CheckupController {
     public ResponseEntity<List<CheckupDTO>> checkMediacalRecord(@PathVariable Long pid,@PathVariable Long did)
     {
         return new ResponseEntity<>(checkupService.checkMedicalRecord(did,pid),HttpStatus.OK);
+    }
+
+    @Transactional
+    @Scheduled(fixedRate = 1000)
+    public void Check()
+    {
+        long a = 1;
+        System.out.println(doctorService.findOne(a).getName());
     }
 }
