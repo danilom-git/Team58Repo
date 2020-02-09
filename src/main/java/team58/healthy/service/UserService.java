@@ -10,6 +10,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import team58.healthy.dto.TokenDTO;
+import team58.healthy.dto.ClinicAdminDTO;
+import team58.healthy.dto.DoctorDTO;
 import team58.healthy.model.*;
 import team58.healthy.security.TokenUtils;
 import team58.healthy.security.auth.JwtAuthenticationRequest;
@@ -32,6 +34,24 @@ public class UserService implements UserDetailsService {
     @Autowired
     private TokenUtils tokenUtils;
 
+    public String encode(String password)
+    {
+        return  passwordEncoder.encode(password);
+    }
+
+    public Object findUser(String token,String type)
+    {
+        String username = tokenUtils.getUsernameFromToken(token);
+
+        if(type.equals("doctor"))
+        {
+            return new DoctorDTO(doctorService.findByEmail(username));
+        }else if(type.equals("clinicAdmin"))
+        {
+            return new ClinicAdminDTO(clinicAdminService.findByEmail(username));
+        }
+        return null;
+    }
 
     @Override
     public ExtendedUserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
@@ -116,11 +136,13 @@ public class UserService implements UserDetailsService {
             patientService.save(patient);
         } else if (user instanceof Doctor) {
             Doctor doctor = (Doctor) user;
+            doctor.setFirstPasswordChanged(true);
             doctor.setPassword(passwordEncoder.encode(newPassword));
             doctorService.save(doctor);
         } else if (user instanceof ClinicAdmin) {
             ClinicAdmin clinicAdmin = (ClinicAdmin) user;
             clinicAdmin.setPassword(passwordEncoder.encode(newPassword));
+            clinicAdmin.setFirstPasswordChanged(true);
             clinicAdminService.save(clinicAdmin);
         } else if (user instanceof ClinicCenterAdmin) {
             ClinicCenterAdmin clinicCenterAdmin = (ClinicCenterAdmin) user;

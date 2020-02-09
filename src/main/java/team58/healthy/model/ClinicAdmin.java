@@ -26,6 +26,9 @@ public class ClinicAdmin implements ExtendedUserDetails{
     @Column
     private String lastName;
 
+    @Column
+    private Boolean firstPasswordChanged;
+
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Clinic clinic;
 
@@ -131,5 +134,13 @@ public class ClinicAdmin implements ExtendedUserDetails{
     @Override
     public boolean isEnabled() {
         return true;
+    }
+
+    public Boolean getFirstPasswordChanged() {
+        return firstPasswordChanged;
+    }
+
+    public void setFirstPasswordChanged(Boolean firstPasswordChanged) {
+        this.firstPasswordChanged = firstPasswordChanged;
     }
 }

@@ -23,9 +23,18 @@ import java.io.IOException;
 
 @RestController
 @RequestMapping(value = "auth")
+@CrossOrigin
 public class AuthenticationController {
     @Autowired
     private UserService userService;
+
+    @GetMapping(value = "/getUser/token:{token}/type:{type}")
+    @PreAuthorize("hasRole('PATIENT') or hasRole('DOCTOR') or hasRole('CLINIC_ADMIN')")
+    public ResponseEntity<?> getUser(@PathVariable String token, @PathVariable String type)
+    {
+        return ResponseEntity.ok(userService.findUser(token,type));
+    }
+
 
     @PostMapping(value = "/login")
     public ResponseEntity<TokenDTO> createAuthenticationToken(@RequestBody JwtAuthenticationRequest authenticationRequest) {
