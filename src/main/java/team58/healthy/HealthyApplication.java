@@ -8,12 +8,8 @@ import team58.healthy.service.DoctorService;
 @SpringBootApplication
 public class HealthyApplication {
 
-	@Autowired
-	private DoctorService doctorService;
-
 	public static void main(String[] args) {
 		SpringApplication.run(HealthyApplication.class, args);
 	}
-
 
 }

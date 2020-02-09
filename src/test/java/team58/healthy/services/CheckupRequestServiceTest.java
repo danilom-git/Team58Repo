@@ -4,6 +4,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.TestPropertySource;
@@ -38,8 +39,6 @@ import static org.junit.Assert.assertNotNull;
 public class CheckupRequestServiceTest {
     @Autowired
     private CheckupRequestService checkupRequestService;
-//    @Autowired
-//    private TestEntityManager testEntityManager;
 
     @Test
     public void testSave() {
@@ -56,7 +55,6 @@ public class CheckupRequestServiceTest {
         CheckupRequestDTO input = new CheckupRequestDTO(startDate, endDate, CheckupRequestConstants.DOCTOR_ID_1,
                 CheckupRequestConstants.CHK_T_ID_1, CheckupRequestConstants.CLINIC_ID_1, CheckupRequestConstants.PATIENT_ID);
 
-//        input = testEntityManager.persistAndFlush(input);
         CheckupRequestDTO retVal = checkupRequestService.save(input);
         assertNotNull(retVal);
     }
